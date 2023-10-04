@@ -94,6 +94,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -111,6 +112,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -128,6 +130,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -145,6 +148,7 @@
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>
       </AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp17</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -155,7 +159,28 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Core\AssetManager.cpp" />
+    <ClCompile Include="Core\Game.cpp" />
+    <ClCompile Include="Core\InputManager.cpp" />
+    <ClCompile Include="GameObjects\ExampleGameObject.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="Rendering\GameWindow.cpp" />
+    <ClCompile Include="Rendering\Renderer.cpp" />
+    <ClCompile Include="Rendering\RenderInstanceManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Core\AssetManager.h" />
+    <ClInclude Include="Core\Game.h" />
+    <ClInclude Include="Core\InputManager.h" />
+    <ClInclude Include="GameObjects\BaseGameObject.h" />
+    <ClInclude Include="GameObjects\ExampleGameObject.h" />
+    <ClInclude Include="GameObjects\ICollidableObject.h" />
+    <ClInclude Include="GameObjects\IDamageable.h" />
+    <ClInclude Include="GameObjects\IRenderableObject.h" />
+    <ClInclude Include="Rendering\GameWindow.h" />
+    <ClInclude Include="Rendering\Renderer.h" />
+    <ClInclude Include="Rendering\RenderInstanceManager.h" />
+    <ClInclude Include="Templates\Singleton.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

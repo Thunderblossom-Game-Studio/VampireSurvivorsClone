@@ -1,10 +1,26 @@
-#include <SDL.h>
-#include <iostream>
+#include <iostream> // std::cout, std::endl
+#include "Core/Game.h"
 
 int main(int argc, char* argv[])
 {
-	std::cout << "SDL Version: " << SDL_MAJOR_VERSION << "." << SDL_MINOR_VERSION << "." << SDL_PATCHLEVEL << std::endl;
+    bool running = Game::instance().Init();
+    if (!running)
+    {
+        std::cout << "Game::Init failed" << std::endl;
+        return -1;
+    }
 
-	return 0;
+    // Temp lifespan to kill the game loop after a certain amount of time
+    // TODO: replace with Game::instance().IsRunning()
+    //int lifespan = 100;
+
+    while (running)
+    {
+        //lifespan--;
+        Game::instance().Update();
+        running = Game::instance().IsRunning();
+    }
+
+    return 0;
 }
 
