@@ -165,7 +165,6 @@
     <ClCompile Include="Core\Game.cpp" />
     <ClCompile Include="Core\InputManager.cpp" />
     <ClCompile Include="GameObjects\ExampleGameObject.cpp" />
-    <ClCompile Include="ICircleCollidableObject.h" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="Rendering\GameWindow.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
