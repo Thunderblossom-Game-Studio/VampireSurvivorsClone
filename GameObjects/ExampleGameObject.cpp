@@ -6,8 +6,8 @@
 ExampleGameObject::ExampleGameObject(float x, float y, float width, float height) : _width(width), _height(height)
 {
     std::cout << "ExampleGameObject constructor" << std::endl;
-    _x = x;
-    _y = y;
+    _position.x = x;
+    _position.y = y;
 
     // Example of how to add a keybind - SDL_SCANCODE of the key, InputManager::KeypressType options of KEYDOWN, KEYUP and KEYHELD, and function called on keypress
     InputManager::instance().BindKey(SDL_SCANCODE_SPACE, InputManager::KeypressType::KEYDOWN, std::bind(&ExampleGameObject::SomeExampleKeybind, this));

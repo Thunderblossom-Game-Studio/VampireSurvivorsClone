@@ -1,18 +1,17 @@
 #pragma once
 #include <vector>
-#include "GameObjects/ICollidableObject.h"
-#include "ICircleCollidableObject.h"
 
+class Collider2D;
 class CollisionManager
 {
-private:
-	std::vector<ICollidableObject*> collidables;
-
-	bool AABB(ICollidableObject* obj1, ICollidableObject* obj2);
-	bool Circle(ICollidableObject* obj1, ICollidableObject* obj2);
-
 public:
-	void AddCollidable(ICollidableObject* collidable);
-	void HandleCollisions();
+	static void HandleCollisions();
+	static void RegisterCollider(Collider2D* collider);
+
+private:
+	static std::vector<Collider2D*> _collidables;
+
+	static bool CheckCollisions(Collider2D* collider1, Collider2D* collider2);
+
 };
 

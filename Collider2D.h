@@ -2,8 +2,8 @@
 #include "Vector2.h"
 #include <functional>
 
-// Forward declaration of gameobject. Replace when main GameObject class is created
-class GameObject;
+// Forward declaration of BaseGameObject
+class BaseGameObject; 
 
 enum ColliderType { NONE, RECTANGLE, CIRCLE };
 
@@ -11,14 +11,31 @@ class Collider2D
 {
 public:
 	typedef std::function<void(Collider2D& other)> CollisionCallback;
-	Collider2D(ColliderType type, Vector2 dimension, CollisionCallback callback = nullptr) : colliderType(type), colliderDimension(dimension) {}
-	Collider2D(ColliderType type, float radius, CollisionCallback callback = nullptr) : colliderType(type), colliderRadius(radius) {}
-private:
-	ColliderType colliderType = NONE;
-	Vector2 colliderPosition = { 0,0 };
-	Vector2 colliderDimension = { 0,0 };
-	float colliderRadius = 0;
+	Collider2D(ColliderType type, Vector2 dimension, CollisionCallback callback = nullptr) : _colliderType(type), _colliderDimension(dimension) {}
+	Collider2D(ColliderType type, float radius, CollisionCallback callback = nullptr) : _colliderType(type), _colliderRadius(radius) {}
+	~Collider2D() = default;
 
-	CollisionCallback onCollisionCallback = nullptr;
+	void SetOnCollisionCallback(CollisionCallback callback) { _onCollisionCallback = callback; }
+	void OnCollision(Collider2D* other) { if (_onCollisionCallback != nullptr) _onCollisionCallback(*other); }
+
+	void SetGameObject(BaseGameObject* gameObject) { _gameObject = gameObject; }
+	BaseGameObject* GetGameObject() { return _gameObject; }
+
+	void SetPosition(Vector2 position) { _colliderPosition = position; }
+	Vector2 GetPosition() const { return _colliderPosition; }
+
+	ColliderType GetColliderType() const { return _colliderType; }
+	float GetRadius() const { return _colliderRadius; }
+	Vector2 GetDimensions() const { return _colliderDimension; }
+	
+	//TODO: Add debug draw function later
+private:
+	ColliderType _colliderType = NONE;
+	Vector2 _colliderPosition = { 0,0 };
+	Vector2 _colliderDimension = { 0,0 };
+	float _colliderRadius = 0;
+
+	CollisionCallback _onCollisionCallback = nullptr;
+	BaseGameObject* _gameObject = nullptr;
 };
 
