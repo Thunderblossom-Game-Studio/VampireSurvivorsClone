@@ -1,4 +1,7 @@
 #pragma once
+#include "../Vector2.h"
+
+class Vector2;
 
 #include <iostream>
 #include <vector>
@@ -9,8 +12,7 @@ class BaseGameObject {
 protected:
     BaseGameObject() = default;
 
-    float _x = 0;
-    float _y = 0;
+    Vector2 _position = { 0, 0 };
 
 public:
     virtual ~BaseGameObject() = default;
