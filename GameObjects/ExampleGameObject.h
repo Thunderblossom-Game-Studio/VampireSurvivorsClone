@@ -2,7 +2,6 @@
 
 #include "BaseGameObject.h"
 #include "IRenderableObject.h"
-#include "ICollidableObject.h"
 
 class ExampleGameObject final : public BaseGameObject, public IRenderableObject
 {

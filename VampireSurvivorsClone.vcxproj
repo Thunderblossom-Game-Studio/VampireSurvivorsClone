@@ -159,8 +159,8 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="Core\AssetManager.cpp" />
+    <ClCompile Include="Core\CollisionManager.cpp" />
     <ClCompile Include="Core\Game.cpp" />
     <ClCompile Include="Core\InputManager.cpp" />
     <ClCompile Include="GameObjects\ExampleGameObject.cpp" />
@@ -170,14 +170,12 @@
     <ClCompile Include="Rendering\RenderInstanceManager.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Collider2D.h" />
-    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Core\AssetManager.h" />
+    <ClInclude Include="Core\CollisionManager.h" />
     <ClInclude Include="Core\Game.h" />
     <ClInclude Include="Core\InputManager.h" />
     <ClInclude Include="GameObjects\BaseGameObject.h" />
     <ClInclude Include="GameObjects\ExampleGameObject.h" />
-    <ClInclude Include="GameObjects\ICollidableObject.h" />
     <ClInclude Include="GameObjects\IDamageable.h" />
     <ClInclude Include="GameObjects\IRenderableObject.h" />
     <ClInclude Include="Rendering\GameWindow.h" />
