@@ -6,7 +6,6 @@
 #include "InputManager.h"
 
 
-
 Game::Game(token)
 {
     std::cout << "Game instance created" << std::endl;
@@ -15,6 +14,7 @@ Game::Game(token)
 Game::~Game()
 {
     delete _exampleGameObject;
+    delete _exampleUIObject;
     std::cout << "Game instance destroyed" << std::endl;
 }
 
@@ -51,9 +51,13 @@ bool Game::Init()
     }
 
 
-    // Creating example game object for demonstration
-    _exampleGameObject = new ExampleGameObject(0, 0, 1, 1);
+    // Creating example game objects for demonstration
+    _exampleGameObject = new ExampleGameObject(0, 0, 10, 10);
+    // UI space x,y positions are normalized
+    _exampleUIObject = new ExampleGameObject(0.75f, 0.75f, 40, 40, GameRenderer::UI, { 255,0,0,255 });
     // End of example
+
+    GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
 
     _running = true;
     return true;
@@ -79,8 +83,13 @@ void Game::Update()
     // Updates input state and performs any bound callbacks
     InputManager::instance().Update();
 
-    // Placeholder render loop
-    RenderInstanceManager::instance().GetRenderer("main")->Clear();
-    RenderInstanceManager::instance().GetRenderer("main")->SetDrawColor(0, 255, 0, 255);
-    RenderInstanceManager::instance().GetRenderer("main")->Present();
+    // Rendering System Demo - vector of any amount of game objects. (Ideally declared as a member in Game class, here for demo purpose.)
+    std::vector<BaseGameObject*> game_objects; 
+
+    // Game Objects added on creation. (Again ideally right after it happens, just for demo purpose is here)
+    game_objects.push_back(_exampleGameObject);
+    game_objects.push_back(_exampleUIObject);
+
+    // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
+    RenderInstanceManager::instance().GetRenderer("main")->Draw(game_objects);
 }

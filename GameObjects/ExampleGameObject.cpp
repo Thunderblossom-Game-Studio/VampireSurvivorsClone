@@ -3,11 +3,13 @@
 
 #include "../Core/InputManager.h"
 
-ExampleGameObject::ExampleGameObject(float x, float y, float width, float height) : _width(width), _height(height)
+ExampleGameObject::ExampleGameObject(float x, float y, float width, float height, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height)
 {
     std::cout << "ExampleGameObject constructor" << std::endl;
     _x = x;
     _y = y;
+    _renderSpace = space;
+    _color = color;
 
     // Example of how to add a keybind - SDL_SCANCODE of the key, InputManager::KeypressType options of KEYDOWN, KEYUP and KEYHELD, and function called on keypress
     InputManager::instance().BindKey(SDL_SCANCODE_SPACE, InputManager::KeypressType::KEYDOWN, std::bind(&ExampleGameObject::SomeExampleKeybind, this));
