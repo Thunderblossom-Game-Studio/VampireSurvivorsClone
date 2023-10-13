@@ -10,10 +10,12 @@
 class SDL_Window;
 class SDL_Renderer;
 class IRenderableObject;
+class ExampleGameObject;
 
 class GameRenderer : public BaseGameObject
 {
 private:
+    ExampleGameObject* _target{ nullptr };
     float _width = 800;
     float _height = 600;
     bool _layers{ false };
@@ -28,7 +30,7 @@ private:
     /// </summary>
     /// <param name="transform">The world space transform.</param>
     /// <returns>The screen pixel space coordinates.</returns>
-    SDL_Rect WorldToScreenSpace(SDL_Rect& transform);
+    SDL_Rect WorldToScreenSpace(float x, float y, float w, float h);
     /// <summary>
     /// Converts UI space transform units into SDL screen pixel coordinates.
     /// </summary>
@@ -39,6 +41,11 @@ private:
     /// <returns>The screen pixel space coordinates.</returns>
     SDL_Rect UIToScreenSpace(float x, float y, float w, float h);        
     
+
+    /// <summary>
+    /// Tracks the target if it's set - NOT FINAL
+    /// </summary>
+    void Track();
     /// <summary>
     /// Sets the default colour the renderer clears with.
     /// </summary>
@@ -82,6 +89,12 @@ public:
     /// </summary>
     /// <returns></returns>
     SDL_Renderer* GetRenderer() const { return _pRenderer; }
+
+    /// <summary>
+    /// Set an example object for this renderer to track - NOT FINAL
+    /// </summary>
+    /// <param name="go">The target object.</param>
+    void SetObjectToTrack(ExampleGameObject* go) { _target = go; }
 
     /* Basic Renderer Movement Functions
     void MoveLeft() { _x -= .01f; }

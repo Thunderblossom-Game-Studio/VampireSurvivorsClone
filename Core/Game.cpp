@@ -52,12 +52,15 @@ bool Game::Init()
 
 
     // Creating example game objects for demonstration
-    _exampleGameObject = new ExampleGameObject(0, 0, 10, 10);
-    // UI space x,y positions are normalized
+    _exampleGameObject = new ExampleGameObject(5, 4, 10, 10);
+    // UI space x,y positions are normalized.
     _exampleUIObject = new ExampleGameObject(0.75f, 0.75f, 40, 40, GameRenderer::UI, { 255,0,0,255 });
     // End of example
 
     GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
+
+    // Setting an object for the renderer to track.
+    renderer->SetObjectToTrack(_exampleGameObject);
 
     _running = true;
     return true;

@@ -4,8 +4,11 @@
 #include "../GameObjects/IRenderableObject.h"
 #include "GameWindow.h" // Game::GetWindow
 
+#include "../GameObjects/ExampleGameObject.h"
+
 #include <iostream> // std::cout, std::endl
 #include <SDL.h> // SDL_CreateRenderer, SDL_DestroyRenderer, SDL_RENDERER_ACCELERATED, SDL_RENDERER_PRESENTVSYNC
+#include <cmath>
 
 GameRenderer::GameRenderer(SDL_Window* pWindow)
 {
@@ -26,15 +29,15 @@ GameRenderer::~GameRenderer()
     std::cout << "Game renderer destroyed" << std::endl;
 }
 
-SDL_Rect GameRenderer::WorldToScreenSpace(SDL_Rect& transform)
+SDL_Rect GameRenderer::WorldToScreenSpace(float x, float y, float w, float h)
 {
-    int w = DEFAULT_SCREEN_WIDTH, h = DEFAULT_SCREEN_HEIGHT;
-    SDL_GetWindowSize(GameWindow::instance().GetWindow(), &w, &h);
+    int wi = DEFAULT_SCREEN_WIDTH, he = DEFAULT_SCREEN_HEIGHT;
+    SDL_GetWindowSize(GameWindow::instance().GetWindow(), &wi, &he);
 
-    float resolutionScale[2] = {(float)w/DEFAULT_SCREEN_WIDTH, (float)h/DEFAULT_SCREEN_HEIGHT };
+    float resolutionScale[2] = {(float)wi/DEFAULT_SCREEN_WIDTH, (float)he/DEFAULT_SCREEN_HEIGHT };
     float invertedScale[2] = { _scale / 100, _scale / 100 };
     float scale[2] = { _unitsOnScreen[0] * invertedScale[0], _unitsOnScreen[1] * invertedScale[1] };
-    float offset[2] = { transform.x - _x, transform.y - _y };    
+    float offset[2] = { x - _x, y - _y };    
     float range[2] = { scale[0] - (-scale[0]), scale[1] - (-scale[1]) };
 
     offset[0] = offset[0] - (-scale[0] * resolutionScale[0]);
@@ -48,8 +51,8 @@ SDL_Rect GameRenderer::WorldToScreenSpace(SDL_Rect& transform)
 
     SDL_Rect rect =
     { 
-        (int)(w * offset[0]), (int)(h - (h * offset[1])),
-        (int)(transform.w / invertedScale[0]), (int)(transform.h / invertedScale[1])
+        (int)(wi * offset[0]), (int)(he - (he * offset[1])),
+        (int)(w / invertedScale[0]), (int)(h / invertedScale[1])
     };
     return rect;
 }
@@ -99,6 +102,19 @@ SDL_Rect GameRenderer::UIToScreenSpace(float x, float y, float w, float h)
     return rect;
 }
 
+void GameRenderer::Track()
+{
+    float tX = _target->GetX();
+    float tY = _target->GetY();
+
+    float dir = tX - _x;
+    if (abs(dir) > 0.01f)
+        _x += (dir * 0.01f);
+    dir = tY - _y;
+    if (abs(dir) > 0.01f)
+        _y += (dir * 0.01f);
+}
+
 void GameRenderer::SetDrawColor(SDL_Color color)
 {
     SDL_SetRenderDrawColor(_pRenderer, color.r, color.g, color.b, color.a);
@@ -111,6 +127,9 @@ void GameRenderer::SetDrawColor(int r, int g, int b, int a)
 
 void GameRenderer::Draw(const std::vector<BaseGameObject*>& gameobjects)
 {
+    if (_target) 
+        Track();
+
     Clear();
 
     if (_layers)
@@ -130,9 +149,7 @@ void GameRenderer::Draw(const std::vector<BaseGameObject*>& gameobjects)
             uiObjects.push_back(renderable);
             continue;
         }
-        rect = { (int)renderable->GetX(), (int)renderable->GetY(),
-            (int)renderable->GetWidth(), (int)renderable->GetHeight() };
-        rect = WorldToScreenSpace(rect);
+        rect = WorldToScreenSpace(renderable->GetX(), renderable->GetY(), renderable->GetWidth(), renderable->GetHeight());
         rect.x = rect.x - rect.w / 2; rect.y = rect.y - rect.h / 2;
         SetDrawColor(renderable->GetColor());
         SDL_RenderFillRect(_pRenderer, &rect);
