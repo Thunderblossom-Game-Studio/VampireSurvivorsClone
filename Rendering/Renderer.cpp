@@ -19,8 +19,8 @@ GameRenderer::GameRenderer(SDL_Window* pWindow)
     }
     std::cout << "Game renderer created" << std::endl;
 
-    _x = 0;
-    _y = 0;
+    _position.x = 0;
+    _position.y = 0;
 }
 
 GameRenderer::~GameRenderer()
@@ -37,7 +37,7 @@ SDL_Rect GameRenderer::WorldToScreenSpace(float x, float y, float w, float h)
     float resolutionScale[2] = {(float)wi/DEFAULT_SCREEN_WIDTH, (float)he/DEFAULT_SCREEN_HEIGHT };
     float invertedScale[2] = { _scale / 100, _scale / 100 };
     float scale[2] = { _unitsOnScreen[0] * invertedScale[0], _unitsOnScreen[1] * invertedScale[1] };
-    float offset[2] = { x - _x, y - _y };    
+    float offset[2] = { x - _position.x, y - _position.y };
     float range[2] = { scale[0] - (-scale[0]), scale[1] - (-scale[1]) };
 
     offset[0] = offset[0] - (-scale[0] * resolutionScale[0]);
@@ -107,12 +107,12 @@ void GameRenderer::Track()
     float tX = _target->GetX();
     float tY = _target->GetY();
 
-    float dir = tX - _x;
+    float dir = tX - _position.x;
     if (abs(dir) > 0.01f)
-        _x += (dir * 0.01f);
-    dir = tY - _y;
+        _position.x += (dir * 0.01f);
+    dir = tY - _position.y;
     if (abs(dir) > 0.01f)
-        _y += (dir * 0.01f);
+        _position.y += (dir * 0.01f);
 }
 
 void GameRenderer::SetDrawColor(SDL_Color color)
