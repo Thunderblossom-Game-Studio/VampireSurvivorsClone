@@ -15,6 +15,7 @@ class ExampleGameObject;
 class GameRenderer : public BaseGameObject
 {
 private:
+    std::vector<BaseGameObject*> _renderList;
     ExampleGameObject* _target{ nullptr };
     float _width = 800;
     float _height = 600;
@@ -23,7 +24,7 @@ private:
     float _unitsOnScreen[2]{ 10,5 };
 
     SDL_Renderer* _pRenderer = nullptr;
-    SDL_Color _defaultColor = { 0, 255, 0, 255 };
+    SDL_Color _defaultColor = { 0, 200, 0, 255 };
     
     /// <summary>
     /// Converts world space transform units into SDL screen pixel coordinates.
@@ -41,10 +42,9 @@ private:
     /// <returns>The screen pixel space coordinates.</returns>
     SDL_Rect UIToScreenSpace(float x, float y, float w, float h);        
     
-
     /// <summary>
     /// Tracks the target if it's set - NOT FINAL
-    /// </summary>
+    /// </summary>s
     void Track();
     /// <summary>
     /// Sets the default colour the renderer clears with.
@@ -83,29 +83,30 @@ public:
     /// Draws every object passed in to the renderer.
     /// </summary>
     /// <param name="gameobjects">A list of all objects wanting to be rendered in the renderer.</param>
-    void Draw(const std::vector<BaseGameObject*>& gameobjects);
+    void Draw();
     /// <summary>
     /// Gets the Renderer's SDL_Renderer.
     /// </summary>
     /// <returns></returns>
     SDL_Renderer* GetRenderer() const { return _pRenderer; }
-
     /// <summary>
-    /// Set an example object for this renderer to track - NOT FINAL
+    /// Set an example object for this renderer to track, set nullptr to not track anything. - NOT FINAL
     /// </summary>
     /// <param name="go">The target object.</param>
     void SetObjectToTrack(ExampleGameObject* go) { _target = go; }
-
-    /* Basic Renderer Movement Functions
-    void MoveLeft() { _x -= .01f; }
-    void MoveRight() { _x += .01f; }
-
-    void MoveUp() { _y += .01f; }
-    void MoveDown() { _y -= .01f; }
-
-    void SetScaleOne() { _scale = 5; }
-    void SetScaleTwo() { _scale = 10; }
-    void SetScaleThree() { _scale = 15; }
-    void SetScaleFour() { _scale = 20; }
-    */
+    /// <summary>
+    /// Adds a game object to the internal render list.
+    /// </summary>
+    /// <param name="go">The target object.</param>
+    bool AddToRenderList(BaseGameObject* go);
+    /// <summary>
+    /// Tries to find a game object in the internal render list.
+    /// </summary>
+    /// <param name="go">The target object.</param>
+    BaseGameObject* FindInRenderList(BaseGameObject* go);
+    /// <summary>
+    /// Tries to remove a game object from the internal render list.
+    /// </summary>
+    /// <param name="go">The target object.</param>
+    bool RemoveFromRenderList(BaseGameObject* go);
 };

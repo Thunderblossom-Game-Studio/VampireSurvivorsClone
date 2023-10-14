@@ -93,11 +93,11 @@ SDL_Rect GameRenderer::UIToScreenSpace(float x, float y, float w, float h)
     offset[0] = offset[0] / resolutionScale[0];
     offset[1] = offset[1] / resolutionScale[1];
 
-
+    float resScaleAvg = (resolutionScale[0] + resolutionScale[1]) / 2;
     SDL_Rect rect =
     {
         (int)((float)wi * offset[0]), (int)((float)he - ((float)he * offset[1])),
-        (int)(w * resolutionScale[0]), (int)(h * resolutionScale[1])
+        (int)(w * resScaleAvg), (int)(h * resScaleAvg)
     };
     return rect;
 }
@@ -125,13 +125,11 @@ void GameRenderer::SetDrawColor(int r, int g, int b, int a)
     SDL_SetRenderDrawColor(_pRenderer, r, g, b, a);
 }
 
-void GameRenderer::Draw(const std::vector<BaseGameObject*>& gameobjects)
+void GameRenderer::Draw()
 {
     if (_target) 
         Track();
-
     Clear();
-
     if (_layers)
         std::cout << "Layers need implementing." << std::endl;
     std::vector<IRenderableObject*> uiObjects;
@@ -139,12 +137,14 @@ void GameRenderer::Draw(const std::vector<BaseGameObject*>& gameobjects)
     SDL_Rect rect;
 
     // Render World Objects
-    for (int i = 0; i < gameobjects.size(); ++i)
+    for (int i = 0; i < _renderList.size(); ++i)
     {
-        renderable = dynamic_cast<IRenderableObject*>(gameobjects[i]);
+        renderable = dynamic_cast<IRenderableObject*>(_renderList[i]);
         if (!renderable)
             continue;
-        if (renderable->GetRenderSpace() == UI)
+        else if (!renderable->GetEnabled())
+            continue;
+        else if (renderable->GetRenderSpace() == UI)
         {
             uiObjects.push_back(renderable);
             continue;
@@ -152,20 +152,65 @@ void GameRenderer::Draw(const std::vector<BaseGameObject*>& gameobjects)
         rect = WorldToScreenSpace(renderable->GetX(), renderable->GetY(), renderable->GetWidth(), renderable->GetHeight());
         rect.x = rect.x - rect.w / 2; rect.y = rect.y - rect.h / 2;
         SetDrawColor(renderable->GetColor());
-        SDL_RenderFillRect(_pRenderer, &rect);
+
+        SDL_Texture* texture = renderable->GetTexture();
+        if (texture) 
+        {
+            SDL_Rect src = renderable->GetSrc();
+            SDL_RenderCopy(_pRenderer, texture, &src, &rect);
+        }
+        else 
+        {
+            SDL_RenderFillRect(_pRenderer, &rect);
+        }
     }
 
     // Render UI Objects
     for (int i = 0; i < uiObjects.size(); ++i)
     {
+        if (!uiObjects[i]->GetEnabled())
+            continue;
         rect = UIToScreenSpace(uiObjects[i]->GetX(), uiObjects[i]->GetY(), uiObjects[i]->GetWidth(), uiObjects[i]->GetHeight());
         rect.x = rect.x - rect.w / 2; rect.y = rect.y - rect.h / 2;
         SetDrawColor(uiObjects[i]->GetColor());
-        SDL_RenderFillRect(_pRenderer, &rect);
+        SDL_Texture* texture = uiObjects[i]->GetTexture();
+        if (texture)
+        {
+            SDL_Rect src = uiObjects[i]->GetSrc();
+            SDL_RenderCopy(_pRenderer, texture, &src, &rect);
+        }
+        else
+        {
+            SDL_RenderFillRect(_pRenderer, &rect);
+        }
     }
 
     SetDrawColor(_defaultColor);
     Present();
+}
+
+bool GameRenderer::AddToRenderList(BaseGameObject* go)
+{
+    if (FindInRenderList(go))
+        return false;
+    _renderList.push_back(go);
+    return true;
+}
+
+BaseGameObject* GameRenderer::FindInRenderList(BaseGameObject* go)
+{
+    std::vector<BaseGameObject*>::iterator it = std::find(_renderList.begin(), _renderList.end(), go);
+    if (it == _renderList.end())
+        return nullptr;
+    return _renderList[std::distance(_renderList.begin(), it)];
+}
+
+bool GameRenderer::RemoveFromRenderList(BaseGameObject* go)
+{
+    if (!FindInRenderList(go))
+        return false;
+    _renderList.erase(std::remove(_renderList.begin(), _renderList.end(), go), _renderList.end());
+    return true;
 }
 
 void GameRenderer::Clear()

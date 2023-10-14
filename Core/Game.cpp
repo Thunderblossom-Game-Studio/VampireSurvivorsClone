@@ -15,6 +15,8 @@ Game::~Game()
 {
     delete _exampleGameObject;
     delete _exampleUIObject;
+    IMG_Quit();
+    SDL_Quit();
     std::cout << "Game instance destroyed" << std::endl;
 }
 
@@ -26,6 +28,13 @@ bool Game::Init()
     if (ret != 0)
     {
         std::cout << "SDL_Init failed: " << SDL_GetError() << std::endl;
+        return false;
+    }
+
+    ret = IMG_Init(IMG_INIT_PNG);
+    if (ret < 0)
+    {
+        std::cout << "IMG_Init failed: " << IMG_GetError() << std::endl;
         return false;
     }
 
@@ -52,15 +61,30 @@ bool Game::Init()
 
 
     // Creating example game objects for demonstration
-    _exampleGameObject = new ExampleGameObject(5, 4, 10, 10);
-    // UI space x,y positions are normalized.
-    _exampleUIObject = new ExampleGameObject(0.75f, 0.75f, 40, 40, GameRenderer::UI, { 255,0,0,255 });
-    // End of example
+    _exampleGameObject = new ExampleGameObject(5, 4, 5, 5);
 
+    // Setting an IRenderableObject's texture. Can be done in class, just here for sake of demo.
+    _exampleGameObject->SetTexture("Assets/Textures/TextureLoadingTest.png", {128,45,16,19});
+
+    // UI space x,y positions are normalized and w,h scale differently to world.
+    _exampleUIObject = new ExampleGameObject(0.9f, 0.82f, 80, 80, GameRenderer::UI, { 255,0,0,255 });
+
+    // "Loading" a texture multiple times doesn't affect memory, the textures are stored in a catalogue and referenced 
+    // if the same filepath is used again.
+    _exampleUIObject->SetTexture("Assets/Textures/TextureLoadingTest.png", { 288,257,15,14 });
+
+    // Getting a renderer from the instance manager, "main" is currently the only active renderer.
     GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
 
-    // Setting an object for the renderer to track.
+    // The renderer works by adding game objects to it's internal render list.
+    renderer->AddToRenderList(_exampleGameObject);
+    // You can also use 'FindInRenderList()' to get a game object and 'RemoveFromRenderList()' to remove one.
+    renderer->AddToRenderList(_exampleUIObject);
+
+    // Setting an object for the renderer to track. Set nullptr to not track anything.
     renderer->SetObjectToTrack(_exampleGameObject);
+
+    // End of example
 
     _running = true;
     return true;
@@ -86,13 +110,6 @@ void Game::Update()
     // Updates input state and performs any bound callbacks
     InputManager::instance().Update();
 
-    // Rendering System Demo - vector of any amount of game objects. (Ideally declared as a member in Game class, here for demo purpose.)
-    std::vector<BaseGameObject*> game_objects; 
-
-    // Game Objects added on creation. (Again ideally right after it happens, just for demo purpose is here)
-    game_objects.push_back(_exampleGameObject);
-    game_objects.push_back(_exampleUIObject);
-
     // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
-    RenderInstanceManager::instance().GetRenderer("main")->Draw(game_objects);
+    RenderInstanceManager::instance().GetRenderer("main")->Draw();
 }
