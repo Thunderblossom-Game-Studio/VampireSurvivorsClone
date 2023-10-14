@@ -3,9 +3,12 @@
 
 #include "../Core/InputManager.h"
 
-ExampleGameObject::ExampleGameObject(float x, float y, float width, float height) : _width(width), _height(height)
+ExampleGameObject::ExampleGameObject(float x, float y, float width, float height, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height)
 {
     std::cout << "ExampleGameObject constructor" << std::endl;
+
+    _renderSpace = space;
+    _color = color;
     _position.x = x;
     _position.y = y;
 
