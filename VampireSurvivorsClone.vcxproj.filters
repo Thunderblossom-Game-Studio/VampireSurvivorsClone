@@ -60,6 +60,7 @@
     <ClCompile Include="Rendering\RenderInstanceManager.cpp">
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="Core\AudioSystem.cpp">
     <ClCompile Include="Core\CollisionManager.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
@@ -98,6 +99,7 @@
     <ClInclude Include="Templates\Singleton.h">
       <Filter>Header Files\Templates</Filter>
     </ClInclude>
+    <ClInclude Include="Core\AudioSystem.h">
     <ClInclude Include="Vector2.h">
       <Filter>Header Files</Filter>
     </ClInclude>

@@ -4,7 +4,7 @@
 #include "../Rendering/GameWindow.h"
 #include "../Rendering/RenderInstanceManager.h"
 #include "InputManager.h"
-
+#include "AudioSystem.h"
 
 Game::Game(token)
 {
@@ -101,7 +101,13 @@ void Game::Update()
             case SDL_QUIT:
                 _running = false;
                 break;
-
+            case SDL_KEYDOWN:
+                if (SDLK_SPACE)
+                {
+                    AudioSystem::getInstance().PlayAudio(-1, "SoundEffect01", 0);
+                    std::cout << "Final!!!" << std::endl;
+                }
+                break;
             default:
                 break;
         }
