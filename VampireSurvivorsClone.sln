@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
-VisualStudioVersion = 17.5.33516.290
+VisualStudioVersion = 17.7.34031.279
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "VampireSurvivorsClone", "VampireSurvivorsClone.vcxproj", "{B08EC6A9-F463-4D50-A8BB-7F6CDB323BB2}"
 EndProject
@@ -26,6 +26,6 @@ Global
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {1E666091-6DB7-444D-9AFC-72DB84A82520}
+		SolutionGuid = {03F9708E-D431-49FE-9F26-69297A47E7A6}
 	EndGlobalSection
 EndGlobal

@@ -61,6 +61,7 @@
       <Filter>Source Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="Core\AudioSystem.cpp">
+    <ClCompile Include="Core\CollisionManager.cpp">
       <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
@@ -78,9 +79,6 @@
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\ExampleGameObject.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\ICollidableObject.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\IDamageable.h">
@@ -102,6 +100,10 @@
       <Filter>Header Files\Templates</Filter>
     </ClInclude>
     <ClInclude Include="Core\AudioSystem.h">
+    <ClInclude Include="Vector2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CollisionManager.h">
       <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>

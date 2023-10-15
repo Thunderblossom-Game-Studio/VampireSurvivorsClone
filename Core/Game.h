@@ -14,6 +14,7 @@ private:
 
     // Temp variable for demonstration purposes
     ExampleGameObject* _exampleGameObject;
+    ExampleGameObject* _exampleUIObject;
 
 public:
     Game(token);
