@@ -68,6 +68,15 @@
     </ClCompile>
     <ClCompile Include="SpriteSheet.cpp">
       <Filter>Source Files\Sprites</Filter>
+    <ClCompile Include="Core\AudioSystem.cpp">
+    <ClCompile Include="Core\CollisionManager.cpp">
+      <Filter>Source Files\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Player.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="HealthSystem.cpp">
+      <Filter>Source Files\Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -84,9 +93,6 @@
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\ExampleGameObject.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\ICollidableObject.h">
       <Filter>Header Files\GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\IDamageable.h">
@@ -109,6 +115,18 @@
     </ClInclude>
     <ClInclude Include="SpriteSheet.h">
       <Filter>Header Files\Sprites</Filter>
+    <ClInclude Include="Core\AudioSystem.h">
+    <ClInclude Include="Vector2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CollisionManager.h">
+      <Filter>Header Files\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Player.h">
+      <Filter>Header Files\GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="HealthSystem.h">
+      <Filter>Header Files\Core</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
