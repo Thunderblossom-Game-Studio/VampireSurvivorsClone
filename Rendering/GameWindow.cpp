@@ -15,7 +15,7 @@ GameWindow::~GameWindow()
 
 bool GameWindow::Init()
 {
-    _pWindow = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800, 600, SDL_WINDOW_SHOWN);
+    _pWindow = SDL_CreateWindow("Game", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, DEFAULT_SCREEN_WIDTH, DEFAULT_SCREEN_HEIGHT, SDL_WINDOW_RESIZABLE);
     if (_pWindow == nullptr)
     {
         std::cout << "SDL_CreateWindow failed: " << SDL_GetError() << std::endl;
