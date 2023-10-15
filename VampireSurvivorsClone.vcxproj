@@ -171,6 +171,7 @@
     <ClCompile Include="Rendering\GameWindow.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
     <ClCompile Include="Rendering\RenderInstanceManager.cpp" />
+    <ClCompile Include="SpriteSheet.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager.h" />
@@ -187,6 +188,7 @@
     <ClInclude Include="Rendering\GameWindow.h" />
     <ClInclude Include="Rendering\Renderer.h" />
     <ClInclude Include="Rendering\RenderInstanceManager.h" />
+    <ClInclude Include="SpriteSheet.h" />
     <ClInclude Include="Templates\Singleton.h" />
     <ClInclude Include="Vector2.h" />
   </ItemGroup>
