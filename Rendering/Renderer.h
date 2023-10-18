@@ -16,7 +16,7 @@ class GameRenderer : public BaseGameObject
 {
 private:
     std::vector<BaseGameObject*> _renderList;
-    ExampleGameObject* _target{ nullptr };
+    BaseGameObject* _target{ nullptr };
     float _width = 800;
     float _height = 600;
     bool _layers{ false };
@@ -93,7 +93,7 @@ public:
     /// Set an example object for this renderer to track, set nullptr to not track anything. - NOT FINAL
     /// </summary>
     /// <param name="go">The target object.</param>
-    void SetObjectToTrack(ExampleGameObject* go) { _target = go; }
+    void SetObjectToTrack(BaseGameObject* go) { _target = go; }
     /// <summary>
     /// Adds a game object to the internal render list.
     /// </summary>
