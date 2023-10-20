@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Player.h"
 #include "../Templates/Singleton.h"
 
 // Temp include for demonstration purposes
@@ -15,6 +16,7 @@ private:
     // Temp variable for demonstration purposes
     ExampleGameObject* _exampleGameObject;
     ExampleGameObject* _exampleUIObject;
+    Player* _player;
 
 public:
     Game(token);

@@ -60,31 +60,37 @@ bool Game::Init()
     }
 
 
-    // Creating example game objects for demonstration
-    _exampleGameObject = new ExampleGameObject(5, 4, 5, 5);
+    //// Creating example game objects for demonstration
+    //_exampleGameObject = new ExampleGameObject(5, 4, 5, 5);
 
-    // Setting an IRenderableObject's texture. Can be done in class, just here for sake of demo.
-    _exampleGameObject->SetTexture("Assets/Textures/TextureLoadingTest.png", {128,45,16,19});
+    //// Setting an IRenderableObject's texture. Can be done in class, just here for sake of demo.
+    //_exampleGameObject->SetTexture("Assets/Textures/TextureLoadingTest.png", {128,45,16,19});
 
-    // UI space x,y positions are normalized and w,h scale differently to world.
-    _exampleUIObject = new ExampleGameObject(0.9f, 0.82f, 80, 80, GameRenderer::UI, { 255,0,0,255 });
+    //// UI space x,y positions are normalized and w,h scale differently to world.
+    //_exampleUIObject = new ExampleGameObject(0.9f, 0.82f, 80, 80, GameRenderer::UI, { 255,0,0,255 });
 
-    // "Loading" a texture multiple times doesn't affect memory, the textures are stored in a catalogue and referenced 
-    // if the same filepath is used again.
-    _exampleUIObject->SetTexture("Assets/Textures/TextureLoadingTest.png", { 288,257,15,14 });
+    //// "Loading" a texture multiple times doesn't affect memory, the textures are stored in a catalogue and referenced 
+    //// if the same filepath is used again.
+    //_exampleUIObject->SetTexture("Assets/Textures/TextureLoadingTest.png", { 288,257,15,14 });
 
-    // Getting a renderer from the instance manager, "main" is currently the only active renderer.
+    //// Getting a renderer from the instance manager, "main" is currently the only active renderer.
+    //GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
+
+    //// The renderer works by adding game objects to it's internal render list.
+    //renderer->AddToRenderList(_exampleGameObject);
+    //// You can also use 'FindInRenderList()' to get a game object and 'RemoveFromRenderList()' to remove one.
+    //renderer->AddToRenderList(_exampleUIObject);
+
+    //// Setting an object for the renderer to track. Set nullptr to not track anything.
+    //renderer->SetObjectToTrack(_exampleGameObject);
+
+    ////End of example
+
+
+    _player = new Player(0,0,5,5,100,0.001);
     GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
+    renderer->SetObjectToTrack(_player);
 
-    // The renderer works by adding game objects to it's internal render list.
-    renderer->AddToRenderList(_exampleGameObject);
-    // You can also use 'FindInRenderList()' to get a game object and 'RemoveFromRenderList()' to remove one.
-    renderer->AddToRenderList(_exampleUIObject);
-
-    // Setting an object for the renderer to track. Set nullptr to not track anything.
-    renderer->SetObjectToTrack(_exampleGameObject);
-
-    // End of example
 
     _running = true;
     return true;

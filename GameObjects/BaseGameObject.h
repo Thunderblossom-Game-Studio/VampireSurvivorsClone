@@ -16,6 +16,8 @@ protected:
 
 public:
     virtual ~BaseGameObject() = default;
+	float GetY() const { return _position.y; }
+	float GetX() const { return _position.x; }
 
 protected:
 
