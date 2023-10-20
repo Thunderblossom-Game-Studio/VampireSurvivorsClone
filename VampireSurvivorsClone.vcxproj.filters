@@ -1,132 +1,37 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;c++;cppm;ixx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;h++;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
-    <Filter Include="Header Files\Core">
-      <UniqueIdentifier>{1f940160-8ca6-427e-8900-c3b79c562d95}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\GameObjects">
-      <UniqueIdentifier>{40738321-7ce3-4fca-91c3-065b0b98c5e4}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Rendering">
-      <UniqueIdentifier>{3747e6cc-3c56-42fa-b39d-0345681ad46c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Templates">
-      <UniqueIdentifier>{357e950d-ded6-43c0-9a03-2feda012f3d7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Core">
-      <UniqueIdentifier>{9fef27d3-bc7c-49ac-8eb8-a06f096588e5}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\GameObjects">
-      <UniqueIdentifier>{488d83d5-c542-4404-8bc0-c737ca3721e8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Rendering">
-      <UniqueIdentifier>{cc579086-2738-44df-a6aa-848900d965ae}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Sprites">
-      <UniqueIdentifier>{1f6f42af-7ddd-4551-a136-1d3c0e8abbc9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Sprites">
-      <UniqueIdentifier>{d04c40c9-c79b-4f56-9741-9f426d034023}</UniqueIdentifier>
-    </Filter>
+    <ClCompile Include="Core\AssetManager.cpp" />
+    <ClCompile Include="Core\AudioSystem.cpp" />
+    <ClCompile Include="Core\CollisionManager.cpp" />
+    <ClCompile Include="Core\Game.cpp" />
+    <ClCompile Include="Core\InputManager.cpp" />
+    <ClCompile Include="GameObjects\ExampleGameObject.cpp" />
+    <ClCompile Include="HealthSystem.cpp" />
+    <ClCompile Include="main.cpp" />
+    <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Rendering\GameWindow.cpp" />
+    <ClCompile Include="Rendering\Renderer.cpp" />
+    <ClCompile Include="Rendering\RenderInstanceManager.cpp" />
+    <ClCompile Include="SpriteSheet.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\AssetManager.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\Game.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\InputManager.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="GameObjects\ExampleGameObject.cpp">
-      <Filter>Source Files\GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering\GameWindow.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering\Renderer.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="Rendering\RenderInstanceManager.cpp">
-      <Filter>Source Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="SpriteSheet.cpp">
-      <Filter>Source Files\Sprites</Filter>
-    <ClCompile Include="Core\AudioSystem.cpp">
-    <ClCompile Include="Core\CollisionManager.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Player.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="HealthSystem.cpp">
-      <Filter>Source Files\Core</Filter>
-    </ClCompile>
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="Core\AssetManager.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Game.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\InputManager.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\BaseGameObject.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\ExampleGameObject.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\IDamageable.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\IRenderableObject.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\GameWindow.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\Renderer.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\RenderInstanceManager.h">
-      <Filter>Header Files\Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Templates\Singleton.h">
-      <Filter>Header Files\Templates</Filter>
-    </ClInclude>
-    <ClInclude Include="SpriteSheet.h">
-      <Filter>Header Files\Sprites</Filter>
-    <ClInclude Include="Core\AudioSystem.h">
-    <ClInclude Include="Vector2.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\CollisionManager.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Player.h">
-      <Filter>Header Files\GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="HealthSystem.h">
-      <Filter>Header Files\Core</Filter>
-    </ClInclude>
+    <ClInclude Include="Core\AssetManager.h" />
+    <ClInclude Include="Core\AudioSystem.h" />
+    <ClInclude Include="Core\CollisionManager.h" />
+    <ClInclude Include="Core\Game.h" />
+    <ClInclude Include="Core\InputManager.h" />
+    <ClInclude Include="GameObjects\BaseGameObject.h" />
+    <ClInclude Include="GameObjects\ExampleGameObject.h" />
+    <ClInclude Include="GameObjects\IDamageable.h" />
+    <ClInclude Include="GameObjects\IRenderableObject.h" />
+    <ClInclude Include="HealthSystem.h" />
+    <ClInclude Include="Player.h" />
+    <ClInclude Include="Rendering\GameWindow.h" />
+    <ClInclude Include="Rendering\Renderer.h" />
+    <ClInclude Include="Rendering\RenderInstanceManager.h" />
+    <ClInclude Include="SpriteSheet.h" />
+    <ClInclude Include="Templates\Singleton.h" />
+    <ClInclude Include="Vector2.h" />
   </ItemGroup>
 </Project>

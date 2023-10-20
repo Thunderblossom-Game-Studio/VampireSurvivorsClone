@@ -34,31 +34,31 @@ Player::~Player()
 }
 
 
-	void Player::PlayerMovementUp()
-	{
-		_position.y = _position.y + _playerMovementSpeed;
-	}
+void Player::PlayerMovementUp()
+{
+	_position.y = _position.y + _playerMovementSpeed;
+}
 
-	void Player::PlayerMovementDown()
-	{
-		_position.y = _position.y - _playerMovementSpeed;
-	}
+void Player::PlayerMovementDown()
+{
+	_position.y = _position.y - _playerMovementSpeed;
+}
 
-	void Player::PlayerMovementLeft()
-	{
-		_position.x = _position.x - _playerMovementSpeed;
-	}
+void Player::PlayerMovementLeft()
+{
+	_position.x = _position.x - _playerMovementSpeed;
+}
 
-	void Player::PlayerMovementRight()
-	{
-		_position.x = _position.x + _playerMovementSpeed;
-	}
+void Player::PlayerMovementRight()
+{
+	_position.x = _position.x + _playerMovementSpeed;
+}
 
 
-	void Player::PlayerAutoAttack()
-	{
-		//Insert Basic Auto Attack Here
-	}
+void Player::PlayerAutoAttack()
+{
+	//Insert Basic Auto Attack Here
+}
 
 
 //void Player::OnEnemyCollision()

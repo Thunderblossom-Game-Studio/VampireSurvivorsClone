@@ -4,6 +4,9 @@
 
 InputManager::InputManager(token)
 {
+    _keyStates = SDL_GetKeyboardState(NULL);
+    _lastKeyStates = new Uint8[SDL_NUM_SCANCODES];
+    SDL_memcpy(_lastKeyStates, _keyStates, SDL_NUM_SCANCODES);
 }
 
 /// @brief Automatic cleanup of input manager
@@ -16,9 +19,7 @@ InputManager::~InputManager()
 /// @brief Initializes input manager
 bool InputManager::Init()
 {
-    _keyStates = SDL_GetKeyboardState(NULL);
-    _lastKeyStates = new Uint8[SDL_NUM_SCANCODES];
-    SDL_memcpy(_lastKeyStates, _keyStates, SDL_NUM_SCANCODES);
+    std::cout << "Hi Dan" << std::endl;
 
     return true;
 }
