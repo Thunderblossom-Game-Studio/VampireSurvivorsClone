@@ -3,6 +3,7 @@
 #include <math.h>
 #include <algorithm>
 #include <iostream>
+#include <cmath>
 
 std::vector<Collider2D*> CollisionManager::_collidables;
 
@@ -33,6 +34,10 @@ bool CollisionManager::CheckCollisions(Collider2D* collider1, Collider2D* collid
 		std::cout << "CollisionManager::CheckCollisions: One of the colliders is null" << std::endl; 
 		return false;
 	}
+	else if (collider1 == collider2)
+	{
+		return false;
+	}
 
 	ColliderType collider1Type = collider1->GetColliderType();
 	ColliderType collider2Type = collider2->GetColliderType();
@@ -45,12 +50,12 @@ bool CollisionManager::CheckCollisions(Collider2D* collider1, Collider2D* collid
 	else if (collider1Type == RECTANGLE && collider2Type == RECTANGLE)
 	{
 		// Check if the rectangles overlap on the X-axis
-		bool xOverlap = (collider1->GetPosition().x + collider1->GetDimensions().x >= collider2->GetPosition().x) &&
-						(collider2->GetPosition().x + collider2->GetDimensions().x >= collider1->GetPosition().x);
+		bool xOverlap = (collider1->GetPosition().x - collider1->GetDimensions().x/2 + collider1->GetDimensions().x >= collider2->GetPosition().x - collider2->GetDimensions().x / 2) &&
+						(collider2->GetPosition().x - collider2->GetDimensions().x/2 + collider2->GetDimensions().x >= collider1->GetPosition().x - collider1->GetDimensions().x/2);
 
 		// Check if the rectangles overlap on the Y-axis
-		bool yOverlap = (collider1->GetPosition().y + collider1->GetDimensions().y >= collider2->GetPosition().y) &&
-						(collider2->GetPosition().y + collider2->GetDimensions().y >= collider1->GetPosition().y);
+		bool yOverlap = (collider1->GetPosition().y - collider1->GetDimensions().y/2 + collider1->GetDimensions().y >= collider2->GetPosition().y - collider2->GetDimensions().y / 2) &&
+						(collider2->GetPosition().y - collider2->GetDimensions().y/2 + collider2->GetDimensions().y >= collider1->GetPosition().y - collider1->GetDimensions().y/2);
 
 		// If both axes overlap, then a collision has occurred
 		return xOverlap && yOverlap;
@@ -66,26 +71,31 @@ bool CollisionManager::CheckCollisions(Collider2D* collider1, Collider2D* collid
 			rectPos = collider1->GetPosition();
 			rectDim = collider1->GetDimensions();
 			circlePos = collider2->GetPosition();
-			circleDim = Vector2(collider2->GetRadius() * 2, collider2->GetRadius() * 2);
+			circleDim = Vector2(collider2->GetRadius(), collider2->GetRadius());
 		}
 		else 
 		{
 			rectPos = collider2->GetPosition();
 			rectDim = collider2->GetDimensions();
 			circlePos = collider1->GetPosition();
-			circleDim = Vector2(collider1->GetRadius() * 2, collider1->GetRadius() * 2);
+			circleDim = Vector2(collider1->GetRadius(), collider1->GetRadius());
 		}
 
-		// Calculate the closest point on the rectangle to the circle's center
-		float closestX = std::clamp(circlePos.x, rectPos.x, rectPos.x + rectDim.x); 
-		float closestY = std::clamp(circlePos.y, rectPos.y, rectPos.y + rectDim.y);
+		float disX = abs(circlePos.x - rectPos.x);
+		float disY = abs(circlePos.y - rectPos.y);
 
-		// Calculate the distance between the circle's center and the closest point on the rectangle
-		float distanceSquared = (circlePos - Vector2(closestX, closestY)).magnitude_squared();
+		if (disX > (rectDim.x / 2 + circleDim.x))
+			return false;
+		if (disY > (rectDim.y / 2 + circleDim.x))
+			return false;
 
-		// Compare the squared distance to the squared radius
-		float radiusSumSquared = (circleDim.x / 2.0f) * (circleDim.x / 2.0f);
-		return distanceSquared <= radiusSumSquared; 
+		if (disX <= (rectDim.x / 2) || disY <= (rectDim.y / 2))
+			return true;
+
+		float cornerDistSq = pow(disX - rectDim.x / 2, 2) + pow(disY - rectDim.y / 2, 2);
+
+		return cornerDistSq <= pow(circleDim.x, 2);
+
 	}
 	else if (collider1Type == CIRCLE && collider2Type == CIRCLE)
 	{

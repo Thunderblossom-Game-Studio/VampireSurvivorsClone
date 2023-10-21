@@ -16,12 +16,13 @@ class GameRenderer : public BaseGameObject
 {
 private:
     std::vector<BaseGameObject*> _renderList;
-    ExampleGameObject* _target{ nullptr };
+    BaseGameObject* _target{ nullptr };
     float _width = 800;
     float _height = 600;
     bool _layers{ false };
-    float _scale{ 5 };
-    float _unitsOnScreen[2]{ 10,5 };
+    float _scale{ 4.0f };
+    float _unitsOnScreen[2]{ 10,7.5f };
+    bool _drawWorldDebug{ false };
 
     SDL_Renderer* _pRenderer = nullptr;
     SDL_Color _defaultColor = { 0, 200, 0, 255 };
@@ -68,11 +69,17 @@ private:
     /// </summary>
     void Present();
 
+    void DrawWorldDebug();
+
+    void ToggleDebugGraphics() { _drawWorldDebug = !_drawWorldDebug; }
+
 public:
     enum RenderSpace { WORLD, UI };
 
     GameRenderer(SDL_Window* pWindow);
     ~GameRenderer();
+
+    void ToggleDebugDraw(bool state) { _drawWorldDebug = state; }
 
     /// <summary>
     /// Sets the default colour the renderer clears with.
@@ -93,7 +100,7 @@ public:
     /// Set an example object for this renderer to track, set nullptr to not track anything. - NOT FINAL
     /// </summary>
     /// <param name="go">The target object.</param>
-    void SetObjectToTrack(ExampleGameObject* go) { _target = go; }
+    void SetObjectToTrack(BaseGameObject* go) { _target = go; }
     /// <summary>
     /// Adds a game object to the internal render list.
     /// </summary>
