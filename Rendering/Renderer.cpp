@@ -6,6 +6,9 @@
 
 #include "../GameObjects/ExampleGameObject.h"
 
+#include "../Core/CollisionManager.h"
+#include "../Core/InputManager.h"
+
 #include <iostream> // std::cout, std::endl
 #include <SDL.h> // SDL_CreateRenderer, SDL_DestroyRenderer, SDL_RENDERER_ACCELERATED, SDL_RENDERER_PRESENTVSYNC
 #include <cmath>
@@ -21,6 +24,8 @@ GameRenderer::GameRenderer(SDL_Window* pWindow)
 
     _position.x = 0;
     _position.y = 0;
+
+    InputManager::instance().BindKey(SDL_SCANCODE_F10, InputManager::KEYDOWN, std::bind(&GameRenderer::ToggleDebugGraphics, this));
 }
 
 GameRenderer::~GameRenderer()
@@ -34,25 +39,31 @@ SDL_Rect GameRenderer::WorldToScreenSpace(float x, float y, float w, float h)
     int wi = DEFAULT_SCREEN_WIDTH, he = DEFAULT_SCREEN_HEIGHT;
     SDL_GetWindowSize(GameWindow::instance().GetWindow(), &wi, &he);
 
-    float resolutionScale[2] = {(float)wi/DEFAULT_SCREEN_WIDTH, (float)he/DEFAULT_SCREEN_HEIGHT };
-    float invertedScale[2] = { _scale / 100, _scale / 100 };
-    float scale[2] = { _unitsOnScreen[0] * invertedScale[0], _unitsOnScreen[1] * invertedScale[1] };
-    float offset[2] = { x - _position.x, y - _position.y };
-    float range[2] = { scale[0] - (-scale[0]), scale[1] - (-scale[1]) };
+    float resolutionScale[2] = {(float)wi /DEFAULT_SCREEN_WIDTH, (float)he/DEFAULT_SCREEN_HEIGHT };// 1 1
 
-    offset[0] = offset[0] - (-scale[0] * resolutionScale[0]);
-    offset[1] = offset[1] - (-scale[1] * resolutionScale[1]);
+    float scale[2] = { _unitsOnScreen[0] * _scale, _unitsOnScreen[1] * _scale }; // 10 5
+    float offset[2] = { x - _position.x, y - _position.y }; // 0 0
+    float range[2] = { scale[0] - (-scale[0]), scale[1] - (-scale[1]) }; // 20 10
 
-    offset[0] = offset[0] / range[0];
-    offset[1] = offset[1] / range[1];
+    offset[0] = offset[0] - (-scale[0] * resolutionScale[0]); // 0 - (-10 * 1) = 10
+    offset[1] = offset[1] - (-scale[1] * resolutionScale[1]); // 0 - (-5 * 1) = 5
 
-    offset[0] = offset[0] / resolutionScale[0];
-    offset[1] = offset[1] / resolutionScale[1];
+    offset[0] = offset[0] / range[0]; // 10 / 20 = 0.5
+    offset[1] = offset[1] / range[1]; // 5 / 10 = 0.5
+
+    offset[0] = offset[0] / resolutionScale[0]; // 0.5 / 1
+    offset[1] = offset[1] / resolutionScale[1]; // 0.5 / 1
+
+    float normalDimensions[2] = { w / range[0], h / range[1] };
+    normalDimensions[0] = normalDimensions[0] / resolutionScale[0];
+    normalDimensions[1] = normalDimensions[1] / resolutionScale[1];
 
     SDL_Rect rect =
     { 
-        (int)(wi * offset[0]), (int)(he - (he * offset[1])),
-        (int)(w / invertedScale[0]), (int)(h / invertedScale[1])
+        (int)((float)wi* offset[0]), // 800 * 0.5 = 400
+        (int)((float)he - (he * offset[1])), // 600 * 0.5 = 300
+        (int)((float)wi * normalDimensions[0]), // 5 / 1 = 5
+        (int)((float)he * normalDimensions[1])  // 5 / 1 = 5
     };
     return rect;
 }
@@ -165,6 +176,10 @@ void GameRenderer::Draw()
         }
     }
 
+    // Render Debug
+    if (_drawWorldDebug)
+        DrawWorldDebug();
+
     // Render UI Objects
     for (int i = 0; i < uiObjects.size(); ++i)
     {
@@ -221,4 +236,65 @@ void GameRenderer::Clear()
 void GameRenderer::Present()
 {
     SDL_RenderPresent(_pRenderer);
+}
+
+void GameRenderer::DrawWorldDebug()
+{
+    // Get All Colliders
+    std::vector<Collider2D*> colliders = CollisionManager::GetColliders();
+
+    // Render Colliders
+    for (int i = 0; i < colliders.size(); ++i)
+    {
+        if (!colliders[i])
+            continue;
+        // check shape
+        switch (colliders[i]->GetColliderType())
+        {
+        case ColliderType::RECTANGLE:
+        {
+            Vector2 pos = colliders[i]->GetPosition();
+            Vector2 dim = colliders[i]->GetDimensions();
+            SDL_Rect rect = WorldToScreenSpace(pos.x, pos.y, dim.x, dim.y);
+            rect.x = rect.x - rect.w / 2; rect.y = rect.y - rect.h / 2;
+            SetDrawColor({ 0,0,255,255 });
+            SDL_RenderDrawRect(_pRenderer, &rect);
+            break;
+        }
+        case ColliderType::CIRCLE:
+        {
+            Vector2 pos = colliders[i]->GetPosition();
+            Vector2 dim = { colliders[i]->GetRadius(), colliders[i]->GetRadius() };
+            SDL_Rect rect = WorldToScreenSpace(pos.x + dim.x/2, pos.y - dim.y/2, dim.x, dim.y);
+            rect.x = rect.x - rect.w / 2; rect.y = rect.y - rect.h / 2;
+            
+            
+            SetDrawColor({ 0,0,255,255 });
+            int x = 0;
+            int y = rect.w;
+            int d = 3 - 2 * rect.w;
+            while (y >= x) {
+                SDL_RenderDrawPoint(_pRenderer, rect.x + x, rect.y + y);
+                SDL_RenderDrawPoint(_pRenderer, rect.x + y, rect.y + x);
+                SDL_RenderDrawPoint(_pRenderer, rect.x - x, rect.y + y);
+                SDL_RenderDrawPoint(_pRenderer, rect.x - y, rect.y + x);
+                SDL_RenderDrawPoint(_pRenderer, rect.x + x, rect.y - y);
+                SDL_RenderDrawPoint(_pRenderer, rect.x + y, rect.y - x);
+                SDL_RenderDrawPoint(_pRenderer, rect.x - x, rect.y - y);
+                SDL_RenderDrawPoint(_pRenderer, rect.x - y, rect.y - x);
+                if (d < 0) {
+                    d += 4 * x + 6;
+                }
+                else {
+                    d += 4 * (x - y) + 10;
+                    y--;
+                }
+                x++;
+            }
+            break;
+        }
+        default:
+            break;
+        }
+    } 
 }
