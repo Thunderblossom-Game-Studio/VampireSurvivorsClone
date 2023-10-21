@@ -87,10 +87,9 @@ bool Game::Init()
     ////End of example
 
 
-    _player = new Player(0,0,5,5,100,0.001);
+    _player = new Player( 0, 0, 5, 5, 100, 0.1f, ColliderType::RECTANGLE);
     GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
     renderer->SetObjectToTrack(_player);
-
 
     _running = true;
     return true;

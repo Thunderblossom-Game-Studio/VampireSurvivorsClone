@@ -5,7 +5,7 @@
 #include "Core/InputManager.h"
 
 
-Player::Player(float x, float y, float width, float height, float playerHP, float playerMovementSpeed, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height)
+Player::Player(float x, float y, float width, float height, float playerHP, float playerMovementSpeed, ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height)
 {
 	_renderSpace = space;
 	_color = color;
@@ -14,6 +14,24 @@ Player::Player(float x, float y, float width, float height, float playerHP, floa
 	_playerHP = playerHP;
 	_playerMovementSpeed = playerMovementSpeed;
 
+	switch (shape)
+	{
+	case ColliderType::RECTANGLE:
+	{
+		_collider = new Collider2D(shape, { _width, _height });
+		_collider->SetOnCollisionCallback(nullptr);
+		break;
+	}
+	case ColliderType::CIRCLE:
+	{
+		_collider = new Collider2D(shape, _width/2);
+		_collider->SetOnCollisionCallback(nullptr);
+		break;
+	}
+	}
+
+	if (_collider)
+		CollisionManager::RegisterCollider(_collider);
 
 	InputManager::instance().BindKey(SDL_SCANCODE_W, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementUp, this));
 	InputManager::instance().BindKey(SDL_SCANCODE_A, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementLeft, this));
@@ -37,21 +55,29 @@ Player::~Player()
 void Player::PlayerMovementUp()
 {
 	_position.y = _position.y + _playerMovementSpeed;
+	if (_collider)
+		_collider->SetPosition(_position);
 }
 
 void Player::PlayerMovementDown()
 {
 	_position.y = _position.y - _playerMovementSpeed;
+	if (_collider)
+		_collider->SetPosition(_position);
 }
 
 void Player::PlayerMovementLeft()
 {
 	_position.x = _position.x - _playerMovementSpeed;
+	if (_collider)
+		_collider->SetPosition(_position);
 }
 
 void Player::PlayerMovementRight()
 {
 	_position.x = _position.x + _playerMovementSpeed;
+	if (_collider)
+		_collider->SetPosition(_position);
 }
 
 

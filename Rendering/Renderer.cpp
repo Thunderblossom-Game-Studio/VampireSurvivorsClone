@@ -7,6 +7,7 @@
 #include "../GameObjects/ExampleGameObject.h"
 
 #include "../Core/CollisionManager.h"
+#include "../Core/Collider2D.h"
 #include "../Core/InputManager.h"
 
 #include <iostream> // std::cout, std::endl
