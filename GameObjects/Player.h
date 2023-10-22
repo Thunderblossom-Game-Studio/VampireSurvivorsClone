@@ -1,9 +1,9 @@
 #pragma once
-#include "GameObjects/BaseGameObject.h"
-#include "GameObjects/IRenderableObject.h"
-#include "Core/CollisionManager.h"
-#include "Core/Collider2D.h"
-#include "Core/InputManager.h"
+#include "BaseGameObject.h"
+#include "IRenderableObject.h"
+#include "../Core/CollisionManager.h"
+#include "../Core/Collider2D.h"
+#include "../Core/InputManager.h"
 
 class Player final : public BaseGameObject, public IRenderableObject
 {

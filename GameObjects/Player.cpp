@@ -1,8 +1,8 @@
 #include "Player.h"
-#include "GameObjects/BaseGameObject.h"
-#include "GameObjects/IRenderableObject.h"
-#include "Rendering/RenderInstanceManager.h"
-#include "Core/InputManager.h"
+#include "BaseGameObject.h"
+#include "IRenderableObject.h"
+#include "../Rendering/RenderInstanceManager.h"
+#include "../Core/InputManager.h"
 
 
 Player::Player(float x, float y, float width, float height, float playerHP, float playerMovementSpeed, ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height)
