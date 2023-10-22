@@ -18,6 +18,8 @@ Game::~Game()
     IMG_Quit();
     SDL_Quit();
     std::cout << "Game instance destroyed" << std::endl;
+
+    AudioSystem::instance().Cleanup();
 }
 
 bool Game::Init()
@@ -86,6 +88,11 @@ bool Game::Init()
 
     ////End of example
 
+    AudioSystem::instance().Init();
+    
+    AudioSystem::instance().LoadAudio("BackroundMusic", "Assets/383_Banshees_Lair.mp3");
+    AudioSystem::instance().LoadAudio("SoundEffect01", "Assets/jeff.wav");
+
 
     _player = new Player( 0, 0, 5, 5, 100, 0.1f, ColliderType::RECTANGLE);
     GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
@@ -103,11 +110,18 @@ void Game::Update()
     {
         switch(event.type)
         {
-            case SDL_QUIT:
+        // InputManager handles keypresses, this is just a quick and dirty way to exit the game
+        case SDL_KEYDOWN:
+            if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
                 _running = false;
-                break;
-            default:
-                break;
+            break;
+            
+        case SDL_QUIT:
+            _running = false;
+            break;
+            
+        default:
+            break;
         }
     }
 

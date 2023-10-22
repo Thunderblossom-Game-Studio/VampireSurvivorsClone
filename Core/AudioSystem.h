@@ -4,6 +4,8 @@
 #include <map>
 #include <string>
 #include <SDL_mixer.h>
+#include "../Templates/Singleton.h"
+#include <memory>
 
 enum AudioType
 {
@@ -16,34 +18,23 @@ struct AudioData
 	AudioType _type;
 	Mix_Chunk* _sound;
 	Mix_Music* _music;
-	// int channel
 };
 
-class AudioSystem
+class AudioSystem : public Singleton<AudioSystem>
 {
-private:
-
+private:	
 	std::map<std::string, AudioData> _audioData;
 
-	AudioSystem();
-
+public:
+	AudioSystem(token);
 	~AudioSystem();
 
-public:
-	static AudioSystem& getInstance();
-
-	AudioSystem(AudioSystem const&) = delete;
-
-	void operator=(AudioSystem const&) = delete;
-
-	void InitializeAudioSystem();
+	void Init();
 
 	void LoadAudio(const std::string& name, const std::string& audioDirect);
 
-	void PlayAudio(int audioChannell, const std::string& name, int extraLoops);
+	void PlayAudio(int audioChannel, const std::string& name, int extraLoops);
 
-	void CleanAudioSystem();
-
-
+	void Cleanup();
 };
 

@@ -1,6 +1,6 @@
 #pragma once
 
-#include "../Player.h"
+#include "../GameObjects/Player.h"
 #include "../Templates/Singleton.h"
 
 // Temp include for demonstration purposes
