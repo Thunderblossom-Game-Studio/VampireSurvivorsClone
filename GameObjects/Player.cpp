@@ -2,6 +2,7 @@
 #include "BaseGameObject.h"
 #include "IRenderableObject.h"
 #include "../Rendering/RenderInstanceManager.h"
+#include <iostream>
 #include "../Core/InputManager.h"
 
 
@@ -55,6 +56,7 @@ Player::~Player()
 void Player::PlayerMovementUp()
 {
 	_position.y = _position.y + _playerMovementSpeed;
+
 	if (_collider)
 		_collider->SetPosition(_position);
 }
@@ -62,6 +64,7 @@ void Player::PlayerMovementUp()
 void Player::PlayerMovementDown()
 {
 	_position.y = _position.y - _playerMovementSpeed;
+
 	if (_collider)
 		_collider->SetPosition(_position);
 }
@@ -69,6 +72,7 @@ void Player::PlayerMovementDown()
 void Player::PlayerMovementLeft()
 {
 	_position.x = _position.x - _playerMovementSpeed;
+
 	if (_collider)
 		_collider->SetPosition(_position);
 }
@@ -76,6 +80,7 @@ void Player::PlayerMovementLeft()
 void Player::PlayerMovementRight()
 {
 	_position.x = _position.x + _playerMovementSpeed;
+
 	if (_collider)
 		_collider->SetPosition(_position);
 }
@@ -83,7 +88,25 @@ void Player::PlayerMovementRight()
 
 void Player::PlayerAutoAttack()
 {
+
+		std::cout << "Attack" << std::endl;
+		TimeToReset = 0;
 	//Insert Basic Auto Attack Here
+}
+
+void Player::PlayerTimer()
+{
+	while(TimeToReset >= 0)
+	{
+		TimeToReset = TimeToReset + 1;
+
+		if (TimeToReset >= 1000000)
+		{
+			PlayerAutoAttack();
+		}
+
+	}
+	
 }
 
 

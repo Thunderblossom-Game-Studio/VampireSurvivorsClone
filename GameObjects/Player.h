@@ -26,7 +26,8 @@ public:
 
 	float GetWidth() const override { return _width; }
 	float GetHeight() const override { return _height; }
-
+	float TimeToReset;
+	bool TimeKeep = true;
 
 	void PlayerMovementUp();
 	void PlayerMovementDown();
@@ -34,6 +35,7 @@ public:
 	void PlayerMovementLeft();
 
 	void PlayerAutoAttack();
+	void PlayerTimer();
 
 
 
