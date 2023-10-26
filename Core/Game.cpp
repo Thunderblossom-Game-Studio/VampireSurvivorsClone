@@ -2,6 +2,7 @@
 #include <iostream> // std::cout, std::endl
 #include <SDL.h> // SDL_Init, SDL_Quit
 #include "../Rendering/GameWindow.h"
+#include "../GameObjects/Player.h"
 #include "../Rendering/RenderInstanceManager.h"
 #include "InputManager.h"
 #include "AudioSystem.h"
@@ -18,6 +19,8 @@ Game::~Game()
     IMG_Quit();
     SDL_Quit();
     std::cout << "Game instance destroyed" << std::endl;
+
+    AudioSystem::instance().Cleanup();
 }
 
 bool Game::Init()
@@ -60,31 +63,41 @@ bool Game::Init()
     }
 
 
-    // Creating example game objects for demonstration
-    _exampleGameObject = new ExampleGameObject(5, 4, 5, 5);
+    //// Creating example game objects for demonstration
+    //_exampleGameObject = new ExampleGameObject(5, 4, 5, 5);
 
-    // Setting an IRenderableObject's texture. Can be done in class, just here for sake of demo.
-    _exampleGameObject->SetTexture("Assets/Textures/TextureLoadingTest.png", {128,45,16,19});
+    //// Setting an IRenderableObject's texture. Can be done in class, just here for sake of demo.
+    //_exampleGameObject->SetTexture("Assets/Textures/TextureLoadingTest.png", {128,45,16,19});
 
-    // UI space x,y positions are normalized and w,h scale differently to world.
-    _exampleUIObject = new ExampleGameObject(0.9f, 0.82f, 80, 80, GameRenderer::UI, { 255,0,0,255 });
+    //// UI space x,y positions are normalized and w,h scale differently to world.
+    //_exampleUIObject = new ExampleGameObject(0.9f, 0.82f, 80, 80, GameRenderer::UI, { 255,0,0,255 });
 
-    // "Loading" a texture multiple times doesn't affect memory, the textures are stored in a catalogue and referenced 
-    // if the same filepath is used again.
-    _exampleUIObject->SetTexture("Assets/Textures/TextureLoadingTest.png", { 288,257,15,14 });
+    //// "Loading" a texture multiple times doesn't affect memory, the textures are stored in a catalogue and referenced 
+    //// if the same filepath is used again.
+    //_exampleUIObject->SetTexture("Assets/Textures/TextureLoadingTest.png", { 288,257,15,14 });
 
-    // Getting a renderer from the instance manager, "main" is currently the only active renderer.
+    //// Getting a renderer from the instance manager, "main" is currently the only active renderer.
+    //GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
+
+    //// The renderer works by adding game objects to it's internal render list.
+    //renderer->AddToRenderList(_exampleGameObject);
+    //// You can also use 'FindInRenderList()' to get a game object and 'RemoveFromRenderList()' to remove one.
+    //renderer->AddToRenderList(_exampleUIObject);
+
+    //// Setting an object for the renderer to track. Set nullptr to not track anything.
+    //renderer->SetObjectToTrack(_exampleGameObject);
+
+    ////End of example
+
+    AudioSystem::instance().Init();
+    
+    AudioSystem::instance().LoadAudio("BackroundMusic", "Assets/383_Banshees_Lair.mp3");
+    AudioSystem::instance().LoadAudio("SoundEffect01", "Assets/jeff.wav");
+
+
+    _player = new Player( 0, 0, 5, 5, 100, 0.1f, ColliderType::RECTANGLE);
     GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
-
-    // The renderer works by adding game objects to it's internal render list.
-    renderer->AddToRenderList(_exampleGameObject);
-    // You can also use 'FindInRenderList()' to get a game object and 'RemoveFromRenderList()' to remove one.
-    renderer->AddToRenderList(_exampleUIObject);
-
-    // Setting an object for the renderer to track. Set nullptr to not track anything.
-    renderer->SetObjectToTrack(_exampleGameObject);
-
-    // End of example
+    renderer->SetObjectToTrack(_player);
 
     _running = true;
     return true;
@@ -98,24 +111,27 @@ void Game::Update()
     {
         switch(event.type)
         {
-            case SDL_QUIT:
+        // InputManager handles keypresses, this is just a quick and dirty way to exit the game
+        case SDL_KEYDOWN:
+            if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
                 _running = false;
-                break;
-            case SDL_KEYDOWN:
-                if (SDLK_SPACE)
-                {
-                    AudioSystem::getInstance().PlayAudio(-1, "SoundEffect01", 0);
-                    std::cout << "Final!!!" << std::endl;
-                }
-                break;
-            default:
-                break;
+            break;
+            
+        case SDL_QUIT:
+            _running = false;
+            break;
+            
+        default:
+            break;
         }
+        
     }
-
+	 
     // Updates input state and performs any bound callbacks
     InputManager::instance().Update();
 
     // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
     RenderInstanceManager::instance().GetRenderer("main")->Draw();
+
+   
 }
