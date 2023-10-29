@@ -13,6 +13,7 @@
 #include <iostream> // std::cout, std::endl
 #include <SDL.h> // SDL_CreateRenderer, SDL_DestroyRenderer, SDL_RENDERER_ACCELERATED, SDL_RENDERER_PRESENTVSYNC
 #include <cmath>
+#include <algorithm>
 
 GameRenderer::GameRenderer(SDL_Window* pWindow)
 {
@@ -141,17 +142,26 @@ void GameRenderer::Draw()
 {
     if (_target) 
         Track();
+
+    if (_renderList.size() == 0)
+        return;
+    
     Clear();
+
     if (_layers)
-        std::cout << "Layers need implementing." << std::endl;
+    {
+        std::stable_sort(_renderList.begin(), _renderList.end(),
+            [](IRenderableObject* g1, IRenderableObject* g2) {
+                return g1->GetSortingLayer() - g1->GetY() < g2->GetSortingLayer() - g2->GetY(); });
+    }
+
     std::vector<IRenderableObject*> uiObjects;
     IRenderableObject* renderable;
     SDL_Rect rect;
-
     // Render World Objects
     for (int i = 0; i < _renderList.size(); ++i)
     {
-        renderable = dynamic_cast<IRenderableObject*>(_renderList[i]);
+        renderable = _renderList[i];
         if (!renderable)
             continue;
         else if (!renderable->GetEnabled())
@@ -205,7 +215,7 @@ void GameRenderer::Draw()
     Present();
 }
 
-bool GameRenderer::AddToRenderList(BaseGameObject* go)
+bool GameRenderer::AddToRenderList(IRenderableObject* go)
 {
     if (FindInRenderList(go))
         return false;
@@ -213,15 +223,15 @@ bool GameRenderer::AddToRenderList(BaseGameObject* go)
     return true;
 }
 
-BaseGameObject* GameRenderer::FindInRenderList(BaseGameObject* go)
+IRenderableObject* GameRenderer::FindInRenderList(IRenderableObject* go)
 {
-    std::vector<BaseGameObject*>::iterator it = std::find(_renderList.begin(), _renderList.end(), go);
+    std::vector<IRenderableObject*>::iterator it = std::find(_renderList.begin(), _renderList.end(), go);
     if (it == _renderList.end())
         return nullptr;
     return _renderList[std::distance(_renderList.begin(), it)];
 }
 
-bool GameRenderer::RemoveFromRenderList(BaseGameObject* go)
+bool GameRenderer::RemoveFromRenderList(IRenderableObject* go)
 {
     if (!FindInRenderList(go))
         return false;

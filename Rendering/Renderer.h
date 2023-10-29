@@ -15,12 +15,12 @@ class ExampleGameObject;
 class GameRenderer : public BaseGameObject
 {
 private:
-    std::vector<BaseGameObject*> _renderList;
+    std::vector<IRenderableObject*> _renderList;
     BaseGameObject* _target{ nullptr };
     float _width = 800;
     float _height = 600;
-    bool _layers{ false };
-    float _scale{ 4.0f };
+    bool _layers{ true };
+    Uint8 _scale{ 4 };
     float _unitsOnScreen[2]{ 10,7.5f };
     bool _drawWorldDebug{ false };
 
@@ -82,6 +82,12 @@ public:
     void ToggleDebugDraw(bool state) { _drawWorldDebug = state; }
 
     /// <summary>
+    /// Sets the scale of the camera (Higher values zoom out, Lower values zoom in). 
+    /// </summary>
+    /// <param name="scale">The new renderer scale.</param>
+    void SetScale(Uint8 scale) { _scale = scale; }
+
+    /// <summary>
     /// Sets the default colour the renderer clears with.
     /// </summary>
     /// <param name="color"></param>
@@ -105,15 +111,15 @@ public:
     /// Adds a game object to the internal render list.
     /// </summary>
     /// <param name="go">The target object.</param>
-    bool AddToRenderList(BaseGameObject* go);
+    bool AddToRenderList(IRenderableObject* go);
     /// <summary>
     /// Tries to find a game object in the internal render list.
     /// </summary>
     /// <param name="go">The target object.</param>
-    BaseGameObject* FindInRenderList(BaseGameObject* go);
+    IRenderableObject* FindInRenderList(IRenderableObject* go);
     /// <summary>
     /// Tries to remove a game object from the internal render list.
     /// </summary>
     /// <param name="go">The target object.</param>
-    bool RemoveFromRenderList(BaseGameObject* go);
+    bool RemoveFromRenderList(IRenderableObject* go);
 };

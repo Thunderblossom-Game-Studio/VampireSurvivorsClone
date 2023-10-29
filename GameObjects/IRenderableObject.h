@@ -14,12 +14,16 @@ protected:
     SDL_Color _color = { 255,255,255,255 };
     GameRenderer::RenderSpace _renderSpace{ GameRenderer::RenderSpace::WORLD };
     bool _enabled{ true };
+    int _sortingLayer = 0;
 
 public:
     virtual float GetX() const = 0;
     virtual float GetY() const = 0;
     virtual float GetWidth() const = 0;
     virtual float GetHeight() const = 0;
+
+    void SetSortingLayer(int layer) { _sortingLayer = layer; }
+    int GetSortingLayer() { return _sortingLayer; }
     
     /// <summary>
     /// Set whether or not this object is currently rendering.
