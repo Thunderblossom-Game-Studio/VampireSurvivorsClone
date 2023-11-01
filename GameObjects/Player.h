@@ -27,7 +27,8 @@ public:
 		float _playerAttackSpeedMultiplier = 0; //Player Attack Speed
 		float _playerXpMultiplier = 0;  //Increases Amount Of XP Gained From Drops
 		float _playerMagnetMultiplier = 0; //Range to Collect Pickups
-		float _playerGoldMultiplier = 0; //Increases Amount Of Gold Gained From Drops
+		float _playerGoldMultiplier = 0;
+		//Increases Amount Of Gold Gained From Drops
 		//Drop Chance Multiplier ???
 		// AoE Multiplier ???
 		
@@ -47,6 +48,7 @@ public:
 	float TimeToReset;
 	float XPLevelUp = 100;
 	float XPCapMultiplier = 2;
+	float AttackTimer = 1000000;
 	bool TimeKeep = true;
 
 	void PlayerMovementUp();
