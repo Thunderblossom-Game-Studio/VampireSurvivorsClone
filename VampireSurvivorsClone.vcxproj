@@ -162,6 +162,7 @@
     <ClCompile Include="Core\AssetManager.cpp" />
     <ClCompile Include="Core\AudioSystem.cpp" />
     <ClCompile Include="Core\CollisionManager.cpp" />
+    <ClCompile Include="Core\DeltaTime.cpp" />
     <ClCompile Include="Core\Game.cpp" />
     <ClCompile Include="Core\InputManager.cpp" />
     <ClCompile Include="GameObjects\ExampleGameObject.cpp" />
@@ -402,6 +403,7 @@
     <ClInclude Include="Core\AssetManager.h" />
     <ClInclude Include="Core\AudioSystem.h" />
     <ClInclude Include="Core\CollisionManager.h" />
+    <ClInclude Include="Core\DeltaTime.h" />
     <ClInclude Include="Core\Game.h" />
     <ClInclude Include="Core\InputManager.h" />
     <ClInclude Include="Core\Vector2.h" />
