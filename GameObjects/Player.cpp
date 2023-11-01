@@ -6,14 +6,25 @@
 #include "../Core/InputManager.h"
 
 
-Player::Player(float x, float y, float width, float height, float playerHP, float playerMovementSpeed, ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height)
+Player::Player(float x, float y, float width, float height, float currentXP, 
+	float playerHP, float playerMovementSpeed, float playerRecoveryMultiplier, float playerArmourMultiplier, float playerDamageMultiplier,
+	float playerAttackSpeedMultiplier, float playerXpMultiplier, float playerMagnetMultiplier, float playerGoldMultiplier,
+	ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height)
 {
 	_renderSpace = space;
 	_color = color;
 	_position.x = x;
 	_position.y = y;
+
+	_currentXP = currentXP;
 	_playerHP = playerHP;
 	_playerMovementSpeed = playerMovementSpeed;
+	_playerRecoveryMultiplier = playerRecoveryMultiplier;  //Health Recovery Speed_playerArmourMultiplier = playerArmourMultiplier; //Defence Multiplier Against Enemy Attacks
+	_playerDamageMultiplier = playerDamageMultiplier; //Attack Multiplier Of Attacks
+	_playerAttackSpeedMultiplier = playerAttackSpeedMultiplier; //Player Attack Speed
+	_playerXpMultiplier = playerXpMultiplier;  //Increases Amount Of XP Gained From Drops
+	_playerMagnetMultiplier = playerMagnetMultiplier; //Range to Collect Pickups
+	_playerGoldMultiplier = playerGoldMultiplier;
 
 	switch (shape)
 	{
@@ -91,10 +102,10 @@ void Player::PlayerAutoAttack()
 
 		std::cout << "Attack" << std::endl;
 		TimeToReset = 0;
-	//Insert Basic Auto Attack Here
+	//Insert Basic Auto Attack Here (NEEDS SPRITE & ITS OWN HIT DETECTION)
 }
 
-void Player::PlayerTimer()
+void Player::PlayerTimer() //This needs to be linked up to delta time
 {
 	while(TimeToReset >= 0)
 	{
@@ -106,8 +117,22 @@ void Player::PlayerTimer()
 		}
 
 	}
-	
+
+	if (_currentXP >= XPLevelUp)
+	{
+		_currentXP = 0;
+		XPLevelUp = XPLevelUp * XPCapMultiplier;
+
+		//Insert harrison's Menu Function
+	}
+
+
+
+
 }
+
+
+
 
 
 //void Player::OnEnemyCollision()
