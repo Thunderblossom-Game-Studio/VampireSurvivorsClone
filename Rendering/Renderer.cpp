@@ -174,15 +174,24 @@ void GameRenderer::Draw()
             uiObjects.push_back(renderable);
             continue;
         }
+        SDL_Point rot_center; 
+        rot_center.x = renderable->GetWidth() / 2;
+        rot_center.y = renderable->GetHeight() / 2;
+
+
         rect = WorldToScreenSpace(renderable->GetX(), renderable->GetY(), renderable->GetWidth(), renderable->GetHeight());
         rect.x = rect.x - rect.w / 2; rect.y = rect.y - rect.h / 2;
         SetDrawColor(renderable->GetColor());
 
         SDL_Texture* texture = renderable->GetTexture();
+
         if (texture) 
         {
             SDL_Rect src = renderable->GetSrc();
-            SDL_RenderCopy(_pRenderer, texture, &src, &rect);
+            if (renderable->Flipped())
+                SDL_RenderCopyEx(_pRenderer, texture, &src, &rect, 0.0f, &rot_center, SDL_FLIP_HORIZONTAL);
+            else
+                SDL_RenderCopyEx(_pRenderer, texture, &src, &rect, 0.0f, &rot_center, SDL_FLIP_NONE);
         }
         else 
         {

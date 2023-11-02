@@ -77,7 +77,7 @@ void TileMap::LoadMap(std::string mapPath)
 						{ tileSize,tileSize },
 						"Assets/Textures/TextureLoadingTest.png",
 						{ 16,64,16,16 },
-						-5,
+						-10,
 						NONE
 					));
 					break;
@@ -89,7 +89,7 @@ void TileMap::LoadMap(std::string mapPath)
 						{ tileSize,tileSize },
 						"Assets/Textures/TextureLoadingTest.png",
 						{ 32,64,16,16 },
-						-5,
+						-10,
 						NONE
 					));
 					break;

@@ -14,6 +14,7 @@ protected:
     SDL_Color _color = { 255,255,255,255 };
     GameRenderer::RenderSpace _renderSpace{ GameRenderer::RenderSpace::WORLD };
     bool _enabled{ true };
+    bool _flipped{ false };
     int _sortingLayer = 0;
 
 public:
@@ -21,6 +22,9 @@ public:
     virtual float GetY() const = 0;
     virtual float GetWidth() const = 0;
     virtual float GetHeight() const = 0;
+
+    void Flip(bool flip) { _flipped = flip; }
+    bool Flipped() { return _flipped; }
 
     void SetSortingLayer(int layer) { _sortingLayer = layer; }
     int GetSortingLayer() { return _sortingLayer; }
@@ -55,5 +59,5 @@ public:
     /// <summary>
     /// </summary>
     /// <returns>The x,y,w,h of the texture being rendered.</returns>
-    SDL_Rect GetSrc() { return _src; }
+    virtual SDL_Rect GetSrc() { return _src; }
 };
