@@ -11,9 +11,13 @@ class SDL_Window;
 class SDL_Renderer;
 class IRenderableObject;
 class ExampleGameObject;
+class TileMap;
 
 class GameRenderer : public BaseGameObject
 {
+public:
+    enum RenderSpace { WORLD, UI };
+
 private:
     std::vector<IRenderableObject*> _renderList;
     BaseGameObject* _target{ nullptr };
@@ -23,9 +27,11 @@ private:
     Uint8 _scale{ 4 };
     float _unitsOnScreen[2]{ 10,7.5f };
     bool _drawWorldDebug{ false };
+    float _moveSpeed{ 5.0f };
+    bool _fullscreen{ false };
 
     SDL_Renderer* _pRenderer = nullptr;
-    SDL_Color _defaultColor = { 0, 200, 0, 255 };
+    SDL_Color _defaultColor = { 0, 0, 0, 255 };
     
     /// <summary>
     /// Converts world space transform units into SDL screen pixel coordinates.
@@ -74,12 +80,13 @@ private:
     void ToggleDebugGraphics() { _drawWorldDebug = !_drawWorldDebug; }
 
 public:
-    enum RenderSpace { WORLD, UI };
-
     GameRenderer(SDL_Window* pWindow);
     ~GameRenderer();
 
     void ToggleDebugDraw(bool state) { _drawWorldDebug = state; }
+
+    void SetMoveSpeed(float speed) { _moveSpeed = speed; }
+    float GetMoveSpeed() { return _moveSpeed; }
 
     /// <summary>
     /// Sets the scale of the camera (Higher values zoom out, Lower values zoom in). 
@@ -122,4 +129,6 @@ public:
     /// </summary>
     /// <param name="go">The target object.</param>
     bool RemoveFromRenderList(IRenderableObject* go);
+
+    void ToggleFullscreen();
 };

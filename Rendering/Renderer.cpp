@@ -5,10 +5,12 @@
 #include "GameWindow.h" // Game::GetWindow
 
 #include "../GameObjects/ExampleGameObject.h"
+#include "TileMap.h"
 
 #include "../Core/CollisionManager.h"
 #include "../Core/Collider2D.h"
 #include "../Core/InputManager.h"
+#include "../Core/DeltaTime.h"
 
 #include <iostream> // std::cout, std::endl
 #include <SDL.h> // SDL_CreateRenderer, SDL_DestroyRenderer, SDL_RENDERER_ACCELERATED, SDL_RENDERER_PRESENTVSYNC
@@ -28,6 +30,7 @@ GameRenderer::GameRenderer(SDL_Window* pWindow)
     _position.y = 0;
 
     InputManager::instance().BindKey(SDL_SCANCODE_F10, InputManager::KEYDOWN, std::bind(&GameRenderer::ToggleDebugGraphics, this));
+    InputManager::instance().BindKey(SDL_SCANCODE_F11, InputManager::KEYDOWN, std::bind(&GameRenderer::ToggleFullscreen, this));
 }
 
 GameRenderer::~GameRenderer()
@@ -122,10 +125,10 @@ void GameRenderer::Track()
 
     float dir = tX - _position.x;
     if (abs(dir) > 0.01f)
-        _position.x += (dir * 0.01f);
+        _position.x += (dir * _moveSpeed * DeltaTime::GetDeltaTime());
     dir = tY - _position.y;
     if (abs(dir) > 0.01f)
-        _position.y += (dir * 0.01f);
+        _position.y += (dir * _moveSpeed * DeltaTime::GetDeltaTime());
 }
 
 void GameRenderer::SetDrawColor(SDL_Color color)
@@ -233,10 +236,25 @@ IRenderableObject* GameRenderer::FindInRenderList(IRenderableObject* go)
 
 bool GameRenderer::RemoveFromRenderList(IRenderableObject* go)
 {
-    if (!FindInRenderList(go))
+    IRenderableObject* obj = FindInRenderList(go);
+    if (!obj)
         return false;
     _renderList.erase(std::remove(_renderList.begin(), _renderList.end(), go), _renderList.end());
     return true;
+}
+
+void GameRenderer::ToggleFullscreen()
+{
+    if (_fullscreen)
+    {
+        SDL_SetWindowFullscreen(GameWindow::instance().GetWindow(), 0);
+        _fullscreen = false;
+    }
+    else
+    {
+        SDL_SetWindowFullscreen(GameWindow::instance().GetWindow(), SDL_WINDOW_FULLSCREEN_DESKTOP);
+        _fullscreen = true;
+    }
 }
 
 void GameRenderer::Clear()
