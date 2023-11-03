@@ -27,7 +27,7 @@ public:
 	TileMap(int width, int height, int tileSize, std::string mapPath);
 	~TileMap();
 
-	void LoadMap(std::string mapPath);
+	void LoadMapFromFile(std::string mapPath);
 	virtual void DrawMap() {};
 	void SaveMaptoFile(std::string mapPath = "Assets/Maps/Map1.txt");
 

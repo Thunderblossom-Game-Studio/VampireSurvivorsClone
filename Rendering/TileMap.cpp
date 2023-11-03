@@ -16,7 +16,7 @@ TileMap::TileMap(int width, int height, int tileSize, std::string mapPath)
 	{
 		tiles[i].resize(height);
 	}
-	LoadMap(mapPath);
+	LoadMapFromFile(mapPath);
 }
 
 TileMap::~TileMap()
@@ -32,7 +32,7 @@ TileMap::~TileMap()
 	tiles.clear();
 }
 
-void TileMap::LoadMap(std::string mapPath)
+void TileMap::LoadMapFromFile(std::string mapPath)
 {
 	for (std::vector<Tile*> tileRows : tiles)
 	{
