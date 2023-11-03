@@ -295,7 +295,7 @@ void GameRenderer::DrawWorldDebug()
             Vector2 dim = colliders[i]->GetDimensions();
             SDL_Rect rect = WorldToScreenSpace(pos.x, pos.y, dim.x, dim.y);
             rect.x = rect.x - rect.w / 2; rect.y = rect.y - rect.h / 2;
-            SetDrawColor({ 0,0,255,255 });
+            SetDrawColor({ 0,255,255,255 });
             SDL_RenderDrawRect(_pRenderer, &rect);
             break;
         }
@@ -307,7 +307,7 @@ void GameRenderer::DrawWorldDebug()
             rect.x = rect.x - rect.w / 2; rect.y = rect.y - rect.h / 2;
             
             
-            SetDrawColor({ 0,0,255,255 });
+            SetDrawColor({ 0,255,255,255 });
             int x = 0;
             int y = rect.w;
             int d = 3 - 2 * rect.w;

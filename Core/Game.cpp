@@ -5,6 +5,7 @@
 #include "../Rendering/RenderInstanceManager.h"
 #include "InputManager.h"
 #include "AudioSystem.h"
+#include "DeltaTime.h"
 
 Game::Game(token)
 {
@@ -13,6 +14,8 @@ Game::Game(token)
 
 Game::~Game()
 {
+    if (_map)
+        delete _map;
     delete _exampleGameObject;
     delete _exampleUIObject;
     IMG_Quit();
@@ -94,6 +97,8 @@ bool Game::Init()
     AudioSystem::instance().LoadAudio("SoundEffect01", "Assets/jeff.wav");
 
 
+    _map = new TileMap(24, 24, 5, "Assets/TestMap.txt");
+
     _player = new Player( 0, 0, 5, 5, 100, 0.1f, ColliderType::RECTANGLE);
     GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
     renderer->SetObjectToTrack(_player);
@@ -124,6 +129,8 @@ void Game::Update()
             break;
         }
     }
+
+    DeltaTime::UpdateDeltaTime();
 
     // Updates input state and performs any bound callbacks
     InputManager::instance().Update();
