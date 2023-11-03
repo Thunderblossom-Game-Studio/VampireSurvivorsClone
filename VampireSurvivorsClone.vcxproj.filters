@@ -14,7 +14,7 @@
     <ClCompile Include="GameObjects\Player.cpp" />
     <ClCompile Include="Gameplay\HealthSystem.cpp" />
     <ClCompile Include="Rendering\SpriteSheet.cpp" />
-    <ClCompile Include="Core\SaveLoadManager.cpp" />
+    <ClCompile Include="Core\ObjectSerializer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager.h" />
@@ -34,6 +34,6 @@
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Gameplay\HealthSystem.h" />
     <ClInclude Include="Rendering\SpriteSheet.h" />
-    <ClInclude Include="Core\SaveLoadManager.h" />
+    <ClInclude Include="Core\ObjectSerializer.h" />
   </ItemGroup>
 </Project>

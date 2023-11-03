@@ -164,7 +164,7 @@
     <ClCompile Include="Core\CollisionManager.cpp" />
     <ClCompile Include="Core\Game.cpp" />
     <ClCompile Include="Core\InputManager.cpp" />
-    <ClCompile Include="Core\SaveLoadManager.cpp" />
+    <ClCompile Include="Core\ObjectSerializer.cpp" />
     <ClCompile Include="GameObjects\ExampleGameObject.cpp" />
     <ClCompile Include="GameObjects\Player.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
@@ -405,7 +405,7 @@
     <ClInclude Include="Core\CollisionManager.h" />
     <ClInclude Include="Core\Game.h" />
     <ClInclude Include="Core\InputManager.h" />
-    <ClInclude Include="Core\SaveLoadManager.h" />
+    <ClInclude Include="Core\ObjectSerializer.h" />
     <ClInclude Include="Core\Vector2.h" />
     <ClInclude Include="GameObjects\BaseGameObject.h" />
     <ClInclude Include="GameObjects\ExampleGameObject.h" />
