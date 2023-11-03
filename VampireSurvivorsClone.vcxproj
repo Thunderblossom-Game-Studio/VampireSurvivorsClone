@@ -161,10 +161,14 @@
   <ItemGroup>
     <ClCompile Include="Core\AssetManager.cpp" />
     <ClCompile Include="Core\AudioSystem.cpp" />
+    <ClCompile Include="Core\Collider2D.cpp" />
     <ClCompile Include="Core\CollisionManager.cpp" />
+    <ClCompile Include="Core\DeltaTime.cpp" />
     <ClCompile Include="Core\Game.cpp" />
     <ClCompile Include="Core\InputManager.cpp" />
     <ClCompile Include="Core\ObjectSerializer.cpp" />
+    <ClCompile Include="GameObjects\BaseGameObject.cpp" />
+    <ClCompile Include="GameObjects\Component.cpp" />
     <ClCompile Include="GameObjects\ExampleGameObject.cpp" />
     <ClCompile Include="GameObjects\Player.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
@@ -398,16 +402,21 @@
       </AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="Rendering\Tile.cpp" />
+    <ClCompile Include="Rendering\TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager.h" />
     <ClInclude Include="Core\AudioSystem.h" />
+    <ClInclude Include="Core\Collider2D.h" />
     <ClInclude Include="Core\CollisionManager.h" />
+    <ClInclude Include="Core\DeltaTime.h" />
     <ClInclude Include="Core\Game.h" />
     <ClInclude Include="Core\InputManager.h" />
     <ClInclude Include="Core\ObjectSerializer.h" />
     <ClInclude Include="Core\Vector2.h" />
     <ClInclude Include="GameObjects\BaseGameObject.h" />
+    <ClInclude Include="GameObjects\Component.h" />
     <ClInclude Include="GameObjects\ExampleGameObject.h" />
     <ClInclude Include="GameObjects\IDamageable.h" />
     <ClInclude Include="GameObjects\IRenderableObject.h" />
@@ -417,6 +426,8 @@
     <ClInclude Include="Rendering\Renderer.h" />
     <ClInclude Include="Rendering\RenderInstanceManager.h" />
     <ClInclude Include="Rendering\SpriteSheet.h" />
+    <ClInclude Include="Rendering\Tile.h" />
+    <ClInclude Include="Rendering\TileMap.h" />
     <ClInclude Include="Templates\Singleton.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
