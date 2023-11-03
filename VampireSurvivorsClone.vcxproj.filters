@@ -1,39 +1,153 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Core\AssetManager.cpp" />
-    <ClCompile Include="Core\AudioSystem.cpp" />
-    <ClCompile Include="Core\CollisionManager.cpp" />
-    <ClCompile Include="Core\Game.cpp" />
-    <ClCompile Include="Core\InputManager.cpp" />
-    <ClCompile Include="GameObjects\ExampleGameObject.cpp" />
-    <ClCompile Include="main.cpp" />
-    <ClCompile Include="Rendering\GameWindow.cpp" />
-    <ClCompile Include="Rendering\Renderer.cpp" />
-    <ClCompile Include="Rendering\RenderInstanceManager.cpp" />
-    <ClCompile Include="GameObjects\Player.cpp" />
-    <ClCompile Include="Gameplay\HealthSystem.cpp" />
-    <ClCompile Include="Rendering\SpriteSheet.cpp" />
-    <ClCompile Include="Core\ObjectSerializer.cpp" />
+    <ClCompile Include="Core\AssetManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\AudioSystem.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Collider2D.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\DeltaTime.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\CollisionManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\ObjectSerializer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\InputManager.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\Game.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\ExampleGameObject.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Player.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\BaseGameObject.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObjects\Component.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="Gameplay\HealthSystem.cpp">
+      <Filter>Gameplay</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Tile.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\TileMap.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\GameWindow.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\Renderer.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\RenderInstanceManager.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Rendering\SpriteSheet.cpp">
+      <Filter>Rendering</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\AssetManager.h" />
-    <ClInclude Include="Core\AudioSystem.h" />
-    <ClInclude Include="Core\CollisionManager.h" />
-    <ClInclude Include="Core\Game.h" />
-    <ClInclude Include="Core\InputManager.h" />
-    <ClInclude Include="GameObjects\BaseGameObject.h" />
-    <ClInclude Include="GameObjects\ExampleGameObject.h" />
-    <ClInclude Include="GameObjects\IDamageable.h" />
-    <ClInclude Include="GameObjects\IRenderableObject.h" />
-    <ClInclude Include="Rendering\GameWindow.h" />
-    <ClInclude Include="Rendering\Renderer.h" />
-    <ClInclude Include="Rendering\RenderInstanceManager.h" />
-    <ClInclude Include="Templates\Singleton.h" />
-    <ClInclude Include="Core\Vector2.h" />
-    <ClInclude Include="GameObjects\Player.h" />
-    <ClInclude Include="Gameplay\HealthSystem.h" />
-    <ClInclude Include="Rendering\SpriteSheet.h" />
-    <ClInclude Include="Core\ObjectSerializer.h" />
+    <ClInclude Include="Core\AssetManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\AudioSystem.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Collider2D.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\DeltaTime.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\CollisionManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Vector2.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\ObjectSerializer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\InputManager.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Game.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\ExampleGameObject.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\BaseGameObject.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\IRenderableObject.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\IDamageable.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Player.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Component.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="Gameplay\HealthSystem.h">
+      <Filter>Gameplay</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Tile.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\TileMap.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\GameWindow.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\Renderer.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\RenderInstanceManager.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Templates\Singleton.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Rendering\SpriteSheet.h">
+      <Filter>Rendering</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Filter Include="Core">
+      <UniqueIdentifier>{125cfac1-71aa-403c-9429-ee1ffefe95d8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameObjects">
+      <UniqueIdentifier>{57914421-487a-40c5-bea0-b3875a3db341}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Gameplay">
+      <UniqueIdentifier>{35ff097a-8527-48ac-9cc7-dd526e1c4672}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Rendering">
+      <UniqueIdentifier>{1a805f50-2832-4282-84f7-7f05cec8e305}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Templates">
+      <UniqueIdentifier>{758e5772-b22e-4dc2-bee4-fb4a3e51090c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
 </Project>
