@@ -21,24 +21,121 @@ TileMap::TileMap(int width, int height, int tileSize, std::string mapPath)
 
 TileMap::~TileMap()
 {
+	for (std::vector<Tile*> tileRows : tiles)
+	{
+		for (Tile* tile : tileRows)
+		{
+			if (tile)
+				delete tile;
+		}
+	}
 	tiles.clear();
 }
 
 void TileMap::LoadMap(std::string mapPath)
 {
+	for (std::vector<Tile*> tileRows : tiles)
+	{
+		for (Tile* tile : tileRows)
+		{
+			if (tile)
+				delete tile;
+		}
+		tileRows.clear();
+	}
+	tiles.clear();
+
 	std::ifstream mapFile(mapPath);
 	if (mapFile.is_open())
 	{
-		// load the file to the map
-		for (int i = 0; i < width; i++)
+		//// load the file to the map
+		//for (int i = 0; i < width; i++)
+		//{
+		//	for (int j = 0; j < height; j++)
+		//	{
+		//		std::string tileID;
+		//		mapFile >> tileID;
+		//		std::cout << tileID;
+		//	}
+		//	std::cout << std::endl;
+		//}
+
+		std::string lineText;
+		int i = height - 1;
+		while (std::getline(mapFile, lineText))
 		{
-			for (int j = 0; j < height; j++)
+			std::vector<Tile*> tileRow;
+			for (int j = 0; j < lineText.length(); ++j)
 			{
-				std::string tileID;
-				mapFile >> tileID;
-				tiles[i][j] = tileID;
+				Vector2 pos = { (j * tileSize) - (width * tileSize)/2, (i * tileSize) - (height * tileSize) / 2 };
+				switch (lineText[j])
+				{
+				case 'F':
+				{
+					tileRow.push_back(new Tile(
+						pos,
+						{ tileSize,tileSize },
+						"Assets/Textures/TextureLoadingTest.png",
+						{ 16,64,16,16 },
+						-10,
+						NONE
+					));
+					break;
+				}
+				case 'B':
+				{
+					tileRow.push_back(new Tile(
+						pos,
+						{ tileSize,tileSize },
+						"Assets/Textures/TextureLoadingTest.png",
+						{ 32,64,16,16 },
+						-10,
+						NONE
+					));
+					break;
+				}
+				case 'Q':
+				{
+					tileRow.push_back(new Tile(
+						pos,
+						{ tileSize,tileSize },
+						"Assets/Textures/TextureLoadingTest.png",
+						{ 16,12,16,16 },
+						0,
+						RECTANGLE
+					));
+					break;
+				}
+				case 'W':
+				{
+					tileRow.push_back(new Tile(
+						pos,
+						{ tileSize,tileSize },
+						"Assets/Textures/TextureLoadingTest.png",
+						{ 32,12,16,16 },
+						0,
+						RECTANGLE
+					));
+					break;
+				}
+				case 'E':
+				{
+					tileRow.push_back(new Tile(
+						pos,
+						{ tileSize,tileSize },
+						"Assets/Textures/TextureLoadingTest.png",
+						{ 48,12,16,16 },
+						0,
+						RECTANGLE
+					));
+					break;
+				}
+				}
 			}
+			tiles.push_back(tileRow);
+			--i;
 		}
+
 		mapFile.close();
 	}
 	else
@@ -76,12 +173,12 @@ std::pair<float, float> TileMap::GetTilePositionById(std::string id)
 	{
 		for (int j = 0; j < height; j++)
 		{
-			if (tiles[i][j] == id)
-			{
-				result.first = i * tileSize;
-				result.second = j * tileSize;
-				return result;
-			}
+			//if (tiles[i][j] == id)
+			//{
+			//	result.first = i * tileSize;
+			//	result.second = j * tileSize;
+			//	return result;
+			//}
 		}
 	}
 	return result;

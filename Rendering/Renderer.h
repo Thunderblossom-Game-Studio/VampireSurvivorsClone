@@ -11,21 +11,27 @@ class SDL_Window;
 class SDL_Renderer;
 class IRenderableObject;
 class ExampleGameObject;
+class TileMap;
 
 class GameRenderer : public BaseGameObject
 {
+public:
+    enum RenderSpace { WORLD, UI };
+
 private:
-    std::vector<BaseGameObject*> _renderList;
+    std::vector<IRenderableObject*> _renderList;
     BaseGameObject* _target{ nullptr };
     float _width = 800;
     float _height = 600;
-    bool _layers{ false };
-    float _scale{ 4.0f };
+    bool _layers{ true };
+    Uint8 _scale{ 4 };
     float _unitsOnScreen[2]{ 10,7.5f };
     bool _drawWorldDebug{ false };
+    float _moveSpeed{ 5.0f };
+    bool _fullscreen{ false };
 
     SDL_Renderer* _pRenderer = nullptr;
-    SDL_Color _defaultColor = { 0, 200, 0, 255 };
+    SDL_Color _defaultColor = { 0, 0, 0, 255 };
     
     /// <summary>
     /// Converts world space transform units into SDL screen pixel coordinates.
@@ -74,12 +80,19 @@ private:
     void ToggleDebugGraphics() { _drawWorldDebug = !_drawWorldDebug; }
 
 public:
-    enum RenderSpace { WORLD, UI };
-
     GameRenderer(SDL_Window* pWindow);
     ~GameRenderer();
 
     void ToggleDebugDraw(bool state) { _drawWorldDebug = state; }
+
+    void SetMoveSpeed(float speed) { _moveSpeed = speed; }
+    float GetMoveSpeed() { return _moveSpeed; }
+
+    /// <summary>
+    /// Sets the scale of the camera (Higher values zoom out, Lower values zoom in). 
+    /// </summary>
+    /// <param name="scale">The new renderer scale.</param>
+    void SetScale(Uint8 scale) { _scale = scale; }
 
     /// <summary>
     /// Sets the default colour the renderer clears with.
@@ -105,15 +118,17 @@ public:
     /// Adds a game object to the internal render list.
     /// </summary>
     /// <param name="go">The target object.</param>
-    bool AddToRenderList(BaseGameObject* go);
+    bool AddToRenderList(IRenderableObject* go);
     /// <summary>
     /// Tries to find a game object in the internal render list.
     /// </summary>
     /// <param name="go">The target object.</param>
-    BaseGameObject* FindInRenderList(BaseGameObject* go);
+    IRenderableObject* FindInRenderList(IRenderableObject* go);
     /// <summary>
     /// Tries to remove a game object from the internal render list.
     /// </summary>
     /// <param name="go">The target object.</param>
-    bool RemoveFromRenderList(BaseGameObject* go);
+    bool RemoveFromRenderList(IRenderableObject* go);
+
+    void ToggleFullscreen();
 };
