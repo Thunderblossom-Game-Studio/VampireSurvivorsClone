@@ -2,7 +2,6 @@
 
 #include <iostream> // std::cout, std::endl
 #include <SDL.h> // SDL_Window, SDL_CreateWindow, SDL_DestroyWindow
-#include "../Core/AudioSystem.h"
 
 GameWindow::GameWindow(token)
 {

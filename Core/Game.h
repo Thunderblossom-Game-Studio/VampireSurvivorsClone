@@ -4,12 +4,12 @@
 #include "../Templates/Singleton.h"
 
 // Temp include for demonstration purposes
-<<<<<<< Updated upstream
+//<<<<<<< Updated upstream
 #include "../GameObjects/ExampleGameObject.h"
 #include "../Rendering/TileMap.h"
-=======
+// =======
 #include "../GameObjects/ExampleGameObject.h"#
->>>>>>> Stashed changes
+// >>>>>>> Stashed changes
 
 class GameRenderer;
 
