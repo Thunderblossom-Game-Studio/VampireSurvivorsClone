@@ -10,8 +10,7 @@ private:
     float _height = 0;
 
 public:
-    ExampleGameObject(float x, float y, float width, float height, 
-        GameRenderer::RenderSpace space = GameRenderer::RenderSpace::WORLD, SDL_Color color = {255,255,255,255});
+    ExampleGameObject(float x, float y, float width, float height, GameRenderer::RenderSpace space = GameRenderer::RenderSpace::WORLD, SDL_Color color = {255,255,255,255});
     ~ExampleGameObject();
 
     // Required for position data to be accessible by the renderer and collision systems

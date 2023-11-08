@@ -7,11 +7,18 @@
 
 #include <vector>
 
+<<<<<<< Updated upstream
 class SDL_Window;
 class SDL_Renderer;
 class IRenderableObject;
 class ExampleGameObject;
 class TileMap;
+=======
+struct SDL_Window;
+struct SDL_Renderer;
+struct IRenderableObject;
+struct ExampleGameObject;
+>>>>>>> Stashed changes
 
 class GameRenderer : public BaseGameObject
 {

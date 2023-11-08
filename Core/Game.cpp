@@ -17,12 +17,15 @@ Game::~Game()
     if (_map)
         delete _map;
     delete _exampleGameObject;
+    _exampleGameObject = nullptr;
     delete _exampleUIObject;
+    _exampleUIObject = nullptr;
+    // --------- Need to place these methods bellow in a compact method for organization reasons ---------
     IMG_Quit();
-    SDL_Quit();
+    SDL_Quit(); 
+    // --------- Need to place these methods above in a compact method for organization reasons ---------
     std::cout << "Game instance destroyed" << std::endl;
 
-    AudioSystem::instance().Cleanup();
 }
 
 bool Game::Init()
@@ -126,6 +129,7 @@ void Game::Update()
             break;
             
         default:
+            AudioSystem::instance().PlayAudio(0, "BackroundMusic", 0);
             break;
         }
     }
