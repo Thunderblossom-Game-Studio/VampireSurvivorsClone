@@ -16,13 +16,15 @@ Game::~Game()
 {
     if (_map)
         delete _map;
-    delete _exampleGameObject;
-    delete _exampleUIObject;
+    if (_exampleGameObject)
+        delete _exampleGameObject;
+    if (_exampleUIObject)
+        delete _exampleUIObject;
     IMG_Quit();
     SDL_Quit();
     std::cout << "Game instance destroyed" << std::endl;
 
-    AudioSystem::instance().Cleanup();
+    //AudioSystem::instance().Cleanup();
 }
 
 bool Game::Init()
@@ -97,7 +99,7 @@ bool Game::Init()
     AudioSystem::instance().LoadAudio("SoundEffect01", "Assets/jeff.wav");
 
 
-    _map = new TileMap(24, 24, 5, "Assets/TestMap.txt");
+    _map = new TileMap("Assets/BIGMap.txt", 5);
 
     _player = new Player( 0, 0, 5, 5, 100, 0.1f, ColliderType::RECTANGLE);
     GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");

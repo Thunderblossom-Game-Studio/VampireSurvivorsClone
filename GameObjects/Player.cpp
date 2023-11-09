@@ -86,6 +86,11 @@ void Player::PlayerAutoAttack()
 	//Insert Basic Auto Attack Here
 }
 
+RenderInfo Player::GetRenderInfo() const
+{
+	return RenderInfo(_position, {_width, _height}, _texture, _src, _flipped, _sortingLayer, _color);
+}
+
 
 //void Player::OnEnemyCollision()
 //{

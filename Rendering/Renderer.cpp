@@ -146,68 +146,116 @@ void GameRenderer::Draw()
     if (_target) 
         Track();
 
-    if (_renderList.size() == 0)
+    if (_staticRenderList.size() == 0 && _dynamicRenderList.size() == 0)
         return;
     
     Clear();
 
-    if (_layers)
+    std::vector<RenderInfo> drawList;
+
+    for (const RenderInfo& renderable : _staticRenderList)
     {
-        std::stable_sort(_renderList.begin(), _renderList.end(),
-            [](IRenderableObject* g1, IRenderableObject* g2) {
-                return g1->GetSortingLayer() - g1->GetY() < g2->GetSortingLayer() - g2->GetY(); });
+        Vector2 target_position = _position;
+        if (_target)
+            target_position = { _target->GetX(), _target->GetY() };
+        float distance = abs(target_position.distance(renderable.position));
+        if (distance > _maxRenderDistance)
+            continue;
+        drawList.push_back(renderable);
     }
 
+
     std::vector<IRenderableObject*> uiObjects;
-    IRenderableObject* renderable;
-    SDL_Rect rect;
-    // Render World Objects
-    for (int i = 0; i < _renderList.size(); ++i)
+    for (IRenderableObject* renderable : _dynamicRenderList)
     {
-        renderable = _renderList[i];
         if (!renderable)
             continue;
-        else if (!renderable->GetEnabled())
+        if (!renderable->GetEnabled())
             continue;
-        else if (renderable->GetRenderSpace() == UI)
+
+        Vector2 target_position = _position;
+        if (_target)
+            target_position = { _target->GetX(), _target->GetY() };
+        float distance = abs(target_position.distance({ renderable->GetX() , renderable->GetY() }));
+        if (distance > _maxRenderDistance)
+            continue;
+
+        switch (renderable->GetRenderSpace())
         {
+        case WORLD:
+            drawList.push_back(renderable->GetRenderInfo());
+            break;
+        case UI:
             uiObjects.push_back(renderable);
-            continue;
+            break;
         }
-        SDL_Point rot_center; 
-        rot_center.x = renderable->GetWidth() / 2;
-        rot_center.y = renderable->GetHeight() / 2;
+    }
+
+    if (_layers)
+    {
+        std::stable_sort(drawList.begin(), drawList.end(),
+            [](const RenderInfo& g1, const RenderInfo& g2) {
+                return g1.sortingLayer - g1.position.y < g2.sortingLayer - g2.position.y; });
+    }
 
 
-        rect = WorldToScreenSpace(renderable->GetX(), renderable->GetY(), renderable->GetWidth(), renderable->GetHeight());
+    RenderInfo renderable;
+    SDL_Rect rect;
+    // Render World Objects
+    for (int i = 0; i < drawList.size(); ++i)
+    {
+        renderable = drawList[i];     
+                
+        SDL_Point rot_center;
+        rot_center.x = renderable.size.x / 2;
+        rot_center.y = renderable.size.y / 2;
+
+        rect = WorldToScreenSpace(renderable.position.x, renderable.position.y, renderable.size.x, renderable.size.y);
         rect.x = rect.x - rect.w / 2; rect.y = rect.y - rect.h / 2;
-        SetDrawColor(renderable->GetColor());
 
-        SDL_Texture* texture = renderable->GetTexture();
+        Vector2 target_position = _position;
+        if (_target)
+            target_position = { _target->GetX(), _target->GetY() };
+        float distance = abs(target_position.distance(renderable.position));
 
-        if (texture) 
+        SDL_Color color = renderable.color;
+
+        if (_lighting && distance > 1)
         {
-            SDL_Rect src = renderable->GetSrc();
-            if (renderable->Flipped())
+            float norm_distance = (_maxRenderDistance+1-distance) / _maxRenderDistance;
+            color.r = renderable.color.r * norm_distance;
+            color.g = renderable.color.g * norm_distance;
+            color.b = renderable.color.b * norm_distance;
+            color.a = renderable.color.a * norm_distance;
+        }
+
+        SDL_Texture* texture = renderable.texture;
+        if (texture)
+        {
+            SDL_SetTextureColorMod(texture, color.r, color.g, color.b);
+            SDL_Rect src = renderable.src;
+            if (renderable.flipped)
                 SDL_RenderCopyEx(_pRenderer, texture, &src, &rect, 0.0f, &rot_center, SDL_FLIP_HORIZONTAL);
             else
                 SDL_RenderCopyEx(_pRenderer, texture, &src, &rect, 0.0f, &rot_center, SDL_FLIP_NONE);
         }
-        else 
+        else
         {
+            SetDrawColor(color);
             SDL_RenderFillRect(_pRenderer, &rect);
         }
     }
+
 
     // Render Debug
     if (_drawWorldDebug)
         DrawWorldDebug();
 
+
+
     // Render UI Objects
     for (int i = 0; i < uiObjects.size(); ++i)
     {
-        if (!uiObjects[i]->GetEnabled())
-            continue;
         rect = UIToScreenSpace(uiObjects[i]->GetX(), uiObjects[i]->GetY(), uiObjects[i]->GetWidth(), uiObjects[i]->GetHeight());
         rect.x = rect.x - rect.w / 2; rect.y = rect.y - rect.h / 2;
         SetDrawColor(uiObjects[i]->GetColor());
@@ -231,16 +279,22 @@ bool GameRenderer::AddToRenderList(IRenderableObject* go)
 {
     if (FindInRenderList(go))
         return false;
-    _renderList.push_back(go);
+    _dynamicRenderList.push_back(go);
+    return true;
+}
+
+bool GameRenderer::AddToRenderList(RenderInfo info)
+{
+    _staticRenderList.push_back(info);
     return true;
 }
 
 IRenderableObject* GameRenderer::FindInRenderList(IRenderableObject* go)
 {
-    std::vector<IRenderableObject*>::iterator it = std::find(_renderList.begin(), _renderList.end(), go);
-    if (it == _renderList.end())
+    std::vector<IRenderableObject*>::iterator it = std::find(_dynamicRenderList.begin(), _dynamicRenderList.end(), go);
+    if (it == _dynamicRenderList.end())
         return nullptr;
-    return _renderList[std::distance(_renderList.begin(), it)];
+    return _dynamicRenderList[std::distance(_dynamicRenderList.begin(), it)];
 }
 
 bool GameRenderer::RemoveFromRenderList(IRenderableObject* go)
@@ -248,7 +302,7 @@ bool GameRenderer::RemoveFromRenderList(IRenderableObject* go)
     IRenderableObject* obj = FindInRenderList(go);
     if (!obj)
         return false;
-    _renderList.erase(std::remove(_renderList.begin(), _renderList.end(), go), _renderList.end());
+    _dynamicRenderList.erase(std::remove(_dynamicRenderList.begin(), _dynamicRenderList.end(), go), _dynamicRenderList.end());
     return true;
 }
 

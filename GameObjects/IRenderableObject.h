@@ -29,6 +29,8 @@ public:
     void SetSortingLayer(int layer) { _sortingLayer = layer; }
     int GetSortingLayer() { return _sortingLayer; }
     
+    virtual RenderInfo GetRenderInfo() const = 0;
+
     /// <summary>
     /// Set whether or not this object is currently rendering.
     /// </summary>

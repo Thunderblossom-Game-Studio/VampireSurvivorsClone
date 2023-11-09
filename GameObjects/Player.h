@@ -36,6 +36,7 @@ public:
 	void PlayerAutoAttack();
 
 
+	RenderInfo GetRenderInfo() const override;
 
 
 	//void Test();
