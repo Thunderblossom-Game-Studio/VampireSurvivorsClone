@@ -1,11 +1,15 @@
 #include "Player.h"
 #include "BaseGameObject.h"
+#include "../Core/DeltaTime.h"
 #include "../Rendering/RenderInstanceManager.h"
+#include <iostream>
 #include "../Core/InputManager.h"
 
 
-Player::Player(float x, float y, float width, float height, float playerHP, float playerMovementSpeed, ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color)
-	: _width(width), _height(height), IAnimationObject("Assets/Textures/TextureLoadingTest.png", {	{ 129, 45, 15, 19 }, 
+Player::Player(float x, float y, float width, float height, float currentXP,
+	float playerHP, float playerMovementSpeed, float playerRecoveryMultiplier, float playerArmourMultiplier, float playerDamageMultiplier,
+	float playerAttackSpeedMultiplier, float playerXpMultiplier, float playerMagnetMultiplier, float playerGoldMultiplier,
+	ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height), IAnimationObject("Assets/Textures/TextureLoadingTest.png", {	{ 129, 45, 15, 19 }, 
 																									{ 144, 45, 15, 19 },
 																									{ 161, 45, 15, 19 },
 																									{ 177, 45, 15, 19 } }, 2.0f, 5.0f)
@@ -14,8 +18,16 @@ Player::Player(float x, float y, float width, float height, float playerHP, floa
 	_color = color;
 	_position.x = x;
 	_position.y = y;
+
+	_currentXP = currentXP;
 	_playerHP = playerHP;
 	_playerMovementSpeed = playerMovementSpeed;
+	_playerRecoveryMultiplier = playerRecoveryMultiplier;  //Health Recovery Speed_playerArmourMultiplier = playerArmourMultiplier; //Defence Multiplier Against Enemy Attacks
+	_playerDamageMultiplier = playerDamageMultiplier; //Attack Multiplier Of Attacks
+	_playerAttackSpeedMultiplier = playerAttackSpeedMultiplier; //Player Attack Speed
+	_playerXpMultiplier = playerXpMultiplier;  //Increases Amount Of XP Gained From Drops
+	_playerMagnetMultiplier = playerMagnetMultiplier; //Range to Collect Pickups
+	_playerGoldMultiplier = playerGoldMultiplier;
 
 	switch (shape)
 	{
@@ -27,7 +39,7 @@ Player::Player(float x, float y, float width, float height, float playerHP, floa
 	}
 	case ColliderType::CIRCLE:
 	{
-		_collider = new Collider2D(shape, _width/2);
+		_collider = new Collider2D(shape, _width / 2);
 		_collider->SetOnCollisionCallback(nullptr);
 		break;
 	}
@@ -45,7 +57,7 @@ Player::Player(float x, float y, float width, float height, float playerHP, floa
 	GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
 	renderer->AddToRenderList(this);
 
-	
+
 }
 
 Player::~Player()
@@ -57,28 +69,32 @@ Player::~Player()
 
 void Player::PlayerMovementUp()
 {
-	_position.y = _position.y + _playerMovementSpeed;
+	_position.y = _position.y + (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
+
 	if (_collider)
 		_collider->SetPosition(_position);
 }
 
 void Player::PlayerMovementDown()
 {
-	_position.y = _position.y - _playerMovementSpeed;
+	_position.y = _position.y - (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
+
 	if (_collider)
 		_collider->SetPosition(_position);
 }
 
 void Player::PlayerMovementLeft()
 {
-	_position.x = _position.x - _playerMovementSpeed;
+	_position.x = _position.x - (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
+
 	if (_collider)
 		_collider->SetPosition(_position);
 }
 
 void Player::PlayerMovementRight()
 {
-	_position.x = _position.x + _playerMovementSpeed;
+	_position.x = _position.x + (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
+
 	if (_collider)
 		_collider->SetPosition(_position);
 }
@@ -86,8 +102,48 @@ void Player::PlayerMovementRight()
 
 void Player::PlayerAutoAttack()
 {
-	//Insert Basic Auto Attack Here
+
+	std::cout << "Attack" << std::endl;
+	TimeToReset = 0;
+	//Insert Basic Auto Attack Here (NEEDS SPRITE & ITS OWN HIT DETECTION)
 }
+
+void Player::PlayerTimer() //This needs to be linked up to delta time
+{
+	
+
+	while (TimeToReset >= 0)
+	{
+		
+		TimeToReset += DeltaTime::GetDeltaTime();
+
+		if (TimeToReset >= AttackTimer)
+		{
+			PlayerAutoAttack();
+		}
+
+	}
+
+	if (_currentXP >= XPLevelUp)
+	{
+		_currentXP = 0;
+		XPLevelUp = XPLevelUp * XPCapMultiplier;
+
+		//Insert harrison's Menu Function
+	}
+
+
+
+
+}
+
+RenderInfo Player::GetRenderInfo() const
+{
+	return RenderInfo(_position, {_width, _height}, _texture, _src, _flipped, _sortingLayer, _color);
+}
+
+
+
 
 
 //void Player::OnEnemyCollision()

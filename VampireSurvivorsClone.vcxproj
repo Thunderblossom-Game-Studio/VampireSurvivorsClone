@@ -403,7 +403,6 @@
       </AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
-    <ClCompile Include="Rendering\Tile.cpp" />
     <ClCompile Include="Rendering\TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -428,7 +427,6 @@
     <ClInclude Include="Rendering\Renderer.h" />
     <ClInclude Include="Rendering\RenderInstanceManager.h" />
     <ClInclude Include="Rendering\SpriteSheet.h" />
-    <ClInclude Include="Rendering\Tile.h" />
     <ClInclude Include="Rendering\TileMap.h" />
     <ClInclude Include="Templates\Singleton.h" />
   </ItemGroup>

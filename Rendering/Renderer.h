@@ -13,22 +13,46 @@ class IRenderableObject;
 class ExampleGameObject;
 class TileMap;
 
+struct RenderInfo
+{
+    RenderInfo()
+        : position{ 0,0 }, size{ 0,0 }, texture{ nullptr }, src{ 0,0,0,0 }, flipped{ false }, sortingLayer{ 0 }, color{ 255,255,255,255 }
+    {
+    }
+
+    RenderInfo(Vector2 Position, Vector2 Size, SDL_Texture* Texture, SDL_Rect Src, bool Flipped, int SortingLayer, SDL_Color Color)
+        : position{ Position }, size{ Size }, texture{ Texture }, src{ Src }, flipped{ Flipped }, sortingLayer{ SortingLayer }, color{ Color }
+    {}
+
+    Vector2 position;
+    Vector2 size;
+    SDL_Texture* texture = nullptr;
+    SDL_Rect src;
+    bool flipped = false;
+    int sortingLayer;
+    SDL_Color color = { 255, 255, 255, 255 };
+};
+
 class GameRenderer : public BaseGameObject
 {
 public:
     enum RenderSpace { WORLD, UI };
 
 private:
-    std::vector<IRenderableObject*> _renderList;
+    bool _layers{ true };
+    bool _lighting{ true };
+    bool _drawWorldDebug{ false };
+    bool _fullscreen{ false };
+
     BaseGameObject* _target{ nullptr };
+    std::vector<RenderInfo> _staticRenderList;
+    std::vector<IRenderableObject*> _dynamicRenderList;
     float _width = 800;
     float _height = 600;
-    bool _layers{ true };
     Uint8 _scale{ 4 };
     float _unitsOnScreen[2]{ 10,7.5f };
-    bool _drawWorldDebug{ false };
     float _moveSpeed{ 5.0f };
-    bool _fullscreen{ false };
+    int _maxRenderDistance{ 70 };
 
     SDL_Renderer* _pRenderer = nullptr;
     SDL_Color _defaultColor = { 0, 0, 0, 255 };
@@ -119,6 +143,7 @@ public:
     /// </summary>
     /// <param name="go">The target object.</param>
     bool AddToRenderList(IRenderableObject* go);
+    bool AddToRenderList(RenderInfo info);
     /// <summary>
     /// Tries to find a game object in the internal render list.
     /// </summary>
