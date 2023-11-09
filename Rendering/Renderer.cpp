@@ -5,14 +5,17 @@
 #include "GameWindow.h" // Game::GetWindow
 
 #include "../GameObjects/ExampleGameObject.h"
+#include "TileMap.h"
 
 #include "../Core/CollisionManager.h"
 #include "../Core/Collider2D.h"
 #include "../Core/InputManager.h"
+#include "../Core/DeltaTime.h"
 
 #include <iostream> // std::cout, std::endl
 #include <SDL.h> // SDL_CreateRenderer, SDL_DestroyRenderer, SDL_RENDERER_ACCELERATED, SDL_RENDERER_PRESENTVSYNC
 #include <cmath>
+#include <algorithm>
 
 GameRenderer::GameRenderer(SDL_Window* pWindow)
 {
@@ -27,6 +30,7 @@ GameRenderer::GameRenderer(SDL_Window* pWindow)
     _position.y = 0;
 
     InputManager::instance().BindKey(SDL_SCANCODE_F10, InputManager::KEYDOWN, std::bind(&GameRenderer::ToggleDebugGraphics, this));
+    InputManager::instance().BindKey(SDL_SCANCODE_F11, InputManager::KEYDOWN, std::bind(&GameRenderer::ToggleFullscreen, this));
 }
 
 GameRenderer::~GameRenderer()
@@ -121,10 +125,10 @@ void GameRenderer::Track()
 
     float dir = tX - _position.x;
     if (abs(dir) > 0.01f)
-        _position.x += (dir * 0.01f);
+        _position.x += (dir * _moveSpeed * DeltaTime::GetDeltaTime());
     dir = tY - _position.y;
     if (abs(dir) > 0.01f)
-        _position.y += (dir * 0.01f);
+        _position.y += (dir * _moveSpeed * DeltaTime::GetDeltaTime());
 }
 
 void GameRenderer::SetDrawColor(SDL_Color color)
@@ -141,17 +145,26 @@ void GameRenderer::Draw()
 {
     if (_target) 
         Track();
+
+    if (_renderList.size() == 0)
+        return;
+    
     Clear();
+
     if (_layers)
-        std::cout << "Layers need implementing." << std::endl;
+    {
+        std::stable_sort(_renderList.begin(), _renderList.end(),
+            [](IRenderableObject* g1, IRenderableObject* g2) {
+                return g1->GetSortingLayer() - g1->GetY() < g2->GetSortingLayer() - g2->GetY(); });
+    }
+
     std::vector<IRenderableObject*> uiObjects;
     IRenderableObject* renderable;
     SDL_Rect rect;
-
     // Render World Objects
     for (int i = 0; i < _renderList.size(); ++i)
     {
-        renderable = dynamic_cast<IRenderableObject*>(_renderList[i]);
+        renderable = _renderList[i];
         if (!renderable)
             continue;
         else if (!renderable->GetEnabled())
@@ -161,15 +174,24 @@ void GameRenderer::Draw()
             uiObjects.push_back(renderable);
             continue;
         }
+        SDL_Point rot_center; 
+        rot_center.x = renderable->GetWidth() / 2;
+        rot_center.y = renderable->GetHeight() / 2;
+
+
         rect = WorldToScreenSpace(renderable->GetX(), renderable->GetY(), renderable->GetWidth(), renderable->GetHeight());
         rect.x = rect.x - rect.w / 2; rect.y = rect.y - rect.h / 2;
         SetDrawColor(renderable->GetColor());
 
         SDL_Texture* texture = renderable->GetTexture();
+
         if (texture) 
         {
             SDL_Rect src = renderable->GetSrc();
-            SDL_RenderCopy(_pRenderer, texture, &src, &rect);
+            if (renderable->Flipped())
+                SDL_RenderCopyEx(_pRenderer, texture, &src, &rect, 0.0f, &rot_center, SDL_FLIP_HORIZONTAL);
+            else
+                SDL_RenderCopyEx(_pRenderer, texture, &src, &rect, 0.0f, &rot_center, SDL_FLIP_NONE);
         }
         else 
         {
@@ -205,7 +227,7 @@ void GameRenderer::Draw()
     Present();
 }
 
-bool GameRenderer::AddToRenderList(BaseGameObject* go)
+bool GameRenderer::AddToRenderList(IRenderableObject* go)
 {
     if (FindInRenderList(go))
         return false;
@@ -213,20 +235,35 @@ bool GameRenderer::AddToRenderList(BaseGameObject* go)
     return true;
 }
 
-BaseGameObject* GameRenderer::FindInRenderList(BaseGameObject* go)
+IRenderableObject* GameRenderer::FindInRenderList(IRenderableObject* go)
 {
-    std::vector<BaseGameObject*>::iterator it = std::find(_renderList.begin(), _renderList.end(), go);
+    std::vector<IRenderableObject*>::iterator it = std::find(_renderList.begin(), _renderList.end(), go);
     if (it == _renderList.end())
         return nullptr;
     return _renderList[std::distance(_renderList.begin(), it)];
 }
 
-bool GameRenderer::RemoveFromRenderList(BaseGameObject* go)
+bool GameRenderer::RemoveFromRenderList(IRenderableObject* go)
 {
-    if (!FindInRenderList(go))
+    IRenderableObject* obj = FindInRenderList(go);
+    if (!obj)
         return false;
     _renderList.erase(std::remove(_renderList.begin(), _renderList.end(), go), _renderList.end());
     return true;
+}
+
+void GameRenderer::ToggleFullscreen()
+{
+    if (_fullscreen)
+    {
+        SDL_SetWindowFullscreen(GameWindow::instance().GetWindow(), 0);
+        _fullscreen = false;
+    }
+    else
+    {
+        SDL_SetWindowFullscreen(GameWindow::instance().GetWindow(), SDL_WINDOW_FULLSCREEN_DESKTOP);
+        _fullscreen = true;
+    }
 }
 
 void GameRenderer::Clear()
@@ -258,7 +295,7 @@ void GameRenderer::DrawWorldDebug()
             Vector2 dim = colliders[i]->GetDimensions();
             SDL_Rect rect = WorldToScreenSpace(pos.x, pos.y, dim.x, dim.y);
             rect.x = rect.x - rect.w / 2; rect.y = rect.y - rect.h / 2;
-            SetDrawColor({ 0,0,255,255 });
+            SetDrawColor({ 0,255,255,255 });
             SDL_RenderDrawRect(_pRenderer, &rect);
             break;
         }
@@ -270,7 +307,7 @@ void GameRenderer::DrawWorldDebug()
             rect.x = rect.x - rect.w / 2; rect.y = rect.y - rect.h / 2;
             
             
-            SetDrawColor({ 0,0,255,255 });
+            SetDrawColor({ 0,255,255,255 });
             int x = 0;
             int y = rect.w;
             int d = 3 - 2 * rect.w;

@@ -5,6 +5,7 @@
 
 // Temp include for demonstration purposes
 #include "../GameObjects/ExampleGameObject.h"
+#include "../Rendering/TileMap.h"
 
 class GameRenderer;
 
@@ -17,6 +18,7 @@ private:
     ExampleGameObject* _exampleGameObject;
     ExampleGameObject* _exampleUIObject;
     Player* _player;
+    TileMap* _map;
 
 public:
     Game(token);
