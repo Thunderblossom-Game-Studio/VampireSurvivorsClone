@@ -60,6 +60,7 @@ public:
 	void PlayerTimer();
 	void LevelUpSystem();
 
+	RenderInfo GetRenderInfo() const override;
 
 
 	//void Test();

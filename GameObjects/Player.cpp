@@ -135,6 +135,11 @@ void Player::PlayerTimer() //This needs to be linked up to delta time
 
 }
 
+RenderInfo Player::GetRenderInfo() const
+{
+	return RenderInfo(_position, {_width, _height}, _texture, _src, _flipped, _sortingLayer, _color);
+}
+
 
 
 
