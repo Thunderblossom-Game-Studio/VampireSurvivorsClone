@@ -159,6 +159,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="GameObjects\IAnimationObject.cpp" />
     <ClCompile Include="Core\AssetManager.cpp" />
     <ClCompile Include="Core\AudioSystem.cpp" />
     <ClCompile Include="Core\Collider2D.cpp" />
@@ -406,6 +407,7 @@
     <ClCompile Include="Rendering\TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="GameObjects\IAnimationObject.h" />
     <ClInclude Include="Core\AssetManager.h" />
     <ClInclude Include="Core\AudioSystem.h" />
     <ClInclude Include="Core\Collider2D.h" />

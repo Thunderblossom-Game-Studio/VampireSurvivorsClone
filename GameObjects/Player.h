@@ -1,11 +1,11 @@
 #pragma once
 #include "BaseGameObject.h"
-#include "IRenderableObject.h"
+#include "IAnimationObject.h"
 #include "../Core/CollisionManager.h"
 #include "../Core/Collider2D.h"
 #include "../Core/InputManager.h"
 
-class Player final : public BaseGameObject, public IRenderableObject
+class Player final : public BaseGameObject, public IAnimationObject
 {
 private:
 

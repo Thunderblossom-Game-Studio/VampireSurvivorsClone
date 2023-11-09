@@ -1,11 +1,14 @@
 #include "Player.h"
 #include "BaseGameObject.h"
-#include "IRenderableObject.h"
 #include "../Rendering/RenderInstanceManager.h"
 #include "../Core/InputManager.h"
 
 
-Player::Player(float x, float y, float width, float height, float playerHP, float playerMovementSpeed, ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height)
+Player::Player(float x, float y, float width, float height, float playerHP, float playerMovementSpeed, ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color)
+	: _width(width), _height(height), IAnimationObject("Assets/Textures/TextureLoadingTest.png", {	{ 129, 45, 15, 19 }, 
+																									{ 144, 45, 15, 19 },
+																									{ 161, 45, 15, 19 },
+																									{ 177, 45, 15, 19 } }, 2.0f, 5.0f)
 {
 	_renderSpace = space;
 	_color = color;

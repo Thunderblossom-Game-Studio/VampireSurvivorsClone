@@ -22,7 +22,7 @@ Game::~Game()
     SDL_Quit();
     std::cout << "Game instance destroyed" << std::endl;
 
-    AudioSystem::instance().Cleanup();
+    //AudioSystem::instance().Cleanup();
 }
 
 bool Game::Init()
