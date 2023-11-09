@@ -40,9 +40,6 @@
     <ClCompile Include="Gameplay\HealthSystem.cpp">
       <Filter>Gameplay</Filter>
     </ClCompile>
-    <ClCompile Include="Rendering\Tile.cpp">
-      <Filter>Rendering</Filter>
-    </ClCompile>
     <ClCompile Include="Rendering\TileMap.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
@@ -110,9 +107,6 @@
     </ClInclude>
     <ClInclude Include="Gameplay\HealthSystem.h">
       <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\Tile.h">
-      <Filter>Rendering</Filter>
     </ClInclude>
     <ClInclude Include="Rendering\TileMap.h">
       <Filter>Rendering</Filter>
