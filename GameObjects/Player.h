@@ -12,12 +12,30 @@ private:
 	Collider2D* _collider = nullptr;
 
 public:
-	float _playerHP = 0;
-	float _playerMovementSpeed = 0;
+
+
 	float _width = 0;
 	float _height = 0;
-	
-	Player(float x, float y, float width, float height, float playerHP, float playerMovementSpeed, ColliderType shape = ColliderType::RECTANGLE,
+	float _currentXP = 0;
+
+	//Player Stats That Can Be Increased Via Level Up:
+	float _playerHP = 0;   //Max Health
+	float _playerMovementSpeed = 0; //Movement Speed
+	float _playerRecoveryMultiplier = 0;  //Health Recovery Speed
+	float _playerArmourMultiplier = 0; //Defence Multiplier Against Enemy Attacks
+	float _playerDamageMultiplier = 0; //Attack Multiplier Of Attacks
+	float _playerAttackSpeedMultiplier = 0; //Player Attack Speed
+	float _playerXpMultiplier = 0;  //Increases Amount Of XP Gained From Drops
+	float _playerMagnetMultiplier = 0; //Range to Collect Pickups
+	float _playerGoldMultiplier = 0;
+	//Increases Amount Of Gold Gained From Drops
+	//Drop Chance Multiplier ???
+	// AoE Multiplier ???
+
+
+	Player(float x, float y, float width, float height, float currentXP,
+		float playerHP, float playerMovementSpeed, float playerRecoveryMultiplier, float playerArmourMultiplier, float playerDamageMultiplier,
+		float playerAttackSpeedMultiplier, float playerXpMultiplier, float playerMagnetMultiplier, float playerGoldMultiplier, ColliderType shape = ColliderType::RECTANGLE,
 		GameRenderer::RenderSpace space = GameRenderer::RenderSpace::WORLD, SDL_Color color = { 255,255,255,255 });
 	~Player();
 
@@ -27,6 +45,11 @@ public:
 	float GetWidth() const override { return _width; }
 	float GetHeight() const override { return _height; }
 
+	float TimeToReset;
+	float XPLevelUp = 100;
+	float XPCapMultiplier = 2;
+	float AttackTimer = 5;
+	bool TimeKeep = true;
 
 	void PlayerMovementUp();
 	void PlayerMovementDown();
@@ -34,16 +57,16 @@ public:
 	void PlayerMovementLeft();
 
 	void PlayerAutoAttack();
-
+	void PlayerTimer();
+	void LevelUpSystem();
 
 	RenderInfo GetRenderInfo() const override;
 
 
 	//void Test();
 	//void PlayerInput();
-	
+
 	//void OnEnemyCollision();
 	//SDL_Event _eventInput;
 
 };
-
