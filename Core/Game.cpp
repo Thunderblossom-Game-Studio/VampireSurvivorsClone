@@ -96,10 +96,13 @@ bool Game::Init()
     AudioSystem::instance().LoadAudio("BackroundMusic", "Assets/383_Banshees_Lair.mp3");
     AudioSystem::instance().LoadAudio("SoundEffect01", "Assets/jeff.wav");
 
-
+    _player = new Player(0, 0, 5, 5,
+        0, 100, 5.f, 1, 1,
+        1, 1, 1, 1, 1, ColliderType::RECTANGLE);
+  
     _map = new TileMap(24, 24, 5, "Assets/TestMap.txt");
 
-    _player = new Player( 0, 0, 5, 5, 100, 0.1f, ColliderType::RECTANGLE);
+
     GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
     renderer->SetObjectToTrack(_player);
 
@@ -109,6 +112,11 @@ bool Game::Init()
 
 void Game::Update()
 {
+
+    DeltaTime::UpdateDeltaTime();
+
+
+
     // SDL Event handling loop
     SDL_Event event;
     while (SDL_PollEvent(&event))
