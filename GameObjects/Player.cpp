@@ -67,7 +67,7 @@ Player::~Player()
 
 void Player::PlayerMovementUp()
 {
-	_position.y = _position.y + _playerMovementSpeed;
+	_position.y = _position.y + (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
 
 	if (_collider)
 		_collider->SetPosition(_position);
@@ -75,7 +75,7 @@ void Player::PlayerMovementUp()
 
 void Player::PlayerMovementDown()
 {
-	_position.y = _position.y - _playerMovementSpeed;
+	_position.y = _position.y - (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
 
 	if (_collider)
 		_collider->SetPosition(_position);
@@ -83,7 +83,7 @@ void Player::PlayerMovementDown()
 
 void Player::PlayerMovementLeft()
 {
-	_position.x = _position.x - _playerMovementSpeed;
+	_position.x = _position.x - (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
 
 	if (_collider)
 		_collider->SetPosition(_position);
@@ -91,7 +91,7 @@ void Player::PlayerMovementLeft()
 
 void Player::PlayerMovementRight()
 {
-	_position.x = _position.x + _playerMovementSpeed;
+	_position.x = _position.x + (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
 
 	if (_collider)
 		_collider->SetPosition(_position);

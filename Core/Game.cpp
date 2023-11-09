@@ -95,7 +95,7 @@ bool Game::Init()
     AudioSystem::instance().LoadAudio("SoundEffect01", "Assets/jeff.wav");
 
     _player = new Player(0, 0, 5, 5,
-        0, 100, 0.1f, 1, 1,
+        0, 100, 5.f, 1, 1,
         1, 1, 1, 1, 1, ColliderType::RECTANGLE);
     GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
     renderer->SetObjectToTrack(_player);
