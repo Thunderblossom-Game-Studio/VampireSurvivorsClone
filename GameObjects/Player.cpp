@@ -1,6 +1,5 @@
 #include "Player.h"
 #include "BaseGameObject.h"
-#include "IRenderableObject.h"
 #include "../Core/DeltaTime.h"
 #include "../Rendering/RenderInstanceManager.h"
 #include <iostream>
@@ -10,7 +9,10 @@
 Player::Player(float x, float y, float width, float height, float currentXP,
 	float playerHP, float playerMovementSpeed, float playerRecoveryMultiplier, float playerArmourMultiplier, float playerDamageMultiplier,
 	float playerAttackSpeedMultiplier, float playerXpMultiplier, float playerMagnetMultiplier, float playerGoldMultiplier,
-	ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height)
+	ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height), IAnimationObject("Assets/Textures/TextureLoadingTest.png", {	{ 129, 45, 15, 19 }, 
+																									{ 144, 45, 15, 19 },
+																									{ 161, 45, 15, 19 },
+																									{ 177, 45, 15, 19 } }, 2.0f, 5.0f)
 {
 	_renderSpace = space;
 	_color = color;
