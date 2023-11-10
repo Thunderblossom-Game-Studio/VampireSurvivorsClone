@@ -33,13 +33,17 @@ Player::Player(float x, float y, float width, float height, float currentXP,
 	{
 	case ColliderType::RECTANGLE:
 	{
-		_collider = new Collider2D(shape, { _width, _height });
+		//_collider = new Collider2D(shape, { _width, _height });
+
+		_collider = AddComponent<Collider2D>(new Collider2D(shape, { _width, _height }));
 		_collider->SetOnCollisionCallback(nullptr);
 		break;
 	}
 	case ColliderType::CIRCLE:
 	{
-		_collider = new Collider2D(shape, _width / 2);
+		//_collider = new Collider2D(shape, _width / 2);
+
+		_collider = AddComponent<Collider2D>(new Collider2D(shape, { _width / 2 }));
 		_collider->SetOnCollisionCallback(nullptr);
 		break;
 	}

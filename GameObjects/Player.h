@@ -2,7 +2,7 @@
 #include "BaseGameObject.h"
 #include "IAnimationObject.h"
 #include "../Core/CollisionManager.h"
-#include "../Core/Collider2D.h"
+#include "../Components/Collider2D.h"
 #include "../Core/InputManager.h"
 
 class Player final : public BaseGameObject, public IAnimationObject
