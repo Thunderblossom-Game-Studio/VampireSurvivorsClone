@@ -1,9 +1,9 @@
 #include "Component.h"
 
 
-Component::Component(BaseGameObject* owner)
+Component::Component()
 {
-	gameObject = owner;
+
 }
 
 void Component::SetIsEnabled(bool isEnabled)
