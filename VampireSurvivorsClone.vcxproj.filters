@@ -7,9 +7,6 @@
     <ClCompile Include="Core\AudioSystem.cpp">
       <Filter>Core</Filter>
     </ClCompile>
-    <ClCompile Include="Core\Collider2D.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
     <ClCompile Include="Core\DeltaTime.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -34,9 +31,6 @@
     <ClCompile Include="GameObjects\BaseGameObject.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
-    <ClCompile Include="GameObjects\Component.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
     <ClCompile Include="Gameplay\HealthSystem.cpp">
       <Filter>Gameplay</Filter>
     </ClCompile>
@@ -58,15 +52,18 @@
     <ClCompile Include="Rendering\SpriteSheet.cpp">
       <Filter>Rendering</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjects\IAnimationObject.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="Components\Component.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Components\Collider2D.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Core\AudioSystem.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Collider2D.h">
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Core\DeltaTime.h">
@@ -102,9 +99,6 @@
     <ClInclude Include="GameObjects\Player.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
-    <ClInclude Include="GameObjects\Component.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
     <ClInclude Include="Gameplay\HealthSystem.h">
       <Filter>Gameplay</Filter>
     </ClInclude>
@@ -126,6 +120,14 @@
     <ClInclude Include="Rendering\SpriteSheet.h">
       <Filter>Rendering</Filter>
     </ClInclude>
+    <ClInclude Include="GameObjects\IAnimationObject.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="Components\Collider2D.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Components\Component.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -142,6 +144,9 @@
     </Filter>
     <Filter Include="Templates">
       <UniqueIdentifier>{758e5772-b22e-4dc2-bee4-fb4a3e51090c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{470922ef-8eaa-4f5b-8de5-f541cdc1d5ce}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

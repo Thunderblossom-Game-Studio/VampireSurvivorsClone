@@ -8,5 +8,5 @@ Component::Component(BaseGameObject* owner)
 
 void Component::SetIsEnabled(bool isEnabled)
 {
-	this->isEnabled = isEnabled;
+	this->isEnabled = isEnabled; 
 }
