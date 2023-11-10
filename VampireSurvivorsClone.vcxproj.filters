@@ -53,11 +53,13 @@
       <Filter>Rendering</Filter>
     </ClCompile>
     <ClCompile Include="GameObjects\IAnimationObject.cpp" />
-    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Components\Component.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Components\Collider2D.cpp" />
+    <ClCompile Include="Level.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager.h">
@@ -121,12 +123,14 @@
       <Filter>Rendering</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\IAnimationObject.h" />
-    <ClInclude Include="Level.h" />
     <ClInclude Include="Components\Collider2D.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Components\Component.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Level.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
