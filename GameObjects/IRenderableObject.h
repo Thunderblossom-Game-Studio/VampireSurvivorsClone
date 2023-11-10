@@ -23,7 +23,7 @@ public:
     virtual float GetWidth() const = 0;
     virtual float GetHeight() const = 0;
 
-    void Flip(bool flip) { _flipped = flip; }
+    void Flip(bool flip) { if (_flipped != flip) _flipped = flip; }
     bool Flipped() { return _flipped; }
 
     void SetSortingLayer(int layer) { _sortingLayer = layer; }

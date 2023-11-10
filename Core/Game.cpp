@@ -115,9 +115,7 @@ bool Game::Init()
 
 void Game::Update()
 {
-
     DeltaTime::UpdateDeltaTime();
-
 
 
     // SDL Event handling loop
@@ -141,7 +139,6 @@ void Game::Update()
         }
     }
 
-    DeltaTime::UpdateDeltaTime();
 
     // Updates input state and performs any bound callbacks
     InputManager::instance().Update();

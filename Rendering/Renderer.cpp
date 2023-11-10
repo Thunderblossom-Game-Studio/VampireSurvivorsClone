@@ -183,8 +183,12 @@ void GameRenderer::Draw()
         switch (renderable->GetRenderSpace())
         {
         case WORLD:
-            drawList.push_back(renderable->GetRenderInfo());
+        {
+            RenderInfo info = renderable->GetRenderInfo();
+            info.src = renderable->GetSrc();
+            drawList.push_back(info);
             break;
+        }
         case UI:
             uiObjects.push_back(renderable);
             break;

@@ -12,7 +12,7 @@ Player::Player(float x, float y, float width, float height, float currentXP,
 	ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height), IAnimationObject("Assets/Textures/TextureLoadingTest.png", {	{ 129, 45, 15, 19 }, 
 																									{ 144, 45, 15, 19 },
 																									{ 161, 45, 15, 19 },
-																									{ 177, 45, 15, 19 } }, 2.0f, 5.0f)
+																									{ 177, 45, 15, 19 } }, 2.0f, 1.0f)
 {
 	_renderSpace = space;
 	_color = color;
@@ -89,6 +89,8 @@ void Player::PlayerMovementLeft()
 
 	if (_collider)
 		_collider->SetPosition(_position);
+
+	Flip(true);
 }
 
 void Player::PlayerMovementRight()
@@ -97,6 +99,8 @@ void Player::PlayerMovementRight()
 
 	if (_collider)
 		_collider->SetPosition(_position);
+
+	Flip(false);
 }
 
 
