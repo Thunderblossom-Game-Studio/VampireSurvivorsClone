@@ -1,5 +1,6 @@
 #include "ObjectSerializer.h"
 
+std::string ObjectSerializer::encryptionKey = "T";
 
 void ObjectSerializer::Example()
 {
@@ -14,7 +15,7 @@ void ObjectSerializer::Example()
     MyTestSaveClass loaded_object;
     if (LoadFromFile(loaded_object, "GameData"))
     {
-        std::cout << "Loaded object: " << loaded_object.money << " " << loaded_object.gem << " " << loaded_object.characterID << std::endl;
+        std::cout << "Loaded Data: " << loaded_object.money << " " << loaded_object.gem << " " << loaded_object.characterID << std::endl;
     }
     else 
     {
@@ -26,10 +27,18 @@ void ObjectSerializer::Example()
     int intData = 0;
     if (LoadFromFile(intData, "IntData"))
     {
-        std::cout << "Loaded object: " << intData << std::endl;
+        std::cout << "Loaded int: " << intData << std::endl;
     }
     else
     {
         std::cerr << "Failed to load IntData." << std::endl;
+    }
+}
+
+void ObjectSerializer::XOREncryptDecrypt(std::string& data, const std::string& key)
+{
+    for (size_t i = 0; i < data.size(); ++i) 
+    {
+        data[i] ^= key[i % key.size()];
     }
 }
