@@ -110,6 +110,8 @@ void Player::PlayerMovementRight()
 
 void Player::PlayerAutoAttack()
 {
+	_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, ColliderType::RECTANGLE);
+	_defaultAttack->Attack();
 
 	std::cout << "Attack" << std::endl;
 	TimeToReset = 0;

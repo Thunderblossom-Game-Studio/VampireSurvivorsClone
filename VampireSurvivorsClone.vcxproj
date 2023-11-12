@@ -325,6 +325,7 @@
     </ClCompile>
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlayerDefaultAttack.cpp" />
     <ClCompile Include="Rendering\GameWindow.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
     <ClCompile Include="Rendering\RenderInstanceManager.cpp" />
@@ -425,6 +426,7 @@
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Gameplay\HealthSystem.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="PlayerDefaultAttack.h" />
     <ClInclude Include="Rendering\GameWindow.h" />
     <ClInclude Include="Rendering\Renderer.h" />
     <ClInclude Include="Rendering\RenderInstanceManager.h" />

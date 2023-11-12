@@ -3,6 +3,7 @@
 #include "IAnimationObject.h"
 #include "../Core/CollisionManager.h"
 #include "../Components/Collider2D.h"
+#include "../PlayerDefaultAttack.h"
 #include "../Core/InputManager.h"
 
 class Player final : public BaseGameObject, public IAnimationObject
@@ -62,6 +63,7 @@ public:
 
 	RenderInfo GetRenderInfo() const override;
 
+	PlayerDefaultAttack* _defaultAttack;
 
 	//void Test();
 	//void PlayerInput();
