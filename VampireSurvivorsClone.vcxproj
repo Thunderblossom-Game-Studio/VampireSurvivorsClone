@@ -425,6 +425,7 @@
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Gameplay\HealthSystem.h" />
     <ClInclude Include="Level.h" />
+    <ClInclude Include="PoolSystem.h" />
     <ClInclude Include="Rendering\GameWindow.h" />
     <ClInclude Include="Rendering\Renderer.h" />
     <ClInclude Include="Rendering\RenderInstanceManager.h" />

@@ -41,7 +41,7 @@ public:
 
         XOREncryptDecrypt(serializedData, encryptionKey);
 
-        file << data; // Use stream operator to save the data
+        file << serializedData; // Use stream operator to save the data
         file.close();
     }
 
@@ -62,7 +62,6 @@ public:
         std::string encryptedData = buffer.str();
 
         XOREncryptDecrypt(encryptedData, encryptionKey);
-
 
         buffer.str(encryptedData);
         buffer >> data;  // Load the decrypted data

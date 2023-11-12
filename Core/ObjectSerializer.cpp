@@ -1,6 +1,6 @@
 #include "ObjectSerializer.h"
 
-std::string ObjectSerializer::encryptionKey = "T";
+std::string ObjectSerializer::encryptionKey = "Pelumi";
 
 void ObjectSerializer::Example()
 {
