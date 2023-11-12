@@ -1,5 +1,6 @@
 #include <iostream> // std::cout, std::endl
 #include "Core/Game.h"
+#include "Core/ObjectSerializer.h"
 
 int main(int argc, char* argv[])
 {

@@ -3,12 +3,17 @@
 #include <map>
 #include <fstream>
 #include <iostream>
+#include <sstream> 
 #include <string>
 #include <vector>
 #include <utility>
 
 class ObjectSerializer
 {
+
+private:
+        static std::string encryptionKey;
+
 public:
 
 	ObjectSerializer() = delete;
@@ -30,14 +35,19 @@ public:
             return;
         }
 
-        file << data; // Use stream operator to save the data
+        std::stringstream ss;
+        ss << data; 
+        std::string serializedData = ss.str();
+
+        XOREncryptDecrypt(serializedData, encryptionKey);
+
+        file << serializedData; // Use stream operator to save the data
         file.close();
     }
 
     template <typename T>
     static bool LoadFromFile(T& data, std::string filename)
     {
-
 
         std::string completeFilename = "SavedData/" + filename + ".txt";
         std::ifstream file(completeFilename, std::ios::in | std::ios::binary);
@@ -47,11 +57,21 @@ public:
             return false;
         }
 
-        file >> data; // Use stream operator to load the data
+        std::stringstream buffer;
+        buffer << file.rdbuf();
+        std::string encryptedData = buffer.str();
+
+        XOREncryptDecrypt(encryptedData, encryptionKey);
+
+        buffer.str(encryptedData);
+        buffer >> data;  // Load the decrypted data
+
         file.close();
 
         return true;
     }
+
+    static void XOREncryptDecrypt(std::string& data, const std::string& key);
 };
 
 /// <summary>

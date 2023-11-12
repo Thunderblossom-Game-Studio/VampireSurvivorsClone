@@ -58,6 +58,12 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Components\Collider2D.cpp" />
+    <ClCompile Include="Core\Timer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\WorldTime.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager.h">
@@ -127,6 +133,15 @@
     </ClInclude>
     <ClInclude Include="Components\Component.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\PoolSystem.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Timer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\WorldTime.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
