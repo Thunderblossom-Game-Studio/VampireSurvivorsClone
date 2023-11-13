@@ -117,6 +117,7 @@ void Game::Update()
 {
     DeltaTime::UpdateDeltaTime();
 
+    
 
     // SDL Event handling loop
     SDL_Event event;

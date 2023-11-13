@@ -1,8 +1,9 @@
 #pragma once
 #include <vector>
 #include <string>
+#include "GameObjects/Player.h"
+#include "Core/CollisionManager.h"
 
-class Player;
 class BaseGameObject;
 class TileMap;
 
