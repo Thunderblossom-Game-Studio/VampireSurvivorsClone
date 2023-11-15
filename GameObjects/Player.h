@@ -61,6 +61,8 @@ public:
 	void PlayerTimer();
 	void LevelUpSystem();
 
+	virtual void Update(float deltaTime) override;
+
 	RenderInfo GetRenderInfo() const override;
 
 	PlayerDefaultAttack* _defaultAttack;

@@ -143,6 +143,14 @@ void Game::Update()
     // Updates input state and performs any bound callbacks
     InputManager::instance().Update();
 
+
+    if(_player)
+    {
+        _player->Update(DeltaTime::GetDeltaTime());
+    }
+
+
+
     // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
     RenderInstanceManager::instance().GetRenderer("main")->Draw();
 }

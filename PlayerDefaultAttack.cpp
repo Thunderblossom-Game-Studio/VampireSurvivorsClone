@@ -11,6 +11,8 @@ PlayerDefaultAttack::PlayerDefaultAttack(float x, float y, float width, float he
 	_color = color;
 	_position.x = x;
 	_position.y = y;
+	_width = width;
+	_height = height;
 
 	switch(shape)
 	{
@@ -47,21 +49,25 @@ PlayerDefaultAttack::~PlayerDefaultAttack()
 	renderer->RemoveFromRenderList(this);
 }
 
-void PlayerDefaultAttack::Attack()
+bool PlayerDefaultAttack::Attack()
 {
-	TimeKeep = true;
+	//TimeKeep = true;
 
-	while (TimeKeep == true)
-	{
+	
 		TimeToReset += DeltaTime::GetDeltaTime();
 
 		if (TimeToReset >= AttackTimer)
 		{
-			PlayerDefaultAttack::~PlayerDefaultAttack();
+			std::cout << "Attack Out" << std::endl;
+			//PlayerDefaultAttack::~PlayerDefaultAttack();
+			//delete this;
 			TimeToReset = 0;
-			TimeKeep = false;
+			return true;
+			//TimeKeep = false;
+
 		}
-	}
+
+	return false;
 }
 
 RenderInfo PlayerDefaultAttack::GetRenderInfo() const

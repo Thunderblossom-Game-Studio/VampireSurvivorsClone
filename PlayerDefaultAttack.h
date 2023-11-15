@@ -22,11 +22,11 @@ public:
 	float GetWidth() const override { return _width; }
 	float GetHeight() const override { return _height; }
 
-	void Attack();
+	bool Attack();
 
 	float TimeToReset;
 	bool TimeKeep;
-	float AttackTimer = 1;
+	float AttackTimer = 5;
 
 
 	RenderInfo GetRenderInfo() const override;;
