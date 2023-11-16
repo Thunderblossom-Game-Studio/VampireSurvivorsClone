@@ -58,6 +58,9 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Components\Collider2D.cpp" />
+    <ClCompile Include="GameObjects\Enemy.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager.h">
@@ -127,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="Components\Component.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Enemy.h">
+      <Filter>GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
