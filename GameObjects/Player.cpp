@@ -116,7 +116,14 @@ void Player::PlayerAutoAttack()
 	//	return;
 	//}
 
-	_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, ColliderType::RECTANGLE);
+	if(Flipped() == false)
+	{
+		_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, AttackTimer, false, ColliderType::RECTANGLE);
+	}
+	else if (Flipped() == true)
+	{
+		_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, AttackTimer, true, ColliderType::RECTANGLE);
+	}
 	
 
 	std::cout << "Attack" << std::endl;
@@ -141,7 +148,6 @@ void Player::PlayerTimer() //This needs to be linked up to delta time
 
 void Player::Update(float deltaTime)
 {
-	PlayerTimer();
 
 	if(_defaultAttack)
 	{
@@ -154,7 +160,6 @@ void Player::Update(float deltaTime)
 		}
 		
 	}
-	
 
 	if (_currentXP >= XPLevelUp)
 	{
@@ -163,6 +168,8 @@ void Player::Update(float deltaTime)
 
 		//Insert harrison's Menu Function
 	}
+
+	PlayerTimer();
 }
 
 

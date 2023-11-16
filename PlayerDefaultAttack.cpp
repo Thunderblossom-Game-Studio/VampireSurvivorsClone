@@ -5,7 +5,7 @@
 
 #include "Core/DeltaTime.h"
 
-PlayerDefaultAttack::PlayerDefaultAttack(float x, float y, float width, float height, float attackDamage, ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color)
+PlayerDefaultAttack::PlayerDefaultAttack(float x, float y, float width, float height, float attackDamage, float attackTillAttack,bool flip, ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color)
 {
 	_renderSpace = space;
 	_color = color;
@@ -13,6 +13,8 @@ PlayerDefaultAttack::PlayerDefaultAttack(float x, float y, float width, float he
 	_position.y = y;
 	_width = width;
 	_height = height;
+	AttackTimer = attackTillAttack;
+	Flip(flip);
 
 	switch(shape)
 	{
@@ -45,6 +47,10 @@ PlayerDefaultAttack::PlayerDefaultAttack(float x, float y, float width, float he
 
 PlayerDefaultAttack::~PlayerDefaultAttack()
 {
+	if (_collider)
+	{
+		delete _collider;
+	}
 	GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
 	renderer->RemoveFromRenderList(this);
 }
@@ -53,6 +59,10 @@ bool PlayerDefaultAttack::Attack()
 {
 	//TimeKeep = true;
 
+		if(_collider)
+		{
+			_collider->SetPosition(_position);
+		}
 	
 		TimeToReset += DeltaTime::GetDeltaTime();
 

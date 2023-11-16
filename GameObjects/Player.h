@@ -49,7 +49,7 @@ public:
 	float TimeToReset;
 	float XPLevelUp = 100;
 	float XPCapMultiplier = 2;
-	float AttackTimer = 5;
+	float AttackTimer = 0.5;
 	bool TimeKeep = true;
 
 	void PlayerMovementUp();
