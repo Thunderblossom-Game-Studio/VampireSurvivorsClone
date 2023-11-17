@@ -31,7 +31,7 @@ public:
 	T* AddComponent(T* newCom)
 	{
 		Component* newComponent = dynamic_cast<Component*>(newCom);
-		newComponent->SetGameObject(this);
+		//newComponent->SetGameObject(this);
 		components.push_back(newComponent);
 		return newCom;
 	}

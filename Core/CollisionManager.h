@@ -11,7 +11,7 @@ public:
 
 private:
 	static std::vector<Collider2D*> _collidables;
-
+	//NEEDS DELETE COLLISION AS DEFAULT ATTACKS COLLISION IS LEAKING MEMORY SLIGHTLY
 	static bool CheckCollisions(Collider2D* collider1, Collider2D* collider2);
 
 };

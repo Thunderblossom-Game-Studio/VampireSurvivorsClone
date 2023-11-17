@@ -58,6 +58,7 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Components\Collider2D.cpp" />
+    <ClCompile Include="PlayerDefaultAttack.cpp" />
     <ClCompile Include="Core\Timer.cpp">
       <Filter>Core</Filter>
     </ClCompile>
@@ -134,6 +135,8 @@
     <ClInclude Include="Components\Component.h">
       <Filter>Components</Filter>
     </ClInclude>
+
+    <ClInclude Include="PlayerDefaultAttack.h" />
     <ClInclude Include="Core\PoolSystem.h">
       <Filter>Core</Filter>
     </ClInclude>
