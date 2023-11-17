@@ -4,6 +4,7 @@
 std::chrono::steady_clock::time_point WorldTime::_lastTime = std::chrono::steady_clock::now();
 std::chrono::steady_clock::time_point WorldTime::_currentTime = std::chrono::steady_clock::now();
 float WorldTime::_deltaTime = 0.0f;
+std::vector<Timer*> WorldTime::activeTimers;
 
 float WorldTime::GetDeltaTime()
 {

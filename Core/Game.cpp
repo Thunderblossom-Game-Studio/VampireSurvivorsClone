@@ -101,7 +101,7 @@ bool Game::Init()
     _map = new TileMap("Assets/BIGMap.txt", 5);
 
     _player = new Player(0, 0, 5, 5,
-        0, 100, 5.f, 1, 1,
+        0, 100, 50.0f, 1, 1,
         1, 1, 1, 1, 1, ColliderType::RECTANGLE);
 
 
