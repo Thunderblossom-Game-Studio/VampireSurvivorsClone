@@ -5,8 +5,7 @@ class Vector2;
 
 #include <iostream>
 #include <vector>
-
-class Component;
+#include "../Components/Component.h"
 
 class BaseGameObject {
 protected:
@@ -37,7 +36,7 @@ public:
 	T* AddComponent(T* newCom)
 	{
 		Component* newComponent = dynamic_cast<Component*>(newCom);
-		newComponent->SetGameObject(this);
+		//newComponent->SetGameObject(this);
 		components.push_back(newComponent);
 		return newCom;
 	}

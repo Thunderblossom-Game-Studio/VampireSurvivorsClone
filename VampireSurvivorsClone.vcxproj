@@ -163,6 +163,8 @@
     <ClCompile Include="Components\Component.cpp" />
     <ClCompile Include="Core\Level.cpp" />
     <ClCompile Include="Core\LevelManager.cpp" />
+    <ClCompile Include="Core\Timer.cpp" />
+    <ClCompile Include="Core\WorldTime.cpp" />
     <ClCompile Include="GameObjects\IAnimationObject.cpp" />
     <ClCompile Include="Core\AssetManager.cpp" />
     <ClCompile Include="Core\AudioSystem.cpp" />
@@ -326,6 +328,7 @@
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlayerDefaultAttack.cpp" />
     <ClCompile Include="Rendering\GameWindow.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
     <ClCompile Include="Rendering\RenderInstanceManager.cpp" />
@@ -412,6 +415,9 @@
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Core\Level.h" />
     <ClInclude Include="Core\LevelManager.h" />
+    <ClInclude Include="Core\PoolSystem.h" />
+    <ClInclude Include="Core\Timer.h" />
+    <ClInclude Include="Core\WorldTime.h" />
     <ClInclude Include="GameObjects\IAnimationObject.h" />
     <ClInclude Include="Core\AssetManager.h" />
     <ClInclude Include="Core\AudioSystem.h" />
@@ -427,6 +433,8 @@
     <ClInclude Include="GameObjects\IRenderableObject.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Gameplay\HealthSystem.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="PlayerDefaultAttack.h" />
     <ClInclude Include="Rendering\GameWindow.h" />
     <ClInclude Include="Rendering\Renderer.h" />
     <ClInclude Include="Rendering\RenderInstanceManager.h" />
