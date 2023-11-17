@@ -39,7 +39,7 @@ PlayerDefaultAttack::PlayerDefaultAttack(float x, float y, float width, float he
 	if (_collider)
 		CollisionManager::RegisterCollider(_collider);
 
-	SetTexture("Assets/Textures/TextureLoadingTest.png", { 180,45,16,19 });
+	SetTexture("Assets/Textures/TextureLoadingTest.png", { 290,15,16,19 });
 	GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
 	renderer->AddToRenderList(this);
 
