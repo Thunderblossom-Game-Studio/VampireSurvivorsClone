@@ -100,6 +100,7 @@ void Player::PlayerMovementLeft()
 void Player::PlayerMovementRight()
 {
 	_position.x = _position.x + (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
+	
 
 	if (_collider)
 		_collider->SetPosition(_position);
@@ -110,19 +111,31 @@ void Player::PlayerMovementRight()
 
 void Player::PlayerAutoAttack()
 {
+	//if(_defaultAttack)
+	//{
+	//	return;
+	//}
+
+	if(Flipped() == false)
+	{
+		_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, AttackTimer, false, ColliderType::RECTANGLE);
+	}
+	else if (Flipped() == true)
+	{
+		_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, AttackTimer, true, ColliderType::RECTANGLE);
+	}
+	
 
 	std::cout << "Attack" << std::endl;
 	TimeToReset = 0;
 	//Insert Basic Auto Attack Here (NEEDS SPRITE & ITS OWN HIT DETECTION)
 }
 
+
+
 void Player::PlayerTimer() //This needs to be linked up to delta time
 {
-	
 
-	while (TimeToReset >= 0)
-	{
-		
 		TimeToReset += DeltaTime::GetDeltaTime();
 
 		if (TimeToReset >= AttackTimer)
@@ -130,6 +143,22 @@ void Player::PlayerTimer() //This needs to be linked up to delta time
 			PlayerAutoAttack();
 		}
 
+
+}
+
+void Player::Update(float deltaTime)
+{
+
+	if(_defaultAttack)
+	{
+		if(_defaultAttack->Attack())
+		{
+			
+			delete _defaultAttack;
+			std::cout << "Attack Deleted" << std::endl;
+			/*_defaultAttack->Attack();*/
+		}
+		
 	}
 
 	if (_currentXP >= XPLevelUp)
@@ -140,10 +169,10 @@ void Player::PlayerTimer() //This needs to be linked up to delta time
 		//Insert harrison's Menu Function
 	}
 
-
-
-
+	PlayerTimer();
 }
+
+
 
 RenderInfo Player::GetRenderInfo() const
 {

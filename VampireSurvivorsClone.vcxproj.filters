@@ -60,6 +60,12 @@
     <ClCompile Include="Components\Collider2D.cpp" />
     <ClCompile Include="GameObjects\Enemy.cpp">
       <Filter>GameObjects</Filter>
+    <ClCompile Include="PlayerDefaultAttack.cpp" />
+    <ClCompile Include="Core\Timer.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\WorldTime.cpp">
+      <Filter>Core</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -133,6 +139,16 @@
     </ClInclude>
     <ClInclude Include="GameObjects\Enemy.h">
       <Filter>GameObjects</Filter>
+
+    <ClInclude Include="PlayerDefaultAttack.h" />
+    <ClInclude Include="Core\PoolSystem.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\Timer.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\WorldTime.h">
+      <Filter>Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

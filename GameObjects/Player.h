@@ -2,6 +2,7 @@
 #include "BaseGameObject.h"
 #include "IAnimationObject.h"
 #include "../Components/Collider2D.h"
+#include "../PlayerDefaultAttack.h"
 #include "../Core/InputManager.h"
 #include "../GameObjects/IDamageable.h"
 
@@ -45,7 +46,7 @@ public:
 	float TimeToReset;
 	float XPLevelUp = 100;
 	float XPCapMultiplier = 2;
-	float AttackTimer = 5;
+	float AttackTimer = 0.5;
 	bool TimeKeep = true;
 
 	void PlayerMovementUp();
@@ -57,13 +58,16 @@ public:
 	void PlayerTimer();
 	void LevelUpSystem();
 
-	RenderInfo GetRenderInfo() const override;
+	virtual void Update(float deltaTime) override;
 
+	RenderInfo GetRenderInfo() const override;
+  
 	void TakeDamage(float damage) override;
 
 	void Update(float deltaTime) override;
 	void LateUpdate(float deltaTime) override;
-
+  
+	PlayerDefaultAttack* _defaultAttack;
 
 	//void Test();
 	//void PlayerInput();

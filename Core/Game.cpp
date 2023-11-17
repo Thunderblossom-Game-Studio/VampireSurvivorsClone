@@ -101,7 +101,7 @@ bool Game::Init()
     _map = new TileMap("Assets/BIGMap.txt", 5);
 
     _player = new Player(0, 0, 5, 5,
-        0, 100, 5.f, 1, 1,
+        0, 100, 50.0f, 1, 1,
         1, 1, 1, 1, 1, ColliderType::RECTANGLE);
 
 
@@ -142,6 +142,14 @@ void Game::Update()
 
     // Updates input state and performs any bound callbacks
     InputManager::instance().Update();
+
+
+    if(_player)
+    {
+        _player->Update(DeltaTime::GetDeltaTime());
+    }
+
+
 
     // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
     RenderInstanceManager::instance().GetRenderer("main")->Draw();
