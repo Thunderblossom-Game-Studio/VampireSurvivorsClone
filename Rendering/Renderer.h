@@ -7,8 +7,8 @@
 
 #include <vector>
 
-class SDL_Window;
-class SDL_Renderer;
+struct SDL_Window;
+struct SDL_Renderer;
 class IRenderableObject;
 class ExampleGameObject;
 class TileMap;
@@ -33,7 +33,7 @@ struct RenderInfo
     SDL_Color color = { 255, 255, 255, 255 };
 };
 
-class GameRenderer : public BaseGameObject
+class GameRenderer
 {
 public:
     enum RenderSpace { WORLD, UI };
@@ -43,6 +43,8 @@ private:
     bool _lighting{ true };
     bool _drawWorldDebug{ false };
     bool _fullscreen{ false };
+
+    Vector2 _position;
 
     BaseGameObject* _target{ nullptr };
     std::vector<RenderInfo> _staticRenderList;

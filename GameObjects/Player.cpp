@@ -1,13 +1,13 @@
 #include "Player.h"
-#include "BaseGameObject.h"
 #include "../Core/DeltaTime.h"
+#include "../Core/InputManager.h"
+#include "../Core/CollisionManager.h"
 #include "../Rendering/RenderInstanceManager.h"
 #include <iostream>
-#include "../Core/InputManager.h"
 
 
 Player::Player(float x, float y, float width, float height, float currentXP,
-	float playerHP, float playerMovementSpeed, float playerRecoveryMultiplier, float playerArmourMultiplier, float playerDamageMultiplier,
+	float health, float playerMovementSpeed, float playerRecoveryMultiplier, float playerArmourMultiplier, float playerDamageMultiplier,
 	float playerAttackSpeedMultiplier, float playerXpMultiplier, float playerMagnetMultiplier, float playerGoldMultiplier,
 	ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height), IAnimationObject("Assets/Textures/TextureLoadingTest.png", {	{ 129, 45, 15, 19 }, 
 																									{ 144, 45, 15, 19 },
@@ -20,7 +20,7 @@ Player::Player(float x, float y, float width, float height, float currentXP,
 	_position.y = y;
 
 	_currentXP = currentXP;
-	_playerHP = playerHP;
+	_health = health;
 	_playerMovementSpeed = playerMovementSpeed;
 	_playerRecoveryMultiplier = playerRecoveryMultiplier;  //Health Recovery Speed_playerArmourMultiplier = playerArmourMultiplier; //Defence Multiplier Against Enemy Attacks
 	_playerDamageMultiplier = playerDamageMultiplier; //Attack Multiplier Of Attacks
@@ -31,22 +31,22 @@ Player::Player(float x, float y, float width, float height, float currentXP,
 
 	switch (shape)
 	{
-	case ColliderType::RECTANGLE:
-	{
-		//_collider = new Collider2D(shape, { _width, _height });
+		case ColliderType::RECTANGLE:
+		{
+			//_collider = new Collider2D(shape, { _width, _height });
 
-		_collider = AddComponent<Collider2D>(new Collider2D(shape, { _width, _height }));
-		_collider->SetOnCollisionCallback(nullptr);
-		break;
-	}
-	case ColliderType::CIRCLE:
-	{
-		//_collider = new Collider2D(shape, _width / 2);
+			_collider = AddComponent<Collider2D>(new Collider2D(shape, { _width, _height }));
+			_collider->SetOnCollisionCallback(nullptr);
+			break;
+		}
+		case ColliderType::CIRCLE:
+		{
+			//_collider = new Collider2D(shape, _width / 2);
 
-		_collider = AddComponent<Collider2D>(new Collider2D(shape, { _width / 2 }));
-		_collider->SetOnCollisionCallback(nullptr);
-		break;
-	}
+			_collider = AddComponent<Collider2D>(new Collider2D(shape, { _width / 2 }));
+			_collider->SetOnCollisionCallback(nullptr);
+			break;
+		}
 	}
 
 	if (_collider)
@@ -150,8 +150,18 @@ RenderInfo Player::GetRenderInfo() const
 	return RenderInfo(_position, {_width, _height}, _texture, _src, _flipped, _sortingLayer, _color);
 }
 
+void Player::TakeDamage(float damage)
+{
+	_health -= damage;
+}
 
+void Player::Update(float deltaTime)
+{
+}
 
+void Player::LateUpdate(float deltaTime)
+{
+}
 
 
 //void Player::OnEnemyCollision()

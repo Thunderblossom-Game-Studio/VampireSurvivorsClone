@@ -1,25 +1,22 @@
 #pragma once
 #include "BaseGameObject.h"
 #include "IAnimationObject.h"
-#include "../Core/CollisionManager.h"
 #include "../Components/Collider2D.h"
 #include "../Core/InputManager.h"
+#include "../GameObjects/IDamageable.h"
 
-class Player final : public BaseGameObject, public IAnimationObject
+class Player final : public BaseGameObject, public IAnimationObject, public IDamageable
 {
 private:
 
 	Collider2D* _collider = nullptr;
 
 public:
-
-
 	float _width = 0;
 	float _height = 0;
 	float _currentXP = 0;
 
 	//Player Stats That Can Be Increased Via Level Up:
-	float _playerHP = 0;   //Max Health
 	float _playerMovementSpeed = 0; //Movement Speed
 	float _playerRecoveryMultiplier = 0;  //Health Recovery Speed
 	float _playerArmourMultiplier = 0; //Defence Multiplier Against Enemy Attacks
@@ -34,7 +31,7 @@ public:
 
 
 	Player(float x, float y, float width, float height, float currentXP,
-		float playerHP, float playerMovementSpeed, float playerRecoveryMultiplier, float playerArmourMultiplier, float playerDamageMultiplier,
+		float health, float playerMovementSpeed, float playerRecoveryMultiplier, float playerArmourMultiplier, float playerDamageMultiplier,
 		float playerAttackSpeedMultiplier, float playerXpMultiplier, float playerMagnetMultiplier, float playerGoldMultiplier, ColliderType shape = ColliderType::RECTANGLE,
 		GameRenderer::RenderSpace space = GameRenderer::RenderSpace::WORLD, SDL_Color color = { 255,255,255,255 });
 	~Player();
@@ -61,6 +58,11 @@ public:
 	void LevelUpSystem();
 
 	RenderInfo GetRenderInfo() const override;
+
+	void TakeDamage(float damage) override;
+
+	void Update(float deltaTime) override;
+	void LateUpdate(float deltaTime) override;
 
 
 	//void Test();

@@ -11,23 +11,19 @@ class Component;
 class BaseGameObject {
 protected:
     BaseGameObject() = default;
-
+	std::vector<Component*> components;
     Vector2 _position = { 0, 0 };
 
 public:
     virtual ~BaseGameObject() = default;
 	float GetY() const { return _position.y; }
 	float GetX() const { return _position.x; }
+	
+	virtual void Update(float deltaTime) = 0;
+	virtual void LateUpdate(float deltaTime) = 0;
+	
 
 protected:
-
-	std::vector<Component*> components;
-
-	virtual void Update(float deltaTime) {};
-	virtual void LateUpdate(float deltaTime) {};
-
-public:
-
 	template<class T>
 	T* AddComponent(T* newCom)
 	{

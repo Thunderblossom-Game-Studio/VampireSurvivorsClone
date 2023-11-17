@@ -1,36 +1,49 @@
 #pragma once
 #include "BaseGameObject.h"
 #include "IAnimationObject.h"
-#include "../Core/CollisionManager.h"
 #include "../Components/Collider2D.h"
-//#include "../GameObjects/IDamageable.h"
+#include "../GameObjects/IDamageable.h"
 
-class Enemy final : public BaseGameObject, public IAnimationObject
+class Enemy : public BaseGameObject, public IAnimationObject, public IDamageable
 {
 private:
 	Collider2D* _collider = nullptr;
-public:
 	float _width = 0;
 	float _height = 0;
-	float _enemyHP = 0;
-	float _enemyMovementSpeed = 0;
+	float _speed = 0;
+
+	// Player target
+	BaseGameObject* _player = nullptr;
+	
+public:
 
 	Enemy(float x, float y, float width, float height,
-		float enemyHP, float enemyMovementSpeed, ColliderType shape = ColliderType::RECTANGLE,
-		GameRenderer::RenderSpace space = GameRenderer::RenderSpace::WORLD, SDL_Color color = { 255,255,255,255 });
+		float health, float speed,
+		ColliderType shape = ColliderType::RECTANGLE,
+		GameRenderer::RenderSpace renderSpace = GameRenderer::RenderSpace::WORLD, SDL_Color color = { 255,255,255,255 },
+		BaseGameObject* target = nullptr);
+	
 	~Enemy();
 
+	// Position
 	float GetY() const override { return _position.y; }
 	float GetX() const override { return _position.x; }
 
+	// Scale
 	float GetWidth() const override { return _width; }
 	float GetHeight() const override { return _height; }
 
-	void EnemyMovement();
-	void EnemyAttack();
+	// Actions
+	void Movement();
+	void Attack();
 
-	void UpdateEnemy(); //Updates every tick.
+	// Default functions
+	void Update(float deltaTime) override; //Updates every tick.
+	void LateUpdate(float deltaTime) override; //Updates every tick after Update.
 	void OnDeath(); //Events when the enemy dies.
+
+	// Collision
+	void OnCollision(Collider2D& other);
 
 	RenderInfo GetRenderInfo() const override;
 };
