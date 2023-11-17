@@ -5,8 +5,7 @@ class Vector2;
 
 #include <iostream>
 #include <vector>
-
-class Component;
+#include "../Components/Component.h"
 
 class BaseGameObject {
 protected:
