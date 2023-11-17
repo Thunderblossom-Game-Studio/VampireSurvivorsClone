@@ -14,20 +14,25 @@ protected:
 
     Vector2 _position = { 0, 0 };
 
+	std::string _tag = "default";
+	bool _markedForDestruction = false;
+
 public:
     virtual ~BaseGameObject() = default;
 	float GetY() const { return _position.y; }
 	float GetX() const { return _position.x; }
 
-protected:
+	std::string GetTag() const { return _tag; }
+	bool IsMarkedForDestruction() const { return _markedForDestruction; }
+	void MarkForDestruction() { _markedForDestruction = true; }
 
 	std::vector<Component*> components;
 
 	virtual void Update(float deltaTime) {};
 	virtual void LateUpdate(float deltaTime) {};
 
-public:
 
+#pragma region Component Management
 	template<class T>
 	T* AddComponent(T* newCom)
 	{
@@ -78,4 +83,6 @@ public:
 		T* newObject = new T(*prefab);
 		return newObject;
 	}
+
+#pragma endregion
 };

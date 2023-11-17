@@ -6,6 +6,7 @@
 #include "InputManager.h"
 #include "AudioSystem.h"
 #include "DeltaTime.h"
+#include "LevelManager.h"
 
 Game::Game(token)
 {
@@ -104,10 +105,9 @@ bool Game::Init()
         0, 100, 50.f, 1, 1,
         1, 1, 1, 1, 1, ColliderType::RECTANGLE);
 
-
-
     GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
     renderer->SetObjectToTrack(_player);
+
 
     _running = true;
     return true;
@@ -117,33 +117,28 @@ void Game::Update()
 {
     DeltaTime::UpdateDeltaTime();
 
-    
 
-    // SDL Event handling loop
-    SDL_Event event;
-    while (SDL_PollEvent(&event))
-    {
-        switch(event.type)
-        {
-        // InputManager handles keypresses, this is just a quick and dirty way to exit the game
-        case SDL_KEYDOWN:
-            if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-                _running = false;
-            break;
-            
-        case SDL_QUIT:
-            _running = false;
-            break;
-            
-        default:
-            break;
-        }
-    }
+    //TODO - Properly test Level System
 
+    //// SDL Event handling loop
+    //SDL_Event event;
+    //while (SDL_PollEvent(&event))
+    //{
+    //    switch(event.type)
+    //    {
+    //    // InputManager handles keypresses, this is just a quick and dirty way to exit the game
+    //    case SDL_KEYDOWN:
+    //        if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+    //            _running = false;
+    //        break;
+    //        
+    //    case SDL_QUIT:
+    //        _running = false;
+    //        break;
+    //        
+    //    default:
+    //        break;
+    //    }
+    //}
 
-    // Updates input state and performs any bound callbacks
-    InputManager::instance().Update();
-
-    // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
-    RenderInstanceManager::instance().GetRenderer("main")->Draw();
 }

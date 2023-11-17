@@ -8,6 +8,7 @@
 #include "../Rendering/TileMap.h"
 
 class GameRenderer;
+class Level;
 
 class Game final : public Singleton<Game>
 {
@@ -19,6 +20,8 @@ private:
     ExampleGameObject* _exampleUIObject;
     Player* _player;
     TileMap* _map;
+
+    Level* _level;
 
 public:
     Game(token);
