@@ -69,6 +69,7 @@
     <ClCompile Include="GameObjects\BasePickUp.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="GameTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager.h">
@@ -153,6 +154,7 @@
     <ClInclude Include="GameObjects\BasePickUp.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="GameTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
