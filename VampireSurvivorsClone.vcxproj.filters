@@ -65,6 +65,7 @@
     <ClCompile Include="Core\WorldTime.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="GameTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager.h">
@@ -135,7 +136,6 @@
     <ClInclude Include="Components\Component.h">
       <Filter>Components</Filter>
     </ClInclude>
-
     <ClInclude Include="PlayerDefaultAttack.h" />
     <ClInclude Include="Core\PoolSystem.h">
       <Filter>Core</Filter>
@@ -146,6 +146,7 @@
     <ClInclude Include="Core\WorldTime.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="GameTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">

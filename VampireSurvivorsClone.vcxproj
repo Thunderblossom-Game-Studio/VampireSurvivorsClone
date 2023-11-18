@@ -325,6 +325,7 @@
       </AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="GameTimer.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerDefaultAttack.cpp" />
@@ -430,6 +431,7 @@
     <ClInclude Include="GameObjects\IRenderableObject.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Gameplay\HealthSystem.h" />
+    <ClInclude Include="GameTimer.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="PlayerDefaultAttack.h" />
     <ClInclude Include="Rendering\GameWindow.h" />
