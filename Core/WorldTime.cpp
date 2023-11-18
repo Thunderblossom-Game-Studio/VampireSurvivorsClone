@@ -1,5 +1,4 @@
 #include "WorldTime.h"
-#include "DeltaTime.h"
 
 std::chrono::steady_clock::time_point WorldTime::_lastTime = std::chrono::steady_clock::now();
 std::chrono::steady_clock::time_point WorldTime::_currentTime = std::chrono::steady_clock::now();
