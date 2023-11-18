@@ -65,6 +65,10 @@
     <ClCompile Include="Core\WorldTime.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="BasePickUp.cpp" />
+    <ClCompile Include="GameObjects\BasePickUp.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
     <ClCompile Include="GameTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -145,6 +149,10 @@
     </ClInclude>
     <ClInclude Include="Core\WorldTime.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="BasePickUp.h" />
+    <ClInclude Include="GameObjects\BasePickUp.h">
+      <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="GameTimer.h" />
   </ItemGroup>

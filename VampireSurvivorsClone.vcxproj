@@ -159,10 +159,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BasePickUp.cpp" />
     <ClCompile Include="Components\Collider2D.cpp" />
     <ClCompile Include="Components\Component.cpp" />
     <ClCompile Include="Core\Timer.cpp" />
     <ClCompile Include="Core\WorldTime.cpp" />
+    <ClCompile Include="GameObjects\BasePickUp.cpp" />
     <ClCompile Include="GameObjects\IAnimationObject.cpp" />
     <ClCompile Include="Core\AssetManager.cpp" />
     <ClCompile Include="Core\AudioSystem.cpp" />
@@ -411,11 +413,13 @@
     <ClCompile Include="Rendering\TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BasePickUp.h" />
     <ClInclude Include="Components\Collider2D.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Core\PoolSystem.h" />
     <ClInclude Include="Core\Timer.h" />
     <ClInclude Include="Core\WorldTime.h" />
+    <ClInclude Include="GameObjects\BasePickUp.h" />
     <ClInclude Include="GameObjects\IAnimationObject.h" />
     <ClInclude Include="Core\AssetManager.h" />
     <ClInclude Include="Core\AudioSystem.h" />
