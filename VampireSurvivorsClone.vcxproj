@@ -159,7 +159,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BasePickUp.cpp" />
     <ClCompile Include="Components\Collider2D.cpp" />
     <ClCompile Include="Components\Component.cpp" />
     <ClCompile Include="Core\Timer.cpp" />
@@ -413,7 +412,6 @@
     <ClCompile Include="Rendering\TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BasePickUp.h" />
     <ClInclude Include="Components\Collider2D.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Core\PoolSystem.h" />
