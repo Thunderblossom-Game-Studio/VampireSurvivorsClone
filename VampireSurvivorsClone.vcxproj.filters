@@ -69,6 +69,24 @@
       <Filter>GameObjects</Filter>
     </ClCompile>
     <ClCompile Include="GameTimer.cpp" />
+    <ClCompile Include="UI\Start.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\SliderUI.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Pause.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Menu.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Death.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\Button.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager.h">
@@ -153,6 +171,24 @@
       <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="GameTimer.h" />
+    <ClInclude Include="UI\Start.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\SliderUI.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Pause.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Menu.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Death.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\Button.h">
+      <Filter>UI</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">
@@ -172,6 +208,9 @@
     </Filter>
     <Filter Include="Components">
       <UniqueIdentifier>{470922ef-8eaa-4f5b-8de5-f541cdc1d5ce}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="UI">
+      <UniqueIdentifier>{37a027ca-a02f-4325-91ff-e78928b694a6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

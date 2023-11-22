@@ -410,6 +410,12 @@
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
     <ClCompile Include="Rendering\TileMap.cpp" />
+    <ClCompile Include="UI\Button.cpp" />
+    <ClCompile Include="UI\Death.cpp" />
+    <ClCompile Include="UI\Menu.cpp" />
+    <ClCompile Include="UI\Pause.cpp" />
+    <ClCompile Include="UI\SliderUI.cpp" />
+    <ClCompile Include="UI\Start.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Collider2D.h" />
@@ -442,6 +448,12 @@
     <ClInclude Include="Rendering\SpriteSheet.h" />
     <ClInclude Include="Rendering\TileMap.h" />
     <ClInclude Include="Templates\Singleton.h" />
+    <ClInclude Include="UI\Button.h" />
+    <ClInclude Include="UI\Death.h" />
+    <ClInclude Include="UI\Menu.h" />
+    <ClInclude Include="UI\Pause.h" />
+    <ClInclude Include="UI\SliderUI.h" />
+    <ClInclude Include="UI\Start.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

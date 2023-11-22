@@ -6,9 +6,6 @@ class Slider {
 public:
     Slider(int x, int y, int barWidth, int barHeight, int buttonWidth, int buttonHeight, int increments);
 
-    // Standard render call
-    void Render(SDL_Renderer* renderer);
-
     // Enable/Disable alpha
     void SetAlpha(bool enable);
 

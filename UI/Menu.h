@@ -5,6 +5,9 @@
 #include <SDL.h>
 #include "Button.h"
 #include "SliderUI.h"
+#include "../Core/InputManager.h"
+int MenuValue;
+bool MenuActive;
 
 class Menu {
 public:
