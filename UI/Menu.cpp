@@ -1,17 +1,8 @@
 #include "Menu.h"
 
 Menu::Menu(int x, int y, int buttonWidth, int buttonHeight, int sliderWidth, int sliderHeight, int maxChildren)
-    : x{ x }, y{ y }, buttonWidth{ buttonWidth }, buttonHeight{ buttonHeight }, sliderWidth{ sliderWidth }, sliderHeight{ sliderHeight }, maxChildren{ maxChildren }, activeChild{ 1 } {
-    GenerateButtons();
-    GenerateSliders();
-}
-
-// Render and assign value to children
-void Menu::Render() {
-    for (int i = 0; i < maxChildren; ++i) {
-        buttons[i].Render(renderer);
-        sliders[i].Render(renderer);
-    }
+    : x{ x }, y{ y }, buttonWidth{ buttonWidth }, buttonHeight{ buttonHeight }, sliderWidth{ sliderWidth }, sliderHeight{ sliderHeight }, maxChildren{ maxChildren }, activeChild{ 1 } 
+{
 }
 
 // Set alpha of children on/off

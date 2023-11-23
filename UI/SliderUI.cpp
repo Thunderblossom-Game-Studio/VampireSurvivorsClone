@@ -7,7 +7,7 @@ float barIncrement;
 float currentIncrement = 0;
 
 Slider::Slider(int x, int y, int barWidth, int barHeight, int increments)
-    : barRect{ x, y, barWidth, barHeight }, increments{ increments }, selected{ false }
+    : increments{ increments }, selected{ false }
 {
     // Create a Button instance
     base = new Button(x, y, barWidth, barHeight);

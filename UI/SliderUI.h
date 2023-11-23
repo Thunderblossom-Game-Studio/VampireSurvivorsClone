@@ -33,9 +33,6 @@ public:
     float GetHeight() const override { return _height; }
 
 private:
-    SDL_Rect barRect;      // Position and dimensions of the slider bar
-    SDL_Color barColor{ 100, 100, 100 };      // Color of the slider bar
-    SDL_Color buttonColor{ 255, 255, 255 };   // Color of the slider button
     Uint8 alpha{ 255 };      // Alpha value for transparency
     bool isVisible = true;  // Flag to determine if the slider is visible
     bool selected;          // Flag to determine if the slider is selected
