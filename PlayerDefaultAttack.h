@@ -4,6 +4,7 @@
 #include "Core/CollisionManager.h"
 #include "Components/Collider2D.h"
 #include "Core/InputManager.h""
+#include "GameObjects/IDamageable.h"
 class PlayerDefaultAttack final : public BaseGameObject, public IRenderableObject
 {
 private:
@@ -26,7 +27,16 @@ public:
 
 	float TimeToReset;
 	bool TimeKeep;
-	float AttackTimer = 5;
+	float _attackTimer = 5;
+	float _attackDamage = 1;
+	BaseGameObject* _target = nullptr;
+	BaseGameObject* _xpPickUp = nullptr;
+
+	void Update(float deltatime) override;
+
+	void LateUpdate(float deltatime) override;
+
+	void OnCollision(Collider2D& other);
 
 
 	RenderInfo GetRenderInfo() const override;;

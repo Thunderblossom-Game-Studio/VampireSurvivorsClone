@@ -57,6 +57,10 @@ Player::Player(float x, float y, float width, float height, float currentXP,
 	InputManager::instance().BindKey(SDL_SCANCODE_D, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementRight, this));
 	InputManager::instance().BindKey(SDL_SCANCODE_S, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementDown, this));
 
+	InputManager::instance().BindKey(SDL_SCANCODE_1, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerLevelUpOption1, this));
+	InputManager::instance().BindKey(SDL_SCANCODE_2, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerLevelUpOption2, this));
+	InputManager::instance().BindKey(SDL_SCANCODE_3, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerLevelUpOption3, this));
+
 	SetTexture("Assets/Textures/TextureLoadingTest.png", { 128,45,16,19 });
 	GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
 	renderer->AddToRenderList(this);
@@ -97,6 +101,7 @@ void Player::PlayerMovementLeft()
 	Flip(true);
 }
 
+
 void Player::PlayerMovementRight()
 {
 	_position.x = _position.x + (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
@@ -106,6 +111,30 @@ void Player::PlayerMovementRight()
 		_collider->SetPosition(_position);
 
 	Flip(false);
+}
+
+void Player::PlayerLevelUpOption1()
+{
+	if(_levelUpMenuActive == true)
+	{
+		//insert selection choice
+	}
+}
+
+void Player::PlayerLevelUpOption2()
+{
+	if (_levelUpMenuActive == true)
+	{
+		//insert selection choice
+	}
+}
+
+void Player::PlayerLevelUpOption3()
+{
+	if (_levelUpMenuActive == true)
+	{
+		//insert selection choice
+	}
 }
 
 
@@ -118,16 +147,16 @@ void Player::PlayerAutoAttack()
 
 	if(Flipped() == false)
 	{
-		_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, AttackTimer, false, ColliderType::RECTANGLE);
+		_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, false, ColliderType::RECTANGLE);
 	}
 	else if (Flipped() == true)
 	{
-		_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, AttackTimer, true, ColliderType::RECTANGLE);
+		_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, true, ColliderType::RECTANGLE);
 	}
 	
 
 	std::cout << "Attack" << std::endl;
-	TimeToReset = 0;
+	_timeToReset = 0;
 	//Insert Basic Auto Attack Here (NEEDS SPRITE & ITS OWN HIT DETECTION)
 }
 
@@ -136,13 +165,22 @@ void Player::PlayerAutoAttack()
 void Player::PlayerTimer() //This needs to be linked up to delta time
 {
 
-		TimeToReset += DeltaTime::GetDeltaTime();
+		_timeToReset += DeltaTime::GetDeltaTime();
 
-		if (TimeToReset >= AttackTimer)
+		if (_timeToReset >= _attackTimer)
 		{
 			PlayerAutoAttack();
 		}
 
+
+}
+
+void Player::OnCollision(Collider2D& other)
+{
+	if (other.GetGameObject() == _xpPickUp)
+	{
+		_currentXP = _currentXP + 1;
+	}
 
 }
 
@@ -161,10 +199,10 @@ void Player::Update(float deltaTime)
 		
 	}
 
-	if (_currentXP >= XPLevelUp)
+	if (_currentXP >= _xpLevelUp)
 	{
 		_currentXP = 0;
-		XPLevelUp = XPLevelUp * XPCapMultiplier;
+		_xpLevelUp = _xpLevelUp * _xpCapMultiplier;
 
 		//Insert harrison's Menu Function
 	}
@@ -184,9 +222,9 @@ void Player::TakeDamage(float damage)
 	_health -= damage;
 }
 
-void Player::Update(float deltaTime)
-{
-}
+//void Player::Update(float deltaTime)
+//{
+//}
 
 void Player::LateUpdate(float deltaTime)
 {

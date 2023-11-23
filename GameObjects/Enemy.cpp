@@ -93,6 +93,13 @@ void Enemy::Attack()
 void Enemy::OnDeath()
 {
     std::cout << "Enemy died" << std::endl;
+
+	_xpDrop = new XPPickUp(_position.x, _position.y, 10.f, 10.f, _player, ColliderType::RECTANGLE);
+}
+
+void Enemy::TakeDamage(float damage)
+{
+    _health -= damage;
 }
 
 void Enemy::OnCollision(Collider2D& other)

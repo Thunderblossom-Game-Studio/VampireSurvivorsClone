@@ -2,6 +2,7 @@
 #include "BaseGameObject.h"
 #include "IAnimationObject.h"
 #include "../Components/Collider2D.h"
+#include "../XPPickUp.h"
 #include "../GameObjects/IDamageable.h"
 
 class Enemy : public BaseGameObject, public IAnimationObject, public IDamageable
@@ -42,8 +43,12 @@ public:
 	void LateUpdate(float deltaTime) override; //Updates every tick after Update.
 	void OnDeath(); //Events when the enemy dies.
 
+	void TakeDamage(float damage) override;
+
 	// Collision
 	void OnCollision(Collider2D& other);
+
+	XPPickUp* _xpDrop;
 
 	RenderInfo GetRenderInfo() const override;
 };
