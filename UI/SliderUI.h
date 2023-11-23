@@ -1,10 +1,13 @@
 #pragma once
 
 #include <SDL.h>
+#include "../Rendering/RenderInstanceManager.h"
+#include "../GameObjects/IRenderableObject.h"
+#include "../Core/Vector2.h"
 
-class Slider {
+class Slider : public IRenderableObject {
 public:
-    Slider(int x, int y, int barWidth, int barHeight, int buttonWidth, int buttonHeight, int increments);
+    Slider(int x, int y, int barWidth, int barHeight, int increments);
 
     // Enable/Disable alpha
     void SetAlpha(bool enable);
@@ -21,13 +24,23 @@ public:
     // Reset the slider state to its default
     void ResetState();
 
+    // Required for position data to be accessible by the renderer and collision systems
+    float GetX() const override { return _position.x; }
+    float GetY() const override { return _position.y; }
+
+    // Required for size data to be accessible by the renderer and collision systems
+    float GetWidth() const override { return _width; }
+    float GetHeight() const override { return _height; }
+
 private:
     SDL_Rect barRect;      // Position and dimensions of the slider bar
-    SDL_Rect buttonRect;   // Position and dimensions of the slider button
     SDL_Color barColor{ 100, 100, 100 };      // Color of the slider bar
     SDL_Color buttonColor{ 255, 255, 255 };   // Color of the slider button
     Uint8 alpha{ 255 };      // Alpha value for transparency
     bool isVisible = true;  // Flag to determine if the slider is visible
     bool selected;          // Flag to determine if the slider is selected
     int increments;         // Number of increments in the slider
+    Vector2 _position;
+    float _width;
+    float _height;
 };
