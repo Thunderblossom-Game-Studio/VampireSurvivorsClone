@@ -10,7 +10,7 @@
 
 //}
 
-IUIObject::IUIObject(std::string text, std::string font)
+IUIObject::IUIObject(std::string font, std::string text)
 {
     if (font.size() == 0 || text.size() == 0())
     {
@@ -22,37 +22,17 @@ IUIObject::IUIObject(std::string text, std::string font)
 
     UpdateText(text);
 
-    UpdateText(font);
+    UpdateFont(font);
 
 }
 
 IUIObject::~IUIObject() {
-    TTF_CloseFont(_font);
 }
 
-//SDL_Surface* IUIObject::CreateTextSurface(const std::string& text) {
-  //  return TTF_RenderText_Solid(font, text.c_str(), color);
-//}
-
-//void IUIObject::RenderText(const std::string& text, int x, int y) {
-    /*SDL_Surface* textSurface = CreateTextSurface(text);
-    _texture = SDL_CreateTextureFromSurface(renderer, textSurface);
-
-    SDL_Rect destRect;
-    destRect.x = x;
-    destRect.y = y;
-    destRect.w = textSurface->w;
-    destRect.h = textSurface->h;
-
-    SDL_RenderCopy(renderer, texture, nullptr, &destRect);
-
-    SDL_FreeSurface(textSurface);
-    SDL_DestroyTexture(texture);*/
-//}
 
 void IUIObject::UpdateTextTexture()
 {
-    if (_string.size() == 0 && _font)
+    if (_string.size() == 0 || !_font)
     {
         return;
     }
@@ -61,7 +41,7 @@ void IUIObject::UpdateTextTexture()
 
     _texture = SDL_CreateTextureFromSurface(RenderInstanceManager::instance().GetRenderer("main")->GetRenderer(), textSurface);
 
-    _src = { 0, 0, 32 * (int)_string.size() == 0, 160 };
+    _src = { 0, 0, 32 * (int)_string.size(), 160 };
 
     SDL_FreeSurface(textSurface);
 

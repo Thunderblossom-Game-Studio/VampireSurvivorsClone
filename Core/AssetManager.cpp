@@ -9,6 +9,10 @@ AssetManager::~AssetManager()
 	for (const auto& pair : _textureCatalogue)
 		SDL_DestroyTexture(pair.second);
 	_textureCatalogue.clear();
+
+	for (const auto& pair : _fontCatalogue)
+		TTF_CloseFont(pair.second);
+	_fontCatalogue.clear();
 }
 
 SDL_Texture* AssetManager::LoadImage(std::string file)

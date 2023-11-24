@@ -79,14 +79,13 @@ SDL_Rect GameRenderer::UIToScreenSpace(float x, float y, float w, float h)
     SDL_GetWindowSize(GameWindow::instance().GetWindow(), &wi, &he);
 
     float resolutionScale[2] = { (float)wi / DEFAULT_SCREEN_WIDTH, (float)he / DEFAULT_SCREEN_HEIGHT };
-    float invertedScale[2] = { _scale / 100, _scale / 100 };
 
-    float scale[2] = { (float)wi * invertedScale[0], (float)he * invertedScale[1] };
+    float scale[2] = { (float)wi * _scale, (float)he * _scale };
     float offset[2];
     float range[2] = { scale[0] - (-scale[0]), scale[1] - (-scale[1]) };
 
     float pos[2] = { range[0],range[1] };
-    float window_scaling[2] = {pos[0]/(invertedScale[0] * 2),pos[1]/(invertedScale[1] * 2)};
+    float window_scaling[2] = {pos[0]/(_scale * 2),pos[1]/(_scale * 2)};
 
     if (window_scaling[0] < 0)
         window_scaling[0] *= -1.0f;
@@ -97,8 +96,8 @@ SDL_Rect GameRenderer::UIToScreenSpace(float x, float y, float w, float h)
     else if (window_scaling[1] == 0)
         window_scaling[1] = 1;
 
-    offset[0] = x * window_scaling[0] * resolutionScale[0] * invertedScale[0];
-    offset[1] = y * window_scaling[1] * resolutionScale[1] * invertedScale[1];
+    offset[0] = x * window_scaling[0] * resolutionScale[0] * _scale;
+    offset[1] = y * window_scaling[1] * resolutionScale[1] * _scale;
 
     offset[0] = offset[0] - (-scale[0] * resolutionScale[0]);
     offset[1] = offset[1] - (-scale[1] * resolutionScale[1]);
