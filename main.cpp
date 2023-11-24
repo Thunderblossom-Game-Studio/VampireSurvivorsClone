@@ -1,7 +1,7 @@
 #include <iostream> // std::cout, std::endl
 #include "Core/Game.h"
 #include "Core/ObjectSerializer.h"
-#include "GameTimer.h"
+#include "Core/GameTimer.h"
 #include  "../VampireSurvivorsClone/Core/WorldTime.h"
 
 void TestGameTimer()

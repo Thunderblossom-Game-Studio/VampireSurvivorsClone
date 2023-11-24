@@ -1,9 +1,8 @@
 #include "PlayerDefaultAttack.h"
-//#include "GameObjects/Player.h"
-#include "Rendering/RenderInstanceManager.h"
+#include "../Rendering/RenderInstanceManager.h"
 #include <iostream>
 
-#include "Core/DeltaTime.h"
+#include "../Core/DeltaTime.h"
 
 PlayerDefaultAttack::PlayerDefaultAttack(float x, float y, float width, float height, float attackDamage, float attackTillAttack,bool flip, ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color)
 {

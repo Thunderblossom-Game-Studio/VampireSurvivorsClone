@@ -1,10 +1,11 @@
 #pragma once
-#include "GameObjects/BaseGameObject.h"
-#include "GameObjects/IAnimationObject.h"
-#include "Core/CollisionManager.h"
-#include "Components/Collider2D.h"
-#include "Core/InputManager.h""
-#include "GameObjects/IDamageable.h"
+#include "../GameObjects/BaseGameObject.h"
+#include "../GameObjects/IAnimationObject.h"
+#include "../Core/CollisionManager.h"
+#include "../Components/Collider2D.h"
+#include "../Core/InputManager.h""
+#include "../GameObjects/IDamageable.h"
+
 class PlayerDefaultAttack final : public BaseGameObject, public IRenderableObject
 {
 private:

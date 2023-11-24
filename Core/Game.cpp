@@ -116,7 +116,7 @@ bool Game::Init()
     _map = new TileMap("Assets/BIGMap.txt", 5);
 
     _player = new Player(0, 0, 5, 5,
-        0, 100, 50.f, 1, 1,
+        0, 100, 15.f, 1, 1,
         1, 1, 1, 1, 1, ColliderType::RECTANGLE);
 
     GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");

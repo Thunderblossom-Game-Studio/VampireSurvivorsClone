@@ -29,21 +29,16 @@ public:
 	bool IsMarkedForDestruction() const { return _markedForDestruction; }
 	void MarkForDestruction() { _markedForDestruction = true; }
 
-	std::vector<Component*> components;
-
-	virtual void Update(float deltaTime) {};
-	virtual void LateUpdate(float deltaTime) {};
-
 
 #pragma region Component Management
-protected:
+public:
 	template<class T>
 	T* AddComponent(T* newCom)
 	{
 		Component* newComponent = dynamic_cast<Component*>(newCom);
 
-		if (CheckIfComponentExits(newComponent)) std::cout << "Already Exists" << std::endl;
-		newComponent->SetGameObject(this);
+		/*if (CheckIfComponentExits(newComponent)) std::cout << "Already Exists" << std::endl;
+		newComponent->SetGameObject(this);*/
 		components.push_back(newComponent);
 		return newCom;
 		newComponent->SetGameObject(this);

@@ -1,7 +1,6 @@
 #pragma once
-#include "GameObjects/BasePickUp.h"
-//#include "Components/Collider2D.h"
-#include "GameObjects/IAnimationObject.h"
+#include "../GameObjects/BasePickUp.h"
+#include "../GameObjects/IAnimationObject.h"
 
 class XPPickUp : public BaseGameObject, public IAnimationObject
 {

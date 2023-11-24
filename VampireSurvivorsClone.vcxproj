@@ -161,12 +161,14 @@
   <ItemGroup>
     <ClCompile Include="Components\Collider2D.cpp" />
     <ClCompile Include="Components\Component.cpp" />
+    <ClCompile Include="Core\GameTimer.cpp" />
     <ClCompile Include="Core\Level.cpp" />
     <ClCompile Include="Core\LevelManager.cpp" />
     <ClCompile Include="GameObjects\Enemy.cpp" />
     <ClCompile Include="Core\Timer.cpp" />
     <ClCompile Include="Core\WorldTime.cpp" />
     <ClCompile Include="GameObjects\BasePickUp.cpp" />
+    <ClCompile Include="GameObjects\EnemySpawner.cpp" />
     <ClCompile Include="GameObjects\IAnimationObject.cpp" />
     <ClCompile Include="Core\AssetManager.cpp" />
     <ClCompile Include="Core\AudioSystem.cpp" />
@@ -177,6 +179,7 @@
     <ClCompile Include="Core\ObjectSerializer.cpp" />
     <ClCompile Include="GameObjects\BaseGameObject.cpp" />
     <ClCompile Include="GameObjects\ExampleGameObject.cpp" />
+    <ClCompile Include="GameObjects\IUIObject.cpp" />
     <ClCompile Include="GameObjects\Player.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -253,6 +256,7 @@
       </AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="GameObjects\PlayerDefaultAttack.cpp" />
     <ClCompile Include="Gameplay\HealthSystem.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -329,11 +333,9 @@
       </AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
-    <ClCompile Include="GameTimer.cpp" />
+    <ClCompile Include="Gameplay\XPPickUp.cpp" />
     <ClCompile Include="UI\HealthBar.cpp" />
-    <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="PlayerDefaultAttack.cpp" />
     <ClCompile Include="Rendering\GameWindow.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
     <ClCompile Include="Rendering\RenderInstanceManager.cpp" />
@@ -413,18 +415,17 @@
       </AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
-    <ClCompile Include="Rendering\Tile.cpp" />
     <ClCompile Include="Rendering\TileMap.cpp" />
     <ClCompile Include="UI\Button.cpp" />
     <ClCompile Include="UI\Death.cpp" />
     <ClCompile Include="UI\Pause.cpp" />
     <ClCompile Include="UI\SliderUI.cpp" />
     <ClCompile Include="UI\Start.cpp" />
-    <ClCompile Include="XPPickUp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Components\Collider2D.h" />
     <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Core\GameTimer.h" />
     <ClInclude Include="Core\Level.h" />
     <ClInclude Include="Core\LevelManager.h" />
     <ClInclude Include="GameObjects\Enemy.h" />
@@ -432,6 +433,7 @@
     <ClInclude Include="Core\Timer.h" />
     <ClInclude Include="Core\WorldTime.h" />
     <ClInclude Include="GameObjects\BasePickUp.h" />
+    <ClInclude Include="GameObjects\EnemySpawner.h" />
     <ClInclude Include="GameObjects\IAnimationObject.h" />
     <ClInclude Include="Core\AssetManager.h" />
     <ClInclude Include="Core\AudioSystem.h" />
@@ -445,17 +447,16 @@
     <ClInclude Include="GameObjects\ExampleGameObject.h" />
     <ClInclude Include="GameObjects\IDamageable.h" />
     <ClInclude Include="GameObjects\IRenderableObject.h" />
+    <ClInclude Include="GameObjects\IUIObject.h" />
     <ClInclude Include="GameObjects\Player.h" />
+    <ClInclude Include="GameObjects\PlayerDefaultAttack.h" />
     <ClInclude Include="Gameplay\HealthSystem.h" />
-    <ClInclude Include="GameTimer.h" />
+    <ClInclude Include="Gameplay\XPPickUp.h" />
     <ClInclude Include="UI\HealthBar.h" />
-    <ClInclude Include="Level.h" />
-    <ClInclude Include="PlayerDefaultAttack.h" />
     <ClInclude Include="Rendering\GameWindow.h" />
     <ClInclude Include="Rendering\Renderer.h" />
     <ClInclude Include="Rendering\RenderInstanceManager.h" />
     <ClInclude Include="Rendering\SpriteSheet.h" />
-    <ClInclude Include="Rendering\Tile.h" />
     <ClInclude Include="Rendering\TileMap.h" />
     <ClInclude Include="Templates\Singleton.h" />
     <ClInclude Include="UI\Button.h" />
@@ -463,7 +464,6 @@
     <ClInclude Include="UI\Pause.h" />
     <ClInclude Include="UI\SliderUI.h" />
     <ClInclude Include="UI\Start.h" />
-    <ClInclude Include="XPPickUp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

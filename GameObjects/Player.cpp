@@ -1,18 +1,19 @@
+#include <iostream>
 #include "Player.h"
 #include "BaseGameObject.h"
 #include "IRenderableObject.h"
 #include "../Rendering/RenderInstanceManager.h"
-#include <iostream>
 #include "../Core/DeltaTime.h"
 #include "../Core/InputManager.h"
 #include "../Core/CollisionManager.h"
-#include "../Rendering/RenderInstanceManager.h"
-#include <iostream>
 
 Player::Player(float x, float y, float width, float height, float currentXP, 
 	float playerHP, float playerMovementSpeed, float playerRecoveryMultiplier, float playerArmourMultiplier, float playerDamageMultiplier,
 	float playerAttackSpeedMultiplier, float playerXpMultiplier, float playerMagnetMultiplier, float playerGoldMultiplier,
-	ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height)
+	ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height) , IAnimationObject("Assets/Textures/TextureLoadingTest.png", { { 129, 41, 15, 23 },
+																									{ 145, 41, 15, 23 },
+																									{ 161, 41, 15, 23 },      //Idle Animation!!!!!
+																									{ 177, 41, 15, 23 } }, 2.0f, 1.0f)
 {
 	_renderSpace = space;
 	_color = color;
@@ -105,7 +106,6 @@ void Player::PlayerMovementLeft()
 
 void Player::PlayerMovementRight()
 {
-	_position.x = _position.x + _playerMovementSpeed;
 	_position.x = _position.x + (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
 	
 
@@ -150,44 +150,37 @@ void Player::PlayerAutoAttack()
 
 void Player::PlayerTimer() //This needs to be linked up to delta time
 {
-	while(TimeToReset >= 0)
+	while (TimeToReset >= 0)
 	{
 		TimeToReset = TimeToReset + 1;
 
 		if (TimeToReset >= 1000000)
-	//if(_defaultAttack)
-	//{
-	//	return;
-	//}
+			if (Flipped() == false)
+			{
+				_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, false, ColliderType::RECTANGLE);
+			}
+			else if (Flipped() == true)
+			{
+				_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, true, ColliderType::RECTANGLE);
+			}
 
-	if(Flipped() == false)
-	{
-		_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, false, ColliderType::RECTANGLE);
-	}
-	else if (Flipped() == true)
-	{
-		_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, true, ColliderType::RECTANGLE);
-	}
-	
-
-	std::cout << "Attack" << std::endl;
-	_timeToReset = 0;
-	//Insert Basic Auto Attack Here (NEEDS SPRITE & ITS OWN HIT DETECTION)
-}
-
-
-
-void Player::PlayerTimer() //This needs to be linked up to delta time
-{
-
-		_timeToReset += DeltaTime::GetDeltaTime();
-
-		if (_timeToReset >= _attackTimer)
+		if (Flipped() == false)
 		{
-			PlayerAutoAttack();
+			_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, false, ColliderType::RECTANGLE);
+		}
+		else if (Flipped() == true)
+		{
+			_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, true, ColliderType::RECTANGLE);
 		}
 
+
+
+		std::cout << "Attack" << std::endl;
+		_timeToReset = 0;
+		//Insert Basic Auto Attack Here (NEEDS SPRITE & ITS OWN HIT DETECTION)
+	}
 }
+
 
 void Player::OnCollision(Collider2D& other)
 {
@@ -228,7 +221,7 @@ void Player::Update(float deltaTime)
 
 RenderInfo Player::GetRenderInfo() const
 {
-	return RenderInfo(_position, {_width, _height}, _texture, _src, _flipped, _sortingLayer, _color);
+	return RenderInfo(_position, { _width, _height }, _texture, _src, _flipped, _sortingLayer, _color);
 }
 
 void Player::TakeDamage(float damage)
@@ -236,21 +229,7 @@ void Player::TakeDamage(float damage)
 	_health -= damage;
 }
 
-//void Player::Update(float deltaTime)
-//{
-//}
-
 void Player::LateUpdate(float deltaTime)
 {
 
 }
-
-
-
-
-
-//void Player::OnEnemyCollision()
-//{
-//	//Insert Reference To HealthSystem Here
-//}
-

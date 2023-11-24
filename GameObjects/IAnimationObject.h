@@ -4,6 +4,7 @@
 class IAnimationObject : public IRenderableObject
 {
 public:
+	IAnimationObject();
 	IAnimationObject(std::string texture, std::vector<SDL_Rect> frames, float maxTime, float animationSpeed);
 	virtual ~IAnimationObject();
 

@@ -2,7 +2,7 @@
 #include "BaseGameObject.h"
 #include "IAnimationObject.h"
 #include "../Components/Collider2D.h"
-#include "../XPPickUp.h"
+#include "../Gameplay/XPPickUp.h"
 #include "../GameObjects/IDamageable.h"
 
 class Enemy : public BaseGameObject, public IAnimationObject, public IDamageable

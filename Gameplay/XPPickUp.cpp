@@ -1,6 +1,6 @@
 #include "XPPickUp.h"
 
-#include "Rendering/RenderInstanceManager.h"
+#include "../Rendering/RenderInstanceManager.h"
 
 XPPickUp::XPPickUp(float x, float y, float width, float height, BaseGameObject* target, ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : IAnimationObject("Assets/Textures/TextureLoadingTest.png", { { 129, 45, 15, 19 },
 	                                                                                                                                                                                 { 144, 45, 15, 19 },{ 161, 45, 15, 19 },{ 177, 45, 15, 19 } }, 2.0f, 1.0f) 

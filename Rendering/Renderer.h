@@ -41,7 +41,6 @@ private:
     bool _layers{ true };
     bool _lighting{ true };
     bool _drawWorldDebug{ false };
-    bool _fullscreen{ false };
 
     Vector2 _position;
 

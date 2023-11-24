@@ -1,8 +1,8 @@
 #pragma once
 #include "BaseGameObject.h"
-#include "IAnimationObject.h"
+#include "../GameObjects/IAnimationObject.h"
 #include "../Components/Collider2D.h"
-#include "../PlayerDefaultAttack.h"
+#include "../GameObjects/PlayerDefaultAttack.h"
 #include "../Core/InputManager.h"
 #include "../GameObjects/IDamageable.h"
 
@@ -71,6 +71,7 @@ public:
 
 	void PlayerAutoAttack();
 	void PlayerTimer();
+
 	//void LevelUpSystem();
 	void OnCollision(Collider2D& other);
 	BaseGameObject* _xpPickUp = nullptr;
