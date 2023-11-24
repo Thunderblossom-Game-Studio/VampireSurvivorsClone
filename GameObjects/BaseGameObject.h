@@ -10,7 +10,7 @@ class Vector2;
 class BaseGameObject {
 protected:
     BaseGameObject() = default;
-
+	std::vector<Component*> components;
     Vector2 _position = { 0, 0 };
 
 	std::string _tag = "default";
@@ -20,6 +20,10 @@ public:
     virtual ~BaseGameObject() = default;
 	float GetY() const { return _position.y; }
 	float GetX() const { return _position.x; }
+	
+	virtual void Update(float deltaTime) = 0;
+	virtual void LateUpdate(float deltaTime) = 0;
+	
 
 	std::string GetTag() const { return _tag; }
 	bool IsMarkedForDestruction() const { return _markedForDestruction; }
@@ -32,6 +36,7 @@ public:
 
 
 #pragma region Component Management
+protected:
 	template<class T>
 	T* AddComponent(T* newCom)
 	{

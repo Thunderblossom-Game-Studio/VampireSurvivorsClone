@@ -61,6 +61,8 @@
       <Filter>Core</Filter>
     </ClCompile>
     <ClCompile Include="Core\LevelManager.cpp">
+    <ClCompile Include="GameObjects\Enemy.cpp">
+      <Filter>GameObjects</Filter>
     <ClCompile Include="PlayerDefaultAttack.cpp" />
     <ClCompile Include="Core\Timer.cpp">
       <Filter>Core</Filter>
@@ -68,6 +70,11 @@
     <ClCompile Include="Core\WorldTime.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="BasePickUp.cpp" />
+    <ClCompile Include="GameObjects\BasePickUp.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
+    <ClCompile Include="GameTimer.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Core\AssetManager.h">
@@ -141,6 +148,8 @@
       <Filter>Core</Filter>
     </ClInclude>
     <ClInclude Include="Core\LevelManager.h">
+    <ClInclude Include="GameObjects\Enemy.h">
+      <Filter>GameObjects</Filter>
     <ClInclude Include="PlayerDefaultAttack.h" />
     <ClInclude Include="Core\PoolSystem.h">
       <Filter>Core</Filter>
@@ -151,6 +160,11 @@
     <ClInclude Include="Core\WorldTime.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="BasePickUp.h" />
+    <ClInclude Include="GameObjects\BasePickUp.h">
+      <Filter>GameObjects</Filter>
+    </ClInclude>
+    <ClInclude Include="GameTimer.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">

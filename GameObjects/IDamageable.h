@@ -1,11 +1,11 @@
 #pragma once
 
 class IDamageable {
-private:
-    int _health;
+protected:
+    float _health;
 
 public:
-    virtual void TakeDamage(int damage) = 0;
-    int GetHealth() const { return _health; }
-    void SetHealth(int health) { _health = health; }
+    virtual void TakeDamage(float damage) = 0;
+    float GetHealth() const { return _health; }
+    void SetHealth(float health) { _health = health; }
 };
