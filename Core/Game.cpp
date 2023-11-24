@@ -25,6 +25,7 @@ Game::~Game()
     if (_exampleGameObject)
         delete _exampleGameObject;
     IMG_Quit();
+    TTF_Quit();
     SDL_Quit(); 
     // --------- Need to place these methods above in a compact method for organization reasons ---------
     std::cout << "Game instance destroyed" << std::endl;
@@ -48,6 +49,13 @@ bool Game::Init()
     if (ret < 0)
     {
         std::cout << "IMG_Init failed: " << IMG_GetError() << std::endl;
+        return false;
+    }
+
+    ret = TTF_Init();
+    if (ret < 0)
+    {
+        std::cout << "TTF_Init failed: " << TTF_GetError() << std::endl;
         return false;
     }
 
