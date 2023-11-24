@@ -5,7 +5,7 @@
 #define DEFAULT_SCREEN_WIDTH 800
 #define DEFAULT_SCREEN_HEIGHT 600
 
-class SDL_Window;
+struct SDL_Window;
 
 class GameWindow final : public Singleton<GameWindow>
 {
