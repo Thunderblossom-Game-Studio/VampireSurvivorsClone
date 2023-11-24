@@ -1,37 +1,51 @@
 #pragma once
 
+#include "../Core/AssetManager.h"
 #include <map>
 #include <fstream>
 #include <iostream>
 #include <string>
 #include <vector>
 #include <utility>
-#include "Tile.h"
+#include <SDL.h>
+
+// RenderInfo data, texture, src, sorting layer are extrinsic while position, size are intrinsic
+class Tile
+{
+public:
+	Tile(std::string texture_path, SDL_Rect src, int layer) 
+		: Texture{ AssetManager::instance().LoadImage(texture_path) }, Src{ src }, SortingLayer{ layer }
+	{
+	}
+
+	SDL_Texture* Texture = nullptr;
+	SDL_Rect Src = {};
+	int SortingLayer = 0;
+};
 
 class TileMap
 {
-private:
-
-	static std::vector<TileMap*> tileMaps;
-
-protected:
-
-	Uint8 width;
-	Uint8 height;
-	float tileSize;
-	int numTiles;
-
-	std::vector<std::vector<Tile*>> tiles;
-
 public:
-	TileMap(int width, int height, int tileSize, std::string mapPath);
+	TileMap(std::string mapPath, int tileSize);
 	~TileMap();
 
-	void LoadMap(std::string mapPath);
-	virtual void DrawMap() {};
-	void SaveMaptoFile(std::string mapPath = "Assets/Maps/Map1.txt");
+	static std::vector<TileMap*> TileMaps;
 
-	std::pair<float, float> GetTilePositionById(std::string id);
+protected:
+	std::vector<std::vector<char>> _tileMap;
+	std::map<char, Tile*> _tiles;
+	float _tileSize{ 0.0f };
+	Uint8 _width{ 0 };
+	Uint8 _height{ 0 };
 
-	static void Clear();
+public:
+	void LoadMapFromFile(std::string mapPath);
+	Tile* FindTile(char placeholder);
+	void Clear();
+	//void SaveMaptoFile(std::string mapPath = "Assets/Maps/Map1.txt");
+	//std::pair<float, float> GetTilePositionById(std::string id);
+	//virtual void DrawMap() {};
+	
+protected:
+	void AddInfoToRenderer();
 };

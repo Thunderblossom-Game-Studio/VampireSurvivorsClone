@@ -1,17 +1,19 @@
 #pragma once
 #include "../Core/Vector2.h"
 #include <functional>
+#include "../Components/Component.h"
 
 // Forward declaration of BaseGameObject
 class BaseGameObject;
 
 enum ColliderType { NONE, RECTANGLE, CIRCLE };
 
-class Collider2D
+class Collider2D : public Component
 {
 public:
 	typedef std::function<void(Collider2D& other)> CollisionCallback;
 	Collider2D(ColliderType type, Vector2 dimension, CollisionCallback callback = nullptr) : _colliderType(type), _colliderDimension(dimension) {}
+
 	Collider2D(ColliderType type, float radius, CollisionCallback callback = nullptr) : _colliderType(type), _colliderRadius(radius) {}
 	~Collider2D() = default;
 
@@ -28,7 +30,9 @@ public:
 	float GetRadius() const { return _colliderRadius; }
 	Vector2 GetDimensions() const { return _colliderDimension; }
 
-	//TODO: Add debug draw function later
+	void SetIsEnabled(bool isEnabled) override;
+
+	
 private:
 	ColliderType _colliderType = NONE;
 	Vector2 _colliderPosition = { 0,0 };

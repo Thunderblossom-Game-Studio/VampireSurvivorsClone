@@ -6,6 +6,7 @@
 #include "InputManager.h"
 #include "AudioSystem.h"
 #include "DeltaTime.h"
+#include "LevelManager.h"
 
 Game::Game(token)
 {
@@ -16,14 +17,21 @@ Game::~Game()
 {
     if (_map)
         delete _map;
+  
     delete _exampleGameObject;
-    delete _exampleUIObject;
+    _exampleGameObject = nullptr;
+  
+    // --------- Need to place these methods bellow in a compact method for organization reasons ---------
+    if (_exampleGameObject)
+        delete _exampleGameObject;
     IMG_Quit();
     TTF_Quit();
-    SDL_Quit();
+    SDL_Quit(); 
+    // --------- Need to place these methods above in a compact method for organization reasons ---------
     std::cout << "Game instance destroyed" << std::endl;
 
-    AudioSystem::instance().Cleanup();
+    //AudioSystem::instance().Cleanup();
+
 }
 
 bool Game::Init()
@@ -104,12 +112,15 @@ bool Game::Init()
     AudioSystem::instance().LoadAudio("BackroundMusic", "Assets/383_Banshees_Lair.mp3");
     AudioSystem::instance().LoadAudio("SoundEffect01", "Assets/jeff.wav");
 
+    _map = new TileMap("Assets/BIGMap.txt", 5);
 
-    _map = new TileMap(24, 24, 5, "Assets/TestMap.txt");
+    _player = new Player(0, 0, 5, 5,
+        0, 100, 50.f, 1, 1,
+        1, 1, 1, 1, 1, ColliderType::RECTANGLE);
 
-    _player = new Player( 0, 0, 5, 5, 100, 0.1f, ColliderType::RECTANGLE);
     GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
     renderer->SetObjectToTrack(_player);
+
 
     _running = true;
     return true;
@@ -134,15 +145,35 @@ void Game::Update()
             break;
             
         default:
+            AudioSystem::instance().PlayAudio(0, "BackroundMusic", 0);
             break;
         }
     }
-
+  
     DeltaTime::UpdateDeltaTime();
 
-    // Updates input state and performs any bound callbacks
-    InputManager::instance().Update();
 
-    // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
-    RenderInstanceManager::instance().GetRenderer("main")->Draw();
+    //TODO - Properly test Level System
+
+    //// SDL Event handling loop
+    //SDL_Event event;
+    //while (SDL_PollEvent(&event))
+    //{
+    //    switch(event.type)
+    //    {
+    //    // InputManager handles keypresses, this is just a quick and dirty way to exit the game
+    //    case SDL_KEYDOWN:
+    //        if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+    //            _running = false;
+    //        break;
+    //        
+    //    case SDL_QUIT:
+    //        _running = false;
+    //        break;
+    //        
+    //    default:
+    //        break;
+    //    }
+    //}
+
 }
