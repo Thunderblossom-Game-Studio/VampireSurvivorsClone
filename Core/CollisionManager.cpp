@@ -1,5 +1,5 @@
 #include "../Core/CollisionManager.h"
-#include "../Core/Collider2D.h"
+#include "../Components/Collider2D.h"
 #include <math.h>
 #include <algorithm>
 #include <iostream>
@@ -25,6 +25,18 @@ void CollisionManager::HandleCollisions()
 void CollisionManager::RegisterCollider(Collider2D* collider)
 {
 	_collidables.push_back(collider);
+}
+
+void CollisionManager::UnregisterCollider(Collider2D* collider)
+{
+	for (int i = 0; i < _collidables.size(); i++)
+	{
+		if (_collidables[i] == collider)
+		{
+			_collidables.erase(_collidables.begin() + i);
+			return;
+		}
+	}
 }
 
 bool CollisionManager::CheckCollisions(Collider2D* collider1, Collider2D* collider2)

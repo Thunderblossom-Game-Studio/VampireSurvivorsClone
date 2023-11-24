@@ -159,12 +159,24 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="BasePickUp.cpp" />
+    <ClCompile Include="Components\Collider2D.cpp" />
+    <ClCompile Include="Components\Component.cpp" />
+    <ClCompile Include="Core\Level.cpp" />
+    <ClCompile Include="Core\LevelManager.cpp" />
+    <ClCompile Include="GameObjects\Enemy.cpp" />
+    <ClCompile Include="Core\Timer.cpp" />
+    <ClCompile Include="Core\WorldTime.cpp" />
+    <ClCompile Include="GameObjects\BasePickUp.cpp" />
+    <ClCompile Include="GameObjects\IAnimationObject.cpp" />
     <ClCompile Include="Core\AssetManager.cpp" />
     <ClCompile Include="Core\AudioSystem.cpp" />
     <ClCompile Include="Core\CollisionManager.cpp" />
     <ClCompile Include="Core\DeltaTime.cpp" />
     <ClCompile Include="Core\Game.cpp" />
     <ClCompile Include="Core\InputManager.cpp" />
+    <ClCompile Include="Core\ObjectSerializer.cpp" />
+    <ClCompile Include="GameObjects\BaseGameObject.cpp" />
     <ClCompile Include="GameObjects\ExampleGameObject.cpp" />
     <ClCompile Include="GameObjects\Player.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
@@ -318,7 +330,10 @@
       </AdditionalIncludeDirectories>
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
+    <ClCompile Include="GameTimer.cpp" />
+    <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="PlayerDefaultAttack.cpp" />
     <ClCompile Include="Rendering\GameWindow.cpp" />
     <ClCompile Include="Rendering\Renderer.cpp" />
     <ClCompile Include="Rendering\RenderInstanceManager.cpp" />
@@ -402,12 +417,24 @@
     <ClCompile Include="Rendering\TileMap.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="BasePickUp.h" />
+    <ClInclude Include="Components\Collider2D.h" />
+    <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Core\Level.h" />
+    <ClInclude Include="Core\LevelManager.h" />
+    <ClInclude Include="GameObjects\Enemy.h" />
+    <ClInclude Include="Core\PoolSystem.h" />
+    <ClInclude Include="Core\Timer.h" />
+    <ClInclude Include="Core\WorldTime.h" />
+    <ClInclude Include="GameObjects\BasePickUp.h" />
+    <ClInclude Include="GameObjects\IAnimationObject.h" />
     <ClInclude Include="Core\AssetManager.h" />
     <ClInclude Include="Core\AudioSystem.h" />
     <ClInclude Include="Core\CollisionManager.h" />
     <ClInclude Include="Core\DeltaTime.h" />
     <ClInclude Include="Core\Game.h" />
     <ClInclude Include="Core\InputManager.h" />
+    <ClInclude Include="Core\ObjectSerializer.h" />
     <ClInclude Include="Core\Vector2.h" />
     <ClInclude Include="GameObjects\BaseGameObject.h" />
     <ClInclude Include="GameObjects\ExampleGameObject.h" />
@@ -415,6 +442,9 @@
     <ClInclude Include="GameObjects\IRenderableObject.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Gameplay\HealthSystem.h" />
+    <ClInclude Include="GameTimer.h" />
+    <ClInclude Include="Level.h" />
+    <ClInclude Include="PlayerDefaultAttack.h" />
     <ClInclude Include="Rendering\GameWindow.h" />
     <ClInclude Include="Rendering\Renderer.h" />
     <ClInclude Include="Rendering\RenderInstanceManager.h" />
