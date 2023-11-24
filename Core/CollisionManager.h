@@ -7,6 +7,7 @@ class CollisionManager
 public:
 	static void HandleCollisions();
 	static void RegisterCollider(Collider2D* collider);
+	static void UnregisterCollider(Collider2D* collider);
 	static std::vector<Collider2D*> GetColliders() { return _collidables; }
 
 private:

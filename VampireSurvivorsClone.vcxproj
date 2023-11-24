@@ -162,6 +162,8 @@
     <ClCompile Include="BasePickUp.cpp" />
     <ClCompile Include="Components\Collider2D.cpp" />
     <ClCompile Include="Components\Component.cpp" />
+    <ClCompile Include="Core\Level.cpp" />
+    <ClCompile Include="Core\LevelManager.cpp" />
     <ClCompile Include="GameObjects\Enemy.cpp" />
     <ClCompile Include="Core\Timer.cpp" />
     <ClCompile Include="Core\WorldTime.cpp" />
@@ -417,6 +419,8 @@
     <ClInclude Include="BasePickUp.h" />
     <ClInclude Include="Components\Collider2D.h" />
     <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="Core\Level.h" />
+    <ClInclude Include="Core\LevelManager.h" />
     <ClInclude Include="GameObjects\Enemy.h" />
     <ClInclude Include="Core\PoolSystem.h" />
     <ClInclude Include="Core\Timer.h" />

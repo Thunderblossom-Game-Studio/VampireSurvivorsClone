@@ -53,11 +53,14 @@
       <Filter>Rendering</Filter>
     </ClCompile>
     <ClCompile Include="GameObjects\IAnimationObject.cpp" />
-    <ClCompile Include="Level.cpp" />
     <ClCompile Include="Components\Component.cpp">
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="Components\Collider2D.cpp" />
+    <ClCompile Include="Core\Level.cpp">
+      <Filter>Core</Filter>
+    </ClCompile>
+    <ClCompile Include="Core\LevelManager.cpp">
     <ClCompile Include="GameObjects\Enemy.cpp">
       <Filter>GameObjects</Filter>
     <ClCompile Include="PlayerDefaultAttack.cpp" />
@@ -135,16 +138,18 @@
       <Filter>Rendering</Filter>
     </ClInclude>
     <ClInclude Include="GameObjects\IAnimationObject.h" />
-    <ClInclude Include="Level.h" />
     <ClInclude Include="Components\Collider2D.h">
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="Components\Component.h">
       <Filter>Components</Filter>
     </ClInclude>
+    <ClInclude Include="Core\Level.h">
+      <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="Core\LevelManager.h">
     <ClInclude Include="GameObjects\Enemy.h">
       <Filter>GameObjects</Filter>
-
     <ClInclude Include="PlayerDefaultAttack.h" />
     <ClInclude Include="Core\PoolSystem.h">
       <Filter>Core</Filter>
