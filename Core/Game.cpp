@@ -19,6 +19,7 @@ Game::~Game()
     delete _exampleGameObject;
     delete _exampleUIObject;
     IMG_Quit();
+    TTF_Quit();
     SDL_Quit();
     std::cout << "Game instance destroyed" << std::endl;
 
@@ -40,6 +41,13 @@ bool Game::Init()
     if (ret < 0)
     {
         std::cout << "IMG_Init failed: " << IMG_GetError() << std::endl;
+        return false;
+    }
+
+    ret = TTF_Init();
+    if (ret < 0)
+    {
+        std::cout << "TTF_Init failed: " << TTF_GetError() << std::endl;
         return false;
     }
 
