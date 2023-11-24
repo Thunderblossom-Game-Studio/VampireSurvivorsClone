@@ -159,7 +159,6 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="BasePickUp.cpp" />
     <ClCompile Include="Components\Collider2D.cpp" />
     <ClCompile Include="Components\Component.cpp" />
     <ClCompile Include="Core\Level.cpp" />
@@ -415,9 +414,9 @@
     </ClCompile>
     <ClCompile Include="Rendering\Tile.cpp" />
     <ClCompile Include="Rendering\TileMap.cpp" />
+    <ClCompile Include="XPPickUp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="BasePickUp.h" />
     <ClInclude Include="Components\Collider2D.h" />
     <ClInclude Include="Components\Component.h" />
     <ClInclude Include="Core\Level.h" />
@@ -452,6 +451,7 @@
     <ClInclude Include="Rendering\Tile.h" />
     <ClInclude Include="Rendering\TileMap.h" />
     <ClInclude Include="Templates\Singleton.h" />
+    <ClInclude Include="XPPickUp.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

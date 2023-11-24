@@ -47,6 +47,12 @@ public:
 	float GetWidth() const override { return _width; }
 	float GetHeight() const override { return _height; }
 
+	float _timeToReset;
+	float _xpLevelUp = 100;
+	float _xpCapMultiplier = 2;
+	float _attackTimer = 0.5;
+	bool _timeKeep = true;
+	bool _levelUpMenuActive;
 	float TimeToReset;
 	float XPLevelUp = 100;
 	float XPCapMultiplier = 2;
@@ -54,14 +60,22 @@ public:
 	float AttackTimer = 0.5;
   
 	bool TimeKeep = true;
-
 	void PlayerMovementUp();
 	void PlayerMovementDown();
 	void PlayerMovementRight();
 	void PlayerMovementLeft();
 
+	void PlayerLevelUpOption1();
+	void PlayerLevelUpOption2();
+	void PlayerLevelUpOption3();
+
 	void PlayerAutoAttack();
 	void PlayerTimer();
+	//void LevelUpSystem();
+	void OnCollision(Collider2D& other);
+	BaseGameObject* _xpPickUp = nullptr;
+
+
 	void LevelUpSystem();
 	virtual void Update(float deltaTime) override;
 
@@ -70,7 +84,7 @@ public:
   
 	void TakeDamage(float damage) override;
 
-	void Update(float deltaTime) override;
+	//void Update(float deltaTime) override;
 	void LateUpdate(float deltaTime) override;
   
 	PlayerDefaultAttack* _defaultAttack;

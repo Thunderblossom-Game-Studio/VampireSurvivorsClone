@@ -13,7 +13,9 @@ PlayerDefaultAttack::PlayerDefaultAttack(float x, float y, float width, float he
 	_position.y = y;
 	_width = width;
 	_height = height;
-	AttackTimer = attackTillAttack;
+	_attackDamage = attackDamage;
+	_attackTimer = attackTillAttack;
+	//_target = target;
 	Flip(flip);
 
 	switch(shape)
@@ -66,7 +68,7 @@ bool PlayerDefaultAttack::Attack()
 	
 		TimeToReset += DeltaTime::GetDeltaTime();
 
-		if (TimeToReset >= AttackTimer)
+		if (TimeToReset >= _attackTimer)
 		{
 			std::cout << "Attack Out" << std::endl;
 			//PlayerDefaultAttack::~PlayerDefaultAttack();
@@ -80,7 +82,32 @@ bool PlayerDefaultAttack::Attack()
 	return false;
 }
 
+void PlayerDefaultAttack::Update(float deltatime)
+{
+
+}
+
+void PlayerDefaultAttack::LateUpdate(float deltatime)
+{
+
+}
+
+void PlayerDefaultAttack::OnCollision(Collider2D& other)
+{
+	if(other.GetGameObject() == _target) //needs to check for enemy
+	{
+		auto otherTarget = dynamic_cast<IDamageable*>(other.GetGameObject());
+		if (otherTarget)
+		{
+			// Damage the enemy
+			otherTarget->TakeDamage(_attackDamage);
+		}
+	}
+
+}
+
 RenderInfo PlayerDefaultAttack::GetRenderInfo() const
 {
 	return RenderInfo(_position, { _width, _height }, _texture, _src, _flipped, _sortingLayer, _color);
 }
+

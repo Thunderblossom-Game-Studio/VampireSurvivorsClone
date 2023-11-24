@@ -1,6 +1,28 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+
+    <ClCompile Include="Components\Collider2D.cpp" />
+    <ClCompile Include="Components\Component.cpp" />
+    <ClCompile Include="GameObjects\Enemy.cpp" />
+    <ClCompile Include="Core\Timer.cpp" />
+    <ClCompile Include="Core\WorldTime.cpp" />
+    <ClCompile Include="GameObjects\BasePickUp.cpp" />
+    <ClCompile Include="GameObjects\IAnimationObject.cpp" />
+    <ClCompile Include="Core\AssetManager.cpp" />
+    <ClCompile Include="Core\AudioSystem.cpp" />
+    <ClCompile Include="Core\CollisionManager.cpp" />
+    <ClCompile Include="Core\DeltaTime.cpp" />
+    <ClCompile Include="Core\Game.cpp" />
+    <ClCompile Include="Core\InputManager.cpp" />
+    <ClCompile Include="Core\ObjectSerializer.cpp" />
+    <ClCompile Include="GameObjects\BaseGameObject.cpp" />
+    <ClCompile Include="GameObjects\ExampleGameObject.cpp" />
+    <ClCompile Include="GameObjects\Player.cpp" />
+    <ClCompile Include="Gameplay\HealthSystem.cpp" />
+    <ClCompile Include="GameTimer.cpp" />
+    <ClCompile Include="Level.cpp" />
+    <ClCompile Include="main.cpp" />
     <ClCompile Include="Core\AssetManager.cpp" />
     <ClCompile Include="Core\AudioSystem.cpp" />
     <ClCompile Include="Core\CollisionManager.cpp" />
@@ -102,80 +124,38 @@
     <ClCompile Include="GameObjects\Enemy.cpp">
       <Filter>GameObjects</Filter>
     <ClCompile Include="PlayerDefaultAttack.cpp" />
-    <ClCompile Include="Core\Timer.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Core\WorldTime.cpp">
-      <Filter>Core</Filter>
-    </ClCompile>
-    <ClCompile Include="BasePickUp.cpp" />
-    <ClCompile Include="GameObjects\BasePickUp.cpp">
-      <Filter>GameObjects</Filter>
-    </ClCompile>
-    <ClCompile Include="GameTimer.cpp" />
+    <ClCompile Include="Rendering\GameWindow.cpp" />
+    <ClCompile Include="Rendering\Renderer.cpp" />
+    <ClCompile Include="Rendering\RenderInstanceManager.cpp" />
+    <ClCompile Include="Rendering\SpriteSheet.cpp" />
+    <ClCompile Include="Rendering\TileMap.cpp" />
+    <ClCompile Include="XPPickUp.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Core\AssetManager.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\AudioSystem.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\DeltaTime.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\CollisionManager.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Vector2.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\ObjectSerializer.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\InputManager.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Game.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\ExampleGameObject.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\BaseGameObject.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\IRenderableObject.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\IDamageable.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GameObjects\Player.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="Gameplay\HealthSystem.h">
-      <Filter>Gameplay</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\TileMap.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\GameWindow.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\Renderer.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\RenderInstanceManager.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Templates\Singleton.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
-    <ClInclude Include="Rendering\SpriteSheet.h">
-      <Filter>Rendering</Filter>
-    </ClInclude>
+    <ClInclude Include="Components\Collider2D.h" />
+    <ClInclude Include="Components\Component.h" />
+    <ClInclude Include="GameObjects\Enemy.h" />
+    <ClInclude Include="Core\PoolSystem.h" />
+    <ClInclude Include="Core\Timer.h" />
+    <ClInclude Include="Core\WorldTime.h" />
+    <ClInclude Include="GameObjects\BasePickUp.h" />
     <ClInclude Include="GameObjects\IAnimationObject.h" />
+    <ClInclude Include="Core\AssetManager.h" />
+    <ClInclude Include="Core\AudioSystem.h" />
+    <ClInclude Include="Core\CollisionManager.h" />
+    <ClInclude Include="Core\DeltaTime.h" />
+    <ClInclude Include="Core\Game.h" />
+    <ClInclude Include="Core\InputManager.h" />
+    <ClInclude Include="Core\ObjectSerializer.h" />
+    <ClInclude Include="Core\Vector2.h" />
+    <ClInclude Include="GameObjects\BaseGameObject.h" />
+    <ClInclude Include="GameObjects\ExampleGameObject.h" />
+    <ClInclude Include="GameObjects\IDamageable.h" />
+    <ClInclude Include="GameObjects\IRenderableObject.h" />
+    <ClInclude Include="GameObjects\Player.h" />
+    <ClInclude Include="Gameplay\HealthSystem.h" />
+    <ClInclude Include="GameTimer.h" />
+    <ClInclude Include="Level.h" />
     <ClInclude Include="Components\Collider2D.h">
       <Filter>Components</Filter>
     </ClInclude>
@@ -188,40 +168,14 @@
     <ClInclude Include="Core\LevelManager.h">
     <ClInclude Include="GameObjects\Enemy.h">
       <Filter>GameObjects</Filter>
+
     <ClInclude Include="PlayerDefaultAttack.h" />
-    <ClInclude Include="Core\PoolSystem.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\Timer.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="Core\WorldTime.h">
-      <Filter>Core</Filter>
-    </ClInclude>
-    <ClInclude Include="BasePickUp.h" />
-    <ClInclude Include="GameObjects\BasePickUp.h">
-      <Filter>GameObjects</Filter>
-    </ClInclude>
-    <ClInclude Include="GameTimer.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <Filter Include="Core">
-      <UniqueIdentifier>{125cfac1-71aa-403c-9429-ee1ffefe95d8}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="GameObjects">
-      <UniqueIdentifier>{57914421-487a-40c5-bea0-b3875a3db341}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Gameplay">
-      <UniqueIdentifier>{35ff097a-8527-48ac-9cc7-dd526e1c4672}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Rendering">
-      <UniqueIdentifier>{1a805f50-2832-4282-84f7-7f05cec8e305}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Templates">
-      <UniqueIdentifier>{758e5772-b22e-4dc2-bee4-fb4a3e51090c}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Components">
-      <UniqueIdentifier>{470922ef-8eaa-4f5b-8de5-f541cdc1d5ce}</UniqueIdentifier>
-    </Filter>
+    <ClInclude Include="Rendering\GameWindow.h" />
+    <ClInclude Include="Rendering\Renderer.h" />
+    <ClInclude Include="Rendering\RenderInstanceManager.h" />
+    <ClInclude Include="Rendering\SpriteSheet.h" />
+    <ClInclude Include="Rendering\TileMap.h" />
+    <ClInclude Include="Templates\Singleton.h" />
+    <ClInclude Include="XPPickUp.h" />
   </ItemGroup>
 </Project>
