@@ -41,7 +41,12 @@ protected:
 	T* AddComponent(T* newCom)
 	{
 		Component* newComponent = dynamic_cast<Component*>(newCom);
-		//newComponent->SetGameObject(this);
+
+		if (CheckIfComponentExits(newComponent)) std::cout << "Already Exists" << std::endl;
+		newComponent->SetGameObject(this);
+		components.push_back(newComponent);
+		return newCom;
+		newComponent->SetGameObject(this);
 		components.push_back(newComponent);
 		return newCom;
 	}

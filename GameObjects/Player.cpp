@@ -1,18 +1,18 @@
 #include "Player.h"
+#include "BaseGameObject.h"
+#include "IRenderableObject.h"
+#include "../Rendering/RenderInstanceManager.h"
+#include <iostream>
 #include "../Core/DeltaTime.h"
 #include "../Core/InputManager.h"
 #include "../Core/CollisionManager.h"
 #include "../Rendering/RenderInstanceManager.h"
 #include <iostream>
 
-
-Player::Player(float x, float y, float width, float height, float currentXP,
-	float health, float playerMovementSpeed, float playerRecoveryMultiplier, float playerArmourMultiplier, float playerDamageMultiplier,
+Player::Player(float x, float y, float width, float height, float currentXP, 
+	float playerHP, float playerMovementSpeed, float playerRecoveryMultiplier, float playerArmourMultiplier, float playerDamageMultiplier,
 	float playerAttackSpeedMultiplier, float playerXpMultiplier, float playerMagnetMultiplier, float playerGoldMultiplier,
-	ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height), IAnimationObject("Assets/Textures/TextureLoadingTest.png", {	{ 129, 45, 15, 19 }, 
-																									{ 144, 45, 15, 19 },
-																									{ 161, 45, 15, 19 },
-																									{ 177, 45, 15, 19 } }, 2.0f, 1.0f)
+	ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height)
 {
 	_renderSpace = space;
 	_color = color;
@@ -20,7 +20,7 @@ Player::Player(float x, float y, float width, float height, float currentXP,
 	_position.y = y;
 
 	_currentXP = currentXP;
-	_health = health;
+	_playerHP = playerHP;
 	_playerMovementSpeed = playerMovementSpeed;
 	_playerRecoveryMultiplier = playerRecoveryMultiplier;  //Health Recovery Speed_playerArmourMultiplier = playerArmourMultiplier; //Defence Multiplier Against Enemy Attacks
 	_playerDamageMultiplier = playerDamageMultiplier; //Attack Multiplier Of Attacks
@@ -81,6 +81,7 @@ void Player::PlayerMovementUp()
 
 void Player::PlayerMovementDown()
 {
+
 	_position.y = _position.y - (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
 
 	if (_collider)
@@ -99,6 +100,7 @@ void Player::PlayerMovementLeft()
 
 void Player::PlayerMovementRight()
 {
+	_position.x = _position.x + _playerMovementSpeed;
 	_position.x = _position.x + (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
 	
 
@@ -111,6 +113,19 @@ void Player::PlayerMovementRight()
 
 void Player::PlayerAutoAttack()
 {
+
+		std::cout << "Attack" << std::endl;
+		TimeToReset = 0;
+	//Insert Basic Auto Attack Here (NEEDS SPRITE & ITS OWN HIT DETECTION)
+}
+
+void Player::PlayerTimer() //This needs to be linked up to delta time
+{
+	while(TimeToReset >= 0)
+	{
+		TimeToReset = TimeToReset + 1;
+
+		if (TimeToReset >= 1000000)
 	//if(_defaultAttack)
 	//{
 	//	return;
@@ -142,7 +157,6 @@ void Player::PlayerTimer() //This needs to be linked up to delta time
 		{
 			PlayerAutoAttack();
 		}
-
 
 }
 
@@ -190,7 +204,11 @@ void Player::Update(float deltaTime)
 
 void Player::LateUpdate(float deltaTime)
 {
+
 }
+
+
+
 
 
 //void Player::OnEnemyCollision()

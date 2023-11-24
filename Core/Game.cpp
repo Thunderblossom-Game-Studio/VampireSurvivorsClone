@@ -2,6 +2,7 @@
 #include <iostream> // std::cout, std::endl
 #include <SDL.h> // SDL_Init, SDL_Quit
 #include "../Rendering/GameWindow.h"
+#include "../GameObjects/Player.h"
 #include "../Rendering/RenderInstanceManager.h"
 #include "InputManager.h"
 #include "AudioSystem.h"
@@ -148,7 +149,16 @@ void Game::Update()
             AudioSystem::instance().PlayAudio(0, "BackroundMusic", 0);
             break;
         }
+        
     }
+	 
+    // Updates input state and performs any bound callbacks
+    InputManager::instance().Update();
+
+    // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
+    RenderInstanceManager::instance().GetRenderer("main")->Draw();
+
+  
   
     DeltaTime::UpdateDeltaTime();
 
@@ -175,5 +185,6 @@ void Game::Update()
     //        break;
     //    }
     //}
+
 
 }
