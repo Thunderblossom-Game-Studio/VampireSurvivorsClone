@@ -1,15 +1,28 @@
 #pragma once
 
+#include <iostream>
+#include <vector>
+#include <SDL.h>
+#include "Button.h"
+#include "../Core/InputManager.h"
 
-class End : public Menu {
+class Death
+{
 public:
-    End(int x, int y, int buttonWidth, int buttonHeight, int sliderWidth, int sliderHeight, int maxChildren);
+    Death(); // Updated constructor
+    void BindDeath();
+    void UnbindDeath();
+    void Execute();
+    void SetAlpha(bool menuActive);
+    void OpenMenu();
+    void MoveUp();
+    void MoveDown();
+    ~Death(); // Destructor for memory cleanup
 
-    // Override HandleKeyPress to add additional functionality
-    //void HandleKeyPress(SDL_Event& event) override;
-
-    // Override Render to add additional rendering logic
-    //void Render() override;
-
-    // Add more member functions specific to End
+private:
+    // Add more private members and methods as needed
+    Button* restart;
+    Button* quit;
+    int menuValue = 0;
+    bool menuActive = false;
 };
