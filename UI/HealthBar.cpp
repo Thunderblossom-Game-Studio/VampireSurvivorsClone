@@ -4,7 +4,7 @@
 float currentHealth;
 float maxHealth;
 Button* health;
-Button* base;
+Button* background;
 float width;
 float updateWidth;
 
@@ -12,7 +12,7 @@ float updateWidth;
 Bar::Bar(int x, int y, float spriteWidth)
 {
     // Create a Button instance
-    base = new Button(x, y, spriteWidth, spriteWidth / 4);
+	background = new Button(x, y, spriteWidth, spriteWidth / 4);
     // Create a Button instance
     health = new Button(x, y, spriteWidth * 0.9 , (spriteWidth / 4) * 0.9);
 	//get width of health
@@ -37,6 +37,6 @@ void Bar::UpdateHealthBar(float damage)
 // delete the health bar
 void Bar::DeleteHealthBar()
 {
-	delete base;
+	delete background;
 	delete health;
 }

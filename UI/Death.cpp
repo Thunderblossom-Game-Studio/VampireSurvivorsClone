@@ -1,13 +1,13 @@
 #include "Death.h"
 
-Button* start;
-Button* quit;
+Button* restart;
+Button* quitOut;
 
 // Generate the Death Menu
 Death::Death()
 {
     restart = new Button(0, 0, 0, 0);
-    quit = new Button(0, 0, 0, 0);
+    quitOut = new Button(0, 0, 0, 0);
     SetAlpha(false);
     menuValue = 1;
 }
@@ -18,12 +18,12 @@ void Death::SetAlpha(bool menuActive)
     if (menuActive == true)
     {
         restart->alpha = 255; // Fully opaque
-        quit->alpha = 255;  // Fully opaque
+        quitOut->alpha = 255;  // Fully opaque
     }
     else
     {
         restart->alpha = 0; // Fully transparent
-        quit->alpha = 0;  // Fully transparent
+        quitOut->alpha = 0;  // Fully transparent
     }
 }
 
@@ -74,7 +74,7 @@ void Death::MoveUp()
         {
             menuValue--;
             restart->SetHighlighted();
-            quit->ResetState();
+            quitOut->ResetState();
         }
     }
 }
@@ -87,7 +87,7 @@ void Death::MoveDown()
         if (menuValue < 2)
         {
             menuValue++;
-            quit->SetHighlighted();
+            quitOut->SetHighlighted();
             restart->ResetState();
         }
     }
@@ -106,5 +106,5 @@ void Death::OpenMenu()
 Death::~Death()
 {
     delete restart;
-    delete quit;
+    delete quitOut;
 }

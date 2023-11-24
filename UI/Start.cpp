@@ -30,8 +30,8 @@ void Start::SetAlpha(bool menuActive)
 // Bind the Start Menu to keys
 void Start::BindStart()
 {
-    InputManager::instance().BindKey(SDL_SCANCODE_W, InputManager::KeypressType::KEYDOWN, std::bind(&Start::MoveLeft, this));
-    InputManager::instance().BindKey(SDL_SCANCODE_S, InputManager::KeypressType::KEYDOWN, std::bind(&Start::MoveRight, this));
+    InputManager::instance().BindKey(SDL_SCANCODE_W, InputManager::KeypressType::KEYDOWN, std::bind(&Start::MoveUp, this));
+    InputManager::instance().BindKey(SDL_SCANCODE_S, InputManager::KeypressType::KEYDOWN, std::bind(&Start::MoveDown, this));
     InputManager::instance().BindKey(SDL_SCANCODE_SPACE, InputManager::KeypressType::KEYDOWN, std::bind(&Start::Execute, this));
 }
 

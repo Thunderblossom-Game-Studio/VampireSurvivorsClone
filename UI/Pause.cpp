@@ -1,8 +1,5 @@
 #include "Pause.h"
 
-Button* resume;
-Button* quit;
-
 //Generate the Pause Menu
 Pause::Pause() 
 {

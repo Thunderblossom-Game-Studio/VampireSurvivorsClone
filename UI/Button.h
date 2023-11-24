@@ -27,10 +27,12 @@ public:
     float GetY() const override { return _position.y; }
     float GetWidth() const override { return _width; }
     float GetHeight() const override { return _height; }
-    RenderInfo GetRenderInfo() const override 
+    RenderInfo GetRenderInfo() const override
     {
-        // Implement render information retrieval
-        // This could involve constructing and returning a RenderInfo object
+        // Example implementation, adjust based on your actual rendering needs
+        Vector2 position = { GetX(), GetY() };
+        Vector2 size = { GetWidth(), GetHeight() };
+        return RenderInfo(position, size, _texture, _src, _flipped, _sortingLayer, _color);
     }
     void SetX(float x) 
     {

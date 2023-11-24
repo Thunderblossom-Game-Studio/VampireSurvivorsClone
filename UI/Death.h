@@ -22,7 +22,7 @@ public:
 private:
     // Add more private members and methods as needed
     Button* restart;
-    Button* quit;
+    Button* quitOut;
     int menuValue = 0;
     bool menuActive = false;
 };
