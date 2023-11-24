@@ -66,10 +66,18 @@ void Pause::Execute()
         if (menuValue == 1)
         {
 			//Resume Game
+            menuActive = false;
+            Pause::SetAlpha(false);
+            UnfreezeGameWorld();
 		}
         if (menuValue == 2)
         {
 			//Quit Game
+            menuActive = false;
+			Pause::SetAlpha(false);
+			UnfreezeGameWorld();
+            UnbindPause();
+            //Add code to quit game
 		}
 	}
 }
