@@ -327,6 +327,7 @@
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
     <ClCompile Include="GameTimer.cpp" />
+    <ClCompile Include="UI\HealthBar.cpp" />
     <ClCompile Include="Level.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="PlayerDefaultAttack.cpp" />
@@ -412,7 +413,6 @@
     <ClCompile Include="Rendering\TileMap.cpp" />
     <ClCompile Include="UI\Button.cpp" />
     <ClCompile Include="UI\Death.cpp" />
-    <ClCompile Include="UI\Menu.cpp" />
     <ClCompile Include="UI\Pause.cpp" />
     <ClCompile Include="UI\SliderUI.cpp" />
     <ClCompile Include="UI\Start.cpp" />
@@ -440,6 +440,7 @@
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="Gameplay\HealthSystem.h" />
     <ClInclude Include="GameTimer.h" />
+    <ClInclude Include="UI\HealthBar.h" />
     <ClInclude Include="Level.h" />
     <ClInclude Include="PlayerDefaultAttack.h" />
     <ClInclude Include="Rendering\GameWindow.h" />
@@ -450,7 +451,6 @@
     <ClInclude Include="Templates\Singleton.h" />
     <ClInclude Include="UI\Button.h" />
     <ClInclude Include="UI\Death.h" />
-    <ClInclude Include="UI\Menu.h" />
     <ClInclude Include="UI\Pause.h" />
     <ClInclude Include="UI\SliderUI.h" />
     <ClInclude Include="UI\Start.h" />

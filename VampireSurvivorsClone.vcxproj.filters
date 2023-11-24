@@ -78,13 +78,13 @@
     <ClCompile Include="UI\Pause.cpp">
       <Filter>UI</Filter>
     </ClCompile>
-    <ClCompile Include="UI\Menu.cpp">
-      <Filter>UI</Filter>
-    </ClCompile>
     <ClCompile Include="UI\Death.cpp">
       <Filter>UI</Filter>
     </ClCompile>
     <ClCompile Include="UI\Button.cpp">
+      <Filter>UI</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\HealthBar.cpp">
       <Filter>UI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -180,13 +180,13 @@
     <ClInclude Include="UI\Pause.h">
       <Filter>UI</Filter>
     </ClInclude>
-    <ClInclude Include="UI\Menu.h">
-      <Filter>UI</Filter>
-    </ClInclude>
     <ClInclude Include="UI\Death.h">
       <Filter>UI</Filter>
     </ClInclude>
     <ClInclude Include="UI\Button.h">
+      <Filter>UI</Filter>
+    </ClInclude>
+    <ClInclude Include="UI\HealthBar.h">
       <Filter>UI</Filter>
     </ClInclude>
   </ItemGroup>

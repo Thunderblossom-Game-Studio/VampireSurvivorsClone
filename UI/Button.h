@@ -36,6 +36,10 @@ public:
     {
         _position.x = x;
     }
+    void SetWidth(float width)
+    {
+		_width = width;
+	}
 private:
     SDL_Color highlightColor; // Color when highlighted
     SDL_Color selectColor;    // Color when selected/pressed
