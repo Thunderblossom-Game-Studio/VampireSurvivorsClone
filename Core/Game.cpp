@@ -2,10 +2,12 @@
 #include <iostream> // std::cout, std::endl
 #include <SDL.h> // SDL_Init, SDL_Quit
 #include "../Rendering/GameWindow.h"
+#include "../GameObjects/Player.h"
 #include "../Rendering/RenderInstanceManager.h"
 #include "InputManager.h"
 #include "AudioSystem.h"
 #include "DeltaTime.h"
+#include "LevelManager.h"
 
 Game::Game(token)
 {
@@ -16,15 +18,21 @@ Game::~Game()
 {
     if (_map)
         delete _map;
+  
+    delete _exampleGameObject;
+    _exampleGameObject = nullptr;
+  
+    // --------- Need to place these methods bellow in a compact method for organization reasons ---------
     if (_exampleGameObject)
         delete _exampleGameObject;
-    if (_exampleUIObject)
-        delete _exampleUIObject;
     IMG_Quit();
-    SDL_Quit();
+    TTF_Quit();
+    SDL_Quit(); 
+    // --------- Need to place these methods above in a compact method for organization reasons ---------
     std::cout << "Game instance destroyed" << std::endl;
 
     //AudioSystem::instance().Cleanup();
+
 }
 
 bool Game::Init()
@@ -42,6 +50,13 @@ bool Game::Init()
     if (ret < 0)
     {
         std::cout << "IMG_Init failed: " << IMG_GetError() << std::endl;
+        return false;
+    }
+
+    ret = TTF_Init();
+    if (ret < 0)
+    {
+        std::cout << "TTF_Init failed: " << TTF_GetError() << std::endl;
         return false;
     }
 
@@ -101,13 +116,12 @@ bool Game::Init()
     _map = new TileMap("Assets/BIGMap.txt", 5);
 
     _player = new Player(0, 0, 5, 5,
-        0, 100, 50.0f, 1, 1,
+        0, 100, 50.f, 1, 1,
         1, 1, 1, 1, 1, ColliderType::RECTANGLE);
-
-
 
     GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
     renderer->SetObjectToTrack(_player);
+
 
     _running = true;
     return true;
@@ -115,9 +129,6 @@ bool Game::Init()
 
 void Game::Update()
 {
-    DeltaTime::UpdateDeltaTime();
-
-
     // SDL Event handling loop
     SDL_Event event;
     while (SDL_PollEvent(&event))
@@ -135,22 +146,45 @@ void Game::Update()
             break;
             
         default:
+            AudioSystem::instance().PlayAudio(0, "BackroundMusic", 0);
             break;
         }
+        
     }
-
-
+	 
     // Updates input state and performs any bound callbacks
     InputManager::instance().Update();
 
-
-    if(_player)
-    {
-        _player->Update(DeltaTime::GetDeltaTime());
-    }
-
-
-
     // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
     RenderInstanceManager::instance().GetRenderer("main")->Draw();
+
+  
+  
+    DeltaTime::UpdateDeltaTime();
+
+
+    //TODO - Properly test Level System
+
+    //// SDL Event handling loop
+    //SDL_Event event;
+    //while (SDL_PollEvent(&event))
+    //{
+    //    switch(event.type)
+    //    {
+    //    // InputManager handles keypresses, this is just a quick and dirty way to exit the game
+    //    case SDL_KEYDOWN:
+    //        if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
+    //            _running = false;
+    //        break;
+    //        
+    //    case SDL_QUIT:
+    //        _running = false;
+    //        break;
+    //        
+    //    default:
+    //        break;
+    //    }
+    //}
+
+
 }

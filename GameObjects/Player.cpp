@@ -1,18 +1,18 @@
 #include "Player.h"
 #include "BaseGameObject.h"
-#include "../Core/DeltaTime.h"
+#include "IRenderableObject.h"
 #include "../Rendering/RenderInstanceManager.h"
 #include <iostream>
+#include "../Core/DeltaTime.h"
 #include "../Core/InputManager.h"
+#include "../Core/CollisionManager.h"
+#include "../Rendering/RenderInstanceManager.h"
+#include <iostream>
 
-
-Player::Player(float x, float y, float width, float height, float currentXP,
+Player::Player(float x, float y, float width, float height, float currentXP, 
 	float playerHP, float playerMovementSpeed, float playerRecoveryMultiplier, float playerArmourMultiplier, float playerDamageMultiplier,
 	float playerAttackSpeedMultiplier, float playerXpMultiplier, float playerMagnetMultiplier, float playerGoldMultiplier,
-	ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height), IAnimationObject("Assets/Textures/TextureLoadingTest.png", {	{ 129, 45, 15, 19 }, 
-																									{ 144, 45, 15, 19 },
-																									{ 161, 45, 15, 19 },
-																									{ 177, 45, 15, 19 } }, 2.0f, 1.0f)
+	ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color) : _width(width), _height(height)
 {
 	_renderSpace = space;
 	_color = color;
@@ -31,22 +31,22 @@ Player::Player(float x, float y, float width, float height, float currentXP,
 
 	switch (shape)
 	{
-	case ColliderType::RECTANGLE:
-	{
-		//_collider = new Collider2D(shape, { _width, _height });
+		case ColliderType::RECTANGLE:
+		{
+			//_collider = new Collider2D(shape, { _width, _height });
 
-		_collider = AddComponent<Collider2D>(new Collider2D(shape, { _width, _height }));
-		_collider->SetOnCollisionCallback(nullptr);
-		break;
-	}
-	case ColliderType::CIRCLE:
-	{
-		//_collider = new Collider2D(shape, _width / 2);
+			_collider = AddComponent<Collider2D>(new Collider2D(shape, { _width, _height }));
+			_collider->SetOnCollisionCallback(nullptr);
+			break;
+		}
+		case ColliderType::CIRCLE:
+		{
+			//_collider = new Collider2D(shape, _width / 2);
 
-		_collider = AddComponent<Collider2D>(new Collider2D(shape, { _width / 2 }));
-		_collider->SetOnCollisionCallback(nullptr);
-		break;
-	}
+			_collider = AddComponent<Collider2D>(new Collider2D(shape, { _width / 2 }));
+			_collider->SetOnCollisionCallback(nullptr);
+			break;
+		}
 	}
 
 	if (_collider)
@@ -56,6 +56,10 @@ Player::Player(float x, float y, float width, float height, float currentXP,
 	InputManager::instance().BindKey(SDL_SCANCODE_A, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementLeft, this));
 	InputManager::instance().BindKey(SDL_SCANCODE_D, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementRight, this));
 	InputManager::instance().BindKey(SDL_SCANCODE_S, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementDown, this));
+
+	InputManager::instance().BindKey(SDL_SCANCODE_1, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerLevelUpOption1, this));
+	InputManager::instance().BindKey(SDL_SCANCODE_2, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerLevelUpOption2, this));
+	InputManager::instance().BindKey(SDL_SCANCODE_3, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerLevelUpOption3, this));
 
 	SetTexture("Assets/Textures/TextureLoadingTest.png", { 128,45,16,19 });
 	GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
@@ -81,6 +85,7 @@ void Player::PlayerMovementUp()
 
 void Player::PlayerMovementDown()
 {
+
 	_position.y = _position.y - (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
 
 	if (_collider)
@@ -97,8 +102,10 @@ void Player::PlayerMovementLeft()
 	Flip(true);
 }
 
+
 void Player::PlayerMovementRight()
 {
+	_position.x = _position.x + _playerMovementSpeed;
 	_position.x = _position.x + (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
 	
 
@@ -108,9 +115,46 @@ void Player::PlayerMovementRight()
 	Flip(false);
 }
 
+void Player::PlayerLevelUpOption1()
+{
+	if(_levelUpMenuActive == true)
+	{
+		//insert selection choice
+	}
+}
+
+void Player::PlayerLevelUpOption2()
+{
+	if (_levelUpMenuActive == true)
+	{
+		//insert selection choice
+	}
+}
+
+void Player::PlayerLevelUpOption3()
+{
+	if (_levelUpMenuActive == true)
+	{
+		//insert selection choice
+	}
+}
+
 
 void Player::PlayerAutoAttack()
 {
+
+		std::cout << "Attack" << std::endl;
+		TimeToReset = 0;
+	//Insert Basic Auto Attack Here (NEEDS SPRITE & ITS OWN HIT DETECTION)
+}
+
+void Player::PlayerTimer() //This needs to be linked up to delta time
+{
+	while(TimeToReset >= 0)
+	{
+		TimeToReset = TimeToReset + 1;
+
+		if (TimeToReset >= 1000000)
 	//if(_defaultAttack)
 	//{
 	//	return;
@@ -118,16 +162,16 @@ void Player::PlayerAutoAttack()
 
 	if(Flipped() == false)
 	{
-		_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, AttackTimer, false, ColliderType::RECTANGLE);
+		_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, false, ColliderType::RECTANGLE);
 	}
 	else if (Flipped() == true)
 	{
-		_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, AttackTimer, true, ColliderType::RECTANGLE);
+		_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, true, ColliderType::RECTANGLE);
 	}
 	
 
 	std::cout << "Attack" << std::endl;
-	TimeToReset = 0;
+	_timeToReset = 0;
 	//Insert Basic Auto Attack Here (NEEDS SPRITE & ITS OWN HIT DETECTION)
 }
 
@@ -136,13 +180,21 @@ void Player::PlayerAutoAttack()
 void Player::PlayerTimer() //This needs to be linked up to delta time
 {
 
-		TimeToReset += DeltaTime::GetDeltaTime();
+		_timeToReset += DeltaTime::GetDeltaTime();
 
-		if (TimeToReset >= AttackTimer)
+		if (_timeToReset >= _attackTimer)
 		{
 			PlayerAutoAttack();
 		}
 
+}
+
+void Player::OnCollision(Collider2D& other)
+{
+	if (other.GetGameObject() == _xpPickUp)
+	{
+		_currentXP = _currentXP + 1;
+	}
 
 }
 
@@ -161,10 +213,10 @@ void Player::Update(float deltaTime)
 		
 	}
 
-	if (_currentXP >= XPLevelUp)
+	if (_currentXP >= _xpLevelUp)
 	{
 		_currentXP = 0;
-		XPLevelUp = XPLevelUp * XPCapMultiplier;
+		_xpLevelUp = _xpLevelUp * _xpCapMultiplier;
 
 		//Insert harrison's Menu Function
 	}
@@ -177,6 +229,20 @@ void Player::Update(float deltaTime)
 RenderInfo Player::GetRenderInfo() const
 {
 	return RenderInfo(_position, {_width, _height}, _texture, _src, _flipped, _sortingLayer, _color);
+}
+
+void Player::TakeDamage(float damage)
+{
+	_health -= damage;
+}
+
+//void Player::Update(float deltaTime)
+//{
+//}
+
+void Player::LateUpdate(float deltaTime)
+{
+
 }
 
 
