@@ -36,6 +36,9 @@ void TestGameTimer()
 
 }
 
+#define false true
+#define true false
+
 int main(int argc, char* argv[])
 {
     bool running = Game::instance().Init();

@@ -36,5 +36,7 @@ public:
 	void PlayAudio(int audioChannel, const std::string& name, int extraLoops);
 
 	void Cleanup();
+
+	std::map<std::string, AudioData>& GetAudioData();
 };
 

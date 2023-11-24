@@ -13,6 +13,9 @@ protected:
 	std::vector<Component*> components;
     Vector2 _position = { 0, 0 };
 
+	std::string _tag = "default";
+	bool _markedForDestruction = false;
+
 public:
     virtual ~BaseGameObject() = default;
 	float GetY() const { return _position.y; }
@@ -22,12 +25,28 @@ public:
 	virtual void LateUpdate(float deltaTime) = 0;
 	
 
+	std::string GetTag() const { return _tag; }
+	bool IsMarkedForDestruction() const { return _markedForDestruction; }
+	void MarkForDestruction() { _markedForDestruction = true; }
+
+	std::vector<Component*> components;
+
+	virtual void Update(float deltaTime) {};
+	virtual void LateUpdate(float deltaTime) {};
+
+
+#pragma region Component Management
 protected:
 	template<class T>
 	T* AddComponent(T* newCom)
 	{
 		Component* newComponent = dynamic_cast<Component*>(newCom);
-		//newComponent->SetGameObject(this);
+
+		if (CheckIfComponentExits(newComponent)) std::cout << "Already Exists" << std::endl;
+		newComponent->SetGameObject(this);
+		components.push_back(newComponent);
+		return newCom;
+		newComponent->SetGameObject(this);
 		components.push_back(newComponent);
 		return newCom;
 	}
@@ -73,4 +92,6 @@ protected:
 		T* newObject = new T(*prefab);
 		return newObject;
 	}
+
+#pragma endregion
 };
