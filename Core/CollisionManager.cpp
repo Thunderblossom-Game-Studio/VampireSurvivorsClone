@@ -104,7 +104,7 @@ bool CollisionManager::CheckCollisions(Collider2D* collider1, Collider2D* collid
 		if (disX <= (rectDim.x / 2) || disY <= (rectDim.y / 2))
 			return true;
 
-		float cornerDistSq = pow(disX - rectDim.x / 2, 2) + pow(disY - rectDim.y / 2, 2);
+		double cornerDistSq = pow(disX - rectDim.x / 2, 2) + pow(disY - rectDim.y / 2, 2);
 
 		return cornerDistSq <= pow(circleDim.x, 2);
 

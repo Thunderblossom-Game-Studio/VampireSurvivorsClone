@@ -37,7 +37,6 @@ class GameRenderer
 {
 public:
     enum RenderSpace { WORLD, UI };
-
 private:
     bool _layers{ true };
     bool _lighting{ true };
@@ -54,11 +53,11 @@ private:
     Uint8 _scale{ 4 };
     float _unitsOnScreen[2]{ 10,7.5f };
     float _moveSpeed{ 5.0f };
+    bool _fullscreen{ false };
     int _maxRenderDistance{ 70 };
-
     SDL_Renderer* _pRenderer = nullptr;
     SDL_Color _defaultColor = { 0, 0, 0, 255 };
-    
+
     /// <summary>
     /// Converts world space transform units into SDL screen pixel coordinates.
     /// </summary>
@@ -73,8 +72,8 @@ private:
     /// <param name="w">The object's width</param>
     /// <param name="h">The object's height</param>
     /// <returns>The screen pixel space coordinates.</returns>
-    SDL_Rect UIToScreenSpace(float x, float y, float w, float h);        
-    
+    SDL_Rect UIToScreenSpace(float x, float y, float w, float h);
+
     /// <summary>
     /// Tracks the target if it's set - NOT FINAL
     /// </summary>s
@@ -100,26 +99,19 @@ private:
     /// Presents the renderer.
     /// </summary>
     void Present();
-
     void DrawWorldDebug();
-
     void ToggleDebugGraphics() { _drawWorldDebug = !_drawWorldDebug; }
-
 public:
     GameRenderer(SDL_Window* pWindow);
     ~GameRenderer();
-
     void ToggleDebugDraw(bool state) { _drawWorldDebug = state; }
-
     void SetMoveSpeed(float speed) { _moveSpeed = speed; }
     float GetMoveSpeed() { return _moveSpeed; }
-
     /// <summary>
     /// Sets the scale of the camera (Higher values zoom out, Lower values zoom in). 
     /// </summary>
     /// <param name="scale">The new renderer scale.</param>
     void SetScale(Uint8 scale) { _scale = scale; }
-
     /// <summary>
     /// Sets the default colour the renderer clears with.
     /// </summary>
@@ -156,6 +148,5 @@ public:
     /// </summary>
     /// <param name="go">The target object.</param>
     bool RemoveFromRenderList(IRenderableObject* go);
-
     void ToggleFullscreen();
 };
