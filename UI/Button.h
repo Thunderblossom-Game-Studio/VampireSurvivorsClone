@@ -10,9 +10,6 @@ public:
     Uint8 alpha;              // Alpha value for transparency
     Button(float x, float y, float width, float height);
 
-    // Enable/Disable alpha
-    void SetAlpha(bool enable);
-
     // Set the button state to highlighted
     void SetHighlighted();
 
@@ -21,6 +18,8 @@ public:
 
     // Reset the button state to its default
     void ResetState();
+
+#pragma region RenderableObject
 
     // Implementation of pure virtual functions from IRenderableObject
     float GetX() const override { return _position.x; }
@@ -38,10 +37,16 @@ public:
     {
         _position.x = x;
     }
+    void SetY(float y)
+    {
+		_position.y = y;
+	}
     void SetWidth(float width)
     {
 		_width = width;
 	}
+#pragma endregion
+    
 private:
     SDL_Color highlightColor; // Color when highlighted
     SDL_Color selectColor;    // Color when selected/pressed
