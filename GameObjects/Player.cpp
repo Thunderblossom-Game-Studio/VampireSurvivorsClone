@@ -53,15 +53,6 @@ Player::Player(float x, float y, float width, float height, float currentXP,
 	if (_collider)
 		CollisionManager::RegisterCollider(_collider);
 
-	InputManager::instance().BindKey(SDL_SCANCODE_W, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementUp, this));
-	InputManager::instance().BindKey(SDL_SCANCODE_A, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementLeft, this));
-	InputManager::instance().BindKey(SDL_SCANCODE_D, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementRight, this));
-	InputManager::instance().BindKey(SDL_SCANCODE_S, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementDown, this));
-
-	InputManager::instance().BindKey(SDL_SCANCODE_1, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerLevelUpOption1, this));
-	InputManager::instance().BindKey(SDL_SCANCODE_2, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerLevelUpOption2, this));
-	InputManager::instance().BindKey(SDL_SCANCODE_3, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerLevelUpOption3, this));
-
 	SetTexture("Assets/Textures/TextureLoadingTest.png", { 128,45,16,19 });
 	GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
 	renderer->AddToRenderList(this);
@@ -103,7 +94,6 @@ void Player::PlayerMovementLeft()
 	Flip(true);
 }
 
-
 void Player::PlayerMovementRight()
 {
 	_position.x = _position.x + (DeltaTime::GetDeltaTime() * _playerMovementSpeed);
@@ -138,7 +128,6 @@ void Player::PlayerLevelUpOption3()
 		//insert selection choice
 	}
 }
-
 
 void Player::PlayerAutoAttack()
 {
@@ -181,7 +170,6 @@ void Player::PlayerTimer() //This needs to be linked up to delta time
 	}
 }
 
-
 void Player::OnCollision(Collider2D& other)
 {
 	if (other.GetGameObject() == _xpPickUp)
@@ -217,8 +205,6 @@ void Player::Update(float deltaTime)
 	PlayerTimer();
 }
 
-
-
 RenderInfo Player::GetRenderInfo() const
 {
 	return RenderInfo(_position, { _width, _height }, _texture, _src, _flipped, _sortingLayer, _color);
@@ -232,4 +218,28 @@ void Player::TakeDamage(float damage)
 void Player::LateUpdate(float deltaTime)
 {
 
+}
+
+ void Player::BindPlayerInput()
+{
+	InputManager::instance().BindKey(SDL_SCANCODE_W, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementUp, this));
+	InputManager::instance().BindKey(SDL_SCANCODE_A, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementLeft, this));
+	InputManager::instance().BindKey(SDL_SCANCODE_D, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementRight, this));
+	InputManager::instance().BindKey(SDL_SCANCODE_S, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementDown, this));
+
+	InputManager::instance().BindKey(SDL_SCANCODE_1, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerLevelUpOption1, this));
+	InputManager::instance().BindKey(SDL_SCANCODE_2, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerLevelUpOption2, this));
+	InputManager::instance().BindKey(SDL_SCANCODE_3, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerLevelUpOption3, this));
+}
+
+void Player::UnbindPlayerInput()
+{
+	InputManager::instance().UnbindKey(SDL_SCANCODE_W, InputManager::KeypressType::KEYHELD);
+	InputManager::instance().UnbindKey(SDL_SCANCODE_A, InputManager::KeypressType::KEYHELD);
+	InputManager::instance().UnbindKey(SDL_SCANCODE_D, InputManager::KeypressType::KEYHELD);
+	InputManager::instance().UnbindKey(SDL_SCANCODE_S, InputManager::KeypressType::KEYHELD);
+
+	InputManager::instance().UnbindKey(SDL_SCANCODE_1, InputManager::KeypressType::KEYHELD);
+	InputManager::instance().UnbindKey(SDL_SCANCODE_2, InputManager::KeypressType::KEYHELD);
+	InputManager::instance().UnbindKey(SDL_SCANCODE_3, InputManager::KeypressType::KEYHELD);
 }

@@ -72,6 +72,9 @@ public:
 	void PlayerAutoAttack();
 	void PlayerTimer();
 
+	void BindPlayerInput();
+	void UnbindPlayerInput();
+
 	//void LevelUpSystem();
 	void OnCollision(Collider2D& other);
 	BaseGameObject* _xpPickUp = nullptr;

@@ -1,10 +1,11 @@
 #include "Pause.h"
+#include "../Core/Game.h"
 
 //Generate the Pause Menu
 Pause::Pause() 
 {
-    resume = new Button(0, 0, 0, 0);
-	quit = new Button(0, 0, 0, 0);
+    resume = new Button(-10, 0, 10, 10);
+	quit = new Button(10, 0, 10, 10);
     SetAlpha(false);
     menuValue = 1;
 }
@@ -12,21 +13,24 @@ Pause::Pause()
 // Enable/Disable alpha
 void Pause::SetAlpha(bool menuActive)
 {
+    //debug call
+    std::cout << "Setting Alpha\n";
     if (menuActive == true)
     {
-        resume->alpha = 255; // Fully opaque
-        quit->alpha = 255; // Fully opaque
+        resume->SetY(0);
+        quit->SetY(0);
     }
     else
     {
-        resume->alpha = 0;   // Fully transparent
-        quit->alpha = 0;   // Fully transparent
+        resume->SetY(-200);
+        quit->SetY(-200);
     }
 }
 
 //Freeze the game world
 void Pause::ToggleGameWorldFreeze() {
-    // Code to freeze/unfreeze the game world goes here
+   //set _freeze to true in game.cpp
+    Game::instance()._player->UnbindPlayerInput();
     std::cout << "Toggling Game World Freeze\n";
 }
 
@@ -34,6 +38,7 @@ void Pause::ToggleGameWorldFreeze() {
 void Pause::UnfreezeGameWorld() 
 {
 	// Code to unfreeze the game world goes here
+    Game::instance()._player->BindPlayerInput();
 	std::cout << "Unfreezing Game World\n";
 }
 
@@ -58,7 +63,7 @@ void Pause::UnbindPause()
 //Press to select
 void Pause::Execute()
 {
-    if (menuActive = true)
+    if (menuActive == true)
     {
         if (menuValue == 1)
         {
@@ -74,7 +79,9 @@ void Pause::Execute()
 			Pause::SetAlpha(false);
 			UnfreezeGameWorld();
             UnbindPause();
-            //Add code to quit game
+            //Add code to use IsRunning to quit the game
+            //Game::instance().Cleanup();
+
 		}
 	}
 }
@@ -111,15 +118,25 @@ void Pause::MoveRight()
 //Press to open the menu
 void Pause::OpenMenu()
 {
-    if (menuActive = false)
+    if (menuActive == false)
     {
+        if (menuValue == 1)
+        {
+			resume->SetHighlighted();
+		}
+        if (menuValue == 2)
+		{
+            quit->SetHighlighted();
+		}
         menuActive = true;
         Pause::SetAlpha(true);
+        Pause::ToggleGameWorldFreeze();
     }
     else
     {
         menuActive = false;
         Pause::SetAlpha(false);
+        Pause::UnfreezeGameWorld();
     }
 }
 
