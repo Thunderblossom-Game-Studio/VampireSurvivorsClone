@@ -34,4 +34,6 @@ public:
     bool Init();
     void Update();
     bool IsRunning() const { return _running; }
+
+    __forceinline Player* GetPlayer() { return _player; }
 };
