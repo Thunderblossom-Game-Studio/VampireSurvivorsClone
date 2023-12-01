@@ -10,7 +10,7 @@ Level::Level(const std::string& levelId, Player* player, TileMap* tileMap, std::
 {
 	_levelId = levelId;
 	_player = player;
-	_tileMap = tileMap;
+	_map = tileMap;
 	_gameObjects = gameObjects;
 
 	GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
@@ -21,7 +21,7 @@ Level::~Level()
 {
 	delete _player;
 
-	delete _tileMap;
+	delete _map;
 
 	for (auto& gameObject : _gameObjects)
 		delete gameObject;
@@ -33,7 +33,7 @@ void Level::Update()
 {
 	CollisionManager::HandleCollisions();
 
-	_player->Update(DeltaTime::GetDeltaTime());
+	//_player->Update(DeltaTime::GetDeltaTime()); // TODO - Add this back when player update is fixed
 
 	for (auto& GameObject : _gameObjects)
 	{
@@ -61,7 +61,7 @@ void Level::Update()
 
 void Level::SpawnInLevel(BaseGameObject* gameObject)
 {
-
+	// TODO - Spawn Objects in level
 
 }
 

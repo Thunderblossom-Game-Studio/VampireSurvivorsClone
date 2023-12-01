@@ -30,7 +30,7 @@ void Pause::SetAlpha(bool menuActive)
 //Freeze the game world
 void Pause::ToggleGameWorldFreeze() {
    //set _freeze to true in game.cpp
-    Game::instance()._player->UnbindPlayerInput();
+    //Game::instance()._player->UnbindPlayerInput();
     std::cout << "Toggling Game World Freeze\n";
 }
 
@@ -38,7 +38,7 @@ void Pause::ToggleGameWorldFreeze() {
 void Pause::UnfreezeGameWorld() 
 {
 	// Code to unfreeze the game world goes here
-    Game::instance()._player->BindPlayerInput();
+    //Game::instance()._player->BindPlayerInput();
 	std::cout << "Unfreezing Game World\n";
 }
 
