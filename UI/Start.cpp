@@ -1,4 +1,5 @@
 #include "Start.h"
+#include "../Core/Game.h"
 
 Button* start;
 Button* quit;
@@ -6,8 +7,8 @@ Button* quit;
 // Generate the Start Menu
 Start::Start()
 {
-    start = new Button(0, 0, 0, 0);
-    quit = new Button(0, 0, 0, 0);
+    start = new Button(0, 10, 10, 10);
+    quit = new Button(0, -10, 10, 10);
     SetAlpha(false);
     menuValue = 1;
 }
@@ -17,13 +18,13 @@ void Start::SetAlpha(bool menuActive)
 {
     if (menuActive == true)
     {
-        start->alpha = 255; // Fully opaque
-        quit->alpha = 255;  // Fully opaque
+        start->SetY(10);
+        quit->SetY(-10);
     }
     else
     {
-        start->alpha = 0; // Fully transparent
-        quit->alpha = 0;  // Fully transparent
+        start->SetY(-200);
+        quit->SetY(-200);
     }
 }
 
@@ -52,8 +53,13 @@ void Start::Execute()
         {
             // Start Game
             menuActive = false;
+            std::cout << "Debug Message: Check 1" << std::endl;
             Start::SetAlpha(false);
+            std::cout << "Debug Message: Check 2" << std::endl;
             UnbindStart();
+            std::cout << "Debug Message: Check 3" << std::endl;
+            Game::instance()._pause->BindPause();
+            std::cout << "Debug Message: Check 4" << std::endl;
         }
         if (menuValue == 2)
         {
@@ -100,6 +106,16 @@ void Start::OpenMenu()
     {
         menuActive = true;
         Start::SetAlpha(true);
+        //highlight selected button
+        if (menuValue == 1)
+        {
+			start->SetHighlighted();
+		}
+        else
+        {
+			quit->SetHighlighted();
+		}
+        
     }
 }
 

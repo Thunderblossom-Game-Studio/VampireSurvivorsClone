@@ -13,8 +13,6 @@ Pause::Pause()
 // Enable/Disable alpha
 void Pause::SetAlpha(bool menuActive)
 {
-    //debug call
-    std::cout << "Setting Alpha\n";
     if (menuActive == true)
     {
         resume->SetY(0);

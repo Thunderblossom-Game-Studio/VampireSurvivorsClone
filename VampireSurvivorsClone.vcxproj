@@ -418,6 +418,7 @@
     <ClCompile Include="Rendering\TileMap.cpp" />
     <ClCompile Include="UI\Button.cpp" />
     <ClCompile Include="UI\Death.cpp" />
+    <ClCompile Include="UI\MasterMenu.cpp" />
     <ClCompile Include="UI\Pause.cpp" />
     <ClCompile Include="UI\SliderUI.cpp" />
     <ClCompile Include="UI\Start.cpp" />
@@ -461,6 +462,7 @@
     <ClInclude Include="Templates\Singleton.h" />
     <ClInclude Include="UI\Button.h" />
     <ClInclude Include="UI\Death.h" />
+    <ClInclude Include="UI\MasterMenu.h" />
     <ClInclude Include="UI\Pause.h" />
     <ClInclude Include="UI\SliderUI.h" />
     <ClInclude Include="UI\Start.h" />
