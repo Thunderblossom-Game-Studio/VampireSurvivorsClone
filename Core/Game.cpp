@@ -119,6 +119,8 @@ bool Game::Init()
     _player = new Player(0, 0, 5, 5,
         0, 100, 15.f, 1, 1,
         1, 1, 1, 1, 1, ColliderType::RECTANGLE);
+    
+   
 
     //GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
     //renderer->SetObjectToTrack(_player);
@@ -154,6 +156,8 @@ void Game::Update()
             break;
             
         default:
+            
+            _player->Update(DeltaTime::GetDeltaTime());
             //AudioSystem::instance().PlayAudio(0, "BackroundMusic", 0); //TODO - 
             break;
         }

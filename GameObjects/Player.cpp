@@ -30,6 +30,8 @@ Player::Player(float x, float y, float width, float height, float currentXP,
 	_playerMagnetMultiplier = playerMagnetMultiplier; //Range to Collect Pickups
 	_playerGoldMultiplier = playerGoldMultiplier;
 
+	BindPlayerInput();
+
 	switch (shape)
 	{
 		case ColliderType::RECTANGLE:
@@ -139,35 +141,42 @@ void Player::PlayerAutoAttack()
 
 void Player::PlayerTimer() //This needs to be linked up to delta time
 {
-	while (TimeToReset >= 0)
-	{
-		TimeToReset = TimeToReset + 1;
+	//while (TimeToReset >= 0)
+	//{
+		//TimeToReset = TimeToReset + 1;
 
-		if (TimeToReset >= 1000000)
+		//if (TimeToReset >= 10)
+		//{
 			if (Flipped() == false)
 			{
 				_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, false, ColliderType::RECTANGLE);
+				_timeToReset = 0;
 			}
 			else if (Flipped() == true)
 			{
 				_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, true, ColliderType::RECTANGLE);
+				_timeToReset = 0;
 			}
 
-		if (Flipped() == false)
-		{
-			_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, false, ColliderType::RECTANGLE);
-		}
-		else if (Flipped() == true)
-		{
-			_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, true, ColliderType::RECTANGLE);
-		}
+			if (Flipped() == false)
+			{
+				_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, false, ColliderType::RECTANGLE);
+				_timeToReset = 0;
+			}
+			else if (Flipped() == true)
+			{
+				_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, true, ColliderType::RECTANGLE);
+				_timeToReset = 0;
+			}
+
+		//}
 
 
 
-		std::cout << "Attack" << std::endl;
-		_timeToReset = 0;
+		//std::cout << "Attack" << std::endl;
+		//_timeToReset = 0;
 		//Insert Basic Auto Attack Here (NEEDS SPRITE & ITS OWN HIT DETECTION)
-	}
+	//}
 }
 
 void Player::OnCollision(Collider2D& other)
@@ -187,8 +196,8 @@ void Player::Update(float deltaTime)
 		if(_defaultAttack->Attack())
 		{
 			
-			delete _defaultAttack;
-			std::cout << "Attack Deleted" << std::endl;
+			//delete _defaultAttack;
+			//std::cout << "Attack Deleted" << std::endl;
 			/*_defaultAttack->Attack();*/
 		}
 		
