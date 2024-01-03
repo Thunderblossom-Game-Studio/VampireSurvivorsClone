@@ -110,6 +110,9 @@
     <ClCompile Include="Core\GameTimer.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjects\Weapon.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Templates\Singleton.h" />
@@ -232,6 +235,9 @@
     </ClInclude>
     <ClInclude Include="Core\GameTimer.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Weapon.h">
+      <Filter>GameObjects</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

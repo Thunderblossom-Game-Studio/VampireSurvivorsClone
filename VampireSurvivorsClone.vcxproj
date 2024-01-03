@@ -257,6 +257,7 @@
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
     <ClCompile Include="GameObjects\PlayerDefaultAttack.cpp" />
+    <ClCompile Include="GameObjects\Weapon.cpp" />
     <ClCompile Include="Gameplay\HealthSystem.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -450,6 +451,7 @@
     <ClInclude Include="GameObjects\IUIObject.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="GameObjects\PlayerDefaultAttack.h" />
+    <ClInclude Include="GameObjects\Weapon.h" />
     <ClInclude Include="Gameplay\HealthSystem.h" />
     <ClInclude Include="Gameplay\XPPickUp.h" />
     <ClInclude Include="UI\HealthBar.h" />
