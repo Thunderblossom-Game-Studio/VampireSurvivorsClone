@@ -4,7 +4,7 @@
 
 #include "../Core/DeltaTime.h"
 
-PlayerDefaultAttack::PlayerDefaultAttack(float x, float y, float width, float height, float attackDamage, float attackTillAttack,bool flip, ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color)
+PlayerDefaultAttack::PlayerDefaultAttack(float x, float y, float width, float height, float attackDamage, float attackTillAttack,bool flip, BaseGameObject* target, ColliderType shape, GameRenderer::RenderSpace space, SDL_Color color)
 {
 	_renderSpace = space;
 	_color = color;
@@ -16,6 +16,7 @@ PlayerDefaultAttack::PlayerDefaultAttack(float x, float y, float width, float he
 	_attackTimer = attackTillAttack;
 	TimeKeep = 0;
 	TimeToReset = 0;
+	_target = target;
 	//_target = target;
 	Flip(flip);
 
@@ -100,7 +101,7 @@ void PlayerDefaultAttack::LateUpdate(float deltatime)
 
 void PlayerDefaultAttack::OnCollision(Collider2D& other)
 {
-	if(other.GetGameObject() == _target) //needs to check for enemy
+	if(other.GetGameObject() != _target) //needs to check for enemy
 	{
 		auto otherTarget = dynamic_cast<IDamageable*>(other.GetGameObject());
 		if (otherTarget)

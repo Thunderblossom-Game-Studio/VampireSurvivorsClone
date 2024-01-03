@@ -155,12 +155,12 @@ void Player::PlayerTimer() //This needs to be linked up to delta time
 
 			if (Flipped() == false)
 			{
-				_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, false, ColliderType::RECTANGLE);
+				_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, false, this, ColliderType::RECTANGLE);
 				TimeToReset = 0;
 			}
 			else if (Flipped() == true)
 			{
-				_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, true, ColliderType::RECTANGLE);
+				_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, true, this, ColliderType::RECTANGLE);
 				TimeToReset = 0;
 			}
 
