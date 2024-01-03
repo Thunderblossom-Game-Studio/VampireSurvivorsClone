@@ -50,7 +50,7 @@ public:
 	float _timeToReset;
 	float _xpLevelUp = 100;
 	float _xpCapMultiplier = 2;
-	float _attackTimer = 0.5;
+	float _attackTimer = 0.2;
 	bool _timeKeep = true;
 	bool _levelUpMenuActive;
 	float TimeToReset;

@@ -28,7 +28,7 @@ public:
 
 	float TimeToReset;
 	bool TimeKeep;
-	float _attackTimer = 5;
+	float _attackTimer;
 	float _attackDamage = 1;
 	BaseGameObject* _target = nullptr;
 	BaseGameObject* _xpPickUp = nullptr;

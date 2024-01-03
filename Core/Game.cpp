@@ -112,7 +112,7 @@ bool Game::Init()
     AudioSystem::instance().Init();
     
     AudioSystem::instance().LoadAudio("BackroundMusic", "Assets/383_Banshees_Lair.mp3");
-    AudioSystem::instance().LoadAudio("SoundEffect01", "Assets/jeff.wav");
+    //AudioSystem::instance().LoadAudio("SoundEffect01", "Assets/jeff.wav");
 
     _map = new TileMap("Assets/BIGMap.txt", 5);
 
@@ -120,6 +120,7 @@ bool Game::Init()
         0, 100, 15.f, 1, 1,
         1, 1, 1, 1, 1, ColliderType::RECTANGLE);
     
+    AudioSystem::instance().PlayAudio(0, "BackroundMusic", 0);
    
 
     //GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
@@ -139,6 +140,9 @@ void Game::Update()
 {
     DeltaTime::UpdateDeltaTime();
 
+    _player->Update(DeltaTime::GetDeltaTime());
+
+
     // SDL Event handling loop
     SDL_Event event;
     while (SDL_PollEvent(&event))
@@ -157,7 +161,7 @@ void Game::Update()
             
         default:
             
-            _player->Update(DeltaTime::GetDeltaTime());
+            //_player->Update(DeltaTime::GetDeltaTime());
             //AudioSystem::instance().PlayAudio(0, "BackroundMusic", 0); //TODO - 
             break;
         }

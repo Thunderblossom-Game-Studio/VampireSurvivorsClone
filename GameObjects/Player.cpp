@@ -143,33 +143,39 @@ void Player::PlayerTimer() //This needs to be linked up to delta time
 {
 	//while (TimeToReset >= 0)
 	//{
-		//TimeToReset = TimeToReset + 1;
+		TimeToReset += DeltaTime::GetDeltaTime();
 
-		//if (TimeToReset >= 10)
-		//{
-			if (Flipped() == false)
+		if (TimeToReset >= 0.5)
+		{
+			if (_defaultAttack)
 			{
-				_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, false, ColliderType::RECTANGLE);
-				_timeToReset = 0;
-			}
-			else if (Flipped() == true)
-			{
-				_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, true, ColliderType::RECTANGLE);
-				_timeToReset = 0;
+				delete _defaultAttack;
+				_defaultAttack = nullptr;
 			}
 
 			if (Flipped() == false)
 			{
 				_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, false, ColliderType::RECTANGLE);
-				_timeToReset = 0;
+				TimeToReset = 0;
 			}
 			else if (Flipped() == true)
 			{
 				_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, true, ColliderType::RECTANGLE);
-				_timeToReset = 0;
+				TimeToReset = 0;
 			}
 
-		//}
+			//if (Flipped() == false)
+			//{
+			//	_defaultAttack = new PlayerDefaultAttack(_position.x + 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, false, ColliderType::RECTANGLE);
+			//	TimeToReset = 0;
+			//}
+			//else if (Flipped() == true)
+			//{
+			//	_defaultAttack = new PlayerDefaultAttack(_position.x - 5, _position.y, 5, 5, 10 * _playerDamageMultiplier, _attackTimer, true, ColliderType::RECTANGLE);
+			//	TimeToReset = 0;
+			//}
+
+		}
 
 
 
@@ -197,8 +203,9 @@ void Player::Update(float deltaTime)
 		{
 			
 			//delete _defaultAttack;
+			//_defaultAttack = nullptr;
 			//std::cout << "Attack Deleted" << std::endl;
-			/*_defaultAttack->Attack();*/
+			//_defaultAttack->Attack();
 		}
 		
 	}
