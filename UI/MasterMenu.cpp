@@ -5,10 +5,13 @@ MasterMenu::MasterMenu()
 {
     restart = new Button(0, 10, 10, 10);
     quitOut = new Button(0, -10, 10, 10);
+    quitOut->highlightColor = { 200, 0, 0, 255 };
     start = new   Button(0, 10, 10, 10);
     quit = new    Button(0, -10, 10, 10);
+    quit->highlightColor = { 255, 0, 0, 255 };
     resume = new  Button(-10, 0, 10, 10);
     unpause = new    Button(10, 0, 10, 10);
+    unpause->highlightColor = { 255, 0, 0, 255 };
     startActive = true;
     deathActive = true;
     pauseActive = true;
@@ -18,6 +21,7 @@ MasterMenu::MasterMenu()
     SetAlpha(true);
     start->SetHighlighted();
     menuValue = 1;
+    menuOpen = true;
     playerY = 10;
     playerY = -10;
 
@@ -79,31 +83,7 @@ void MasterMenu::UnbindPause()
 
 void MasterMenu::Execute()
 {
-    if (deathActive == true)
-    {
-        if (menuValue == 1)
-        {
-			//restart game
-            MasterMenu::UnbindDeath();
-			MasterMenu::SetAlpha(false);
-			deathActive = false;
-			startActive = true;
-			MasterMenu::BindStart();
-			menuValue = 1;
-            MasterMenu::SetAlpha(true);
-        }
-        if (menuValue == 2)
-        {
-            //quit to start menu
-            MasterMenu::SetAlpha(false);
-            deathActive = false;
-            startActive = true;
-            menuValue = 1;
-            playerY = _player->GetY();
-            MasterMenu::SetAlpha(true);
-            deletePlayer = true;
-        }
-    }
+    if (menuOpen == true) {
     if (startActive == true)
     {
         if (menuValue == 1)
@@ -123,15 +103,42 @@ void MasterMenu::Execute()
             quitSet = true;
         }
     }
+    if (deathActive == true)
+    {
+        if (menuValue == 1)
+        {
+            //restart game
+            MasterMenu::UnbindDeath();
+            createPlayer = true;
+            MasterMenu::SetAlpha(false);
+            deathActive = false;
+            pauseActive = true;
+            MasterMenu::BindPause();
+            menuValue = 1;
+
+        }
+        if (menuValue == 2)
+        {
+            //quit to start menu
+                MasterMenu::UnbindDeath();
+            MasterMenu::SetAlpha(false);
+            deathActive = false;
+            startActive = true;
+            MasterMenu::BindStart();
+            menuValue = 1;
+            MasterMenu::SetAlpha(true);
+        }
+    }
+    
     if (pauseActive == true)
     {
         if (menuValue == 1)
         {
-			// Resume Game
+            // Resume Game
             _player->BindPlayerInput();
             pauseSet = false;
             MasterMenu::SetAlpha(false);
-		}
+        }
         if (menuValue == 2)
         {
             MasterMenu::SetAlpha(false);
@@ -141,8 +148,9 @@ void MasterMenu::Execute()
             playerY = _player->GetY();
             MasterMenu::SetAlpha(true);
             deletePlayer = true;
-		}
-	}
+        }
+    }
+}
 };
 
 void MasterMenu::SetAlpha(bool menuActive)
@@ -230,6 +238,7 @@ void MasterMenu::OpenMenu()
         SetAlpha(true);
         _player->UnbindPlayerInput();
         pauseSet = true;
+        menuOpen = true;
     }
 };
 
@@ -237,45 +246,51 @@ void MasterMenu::OpenMenu()
 
 void MasterMenu::MoveUp()
 {
-    if (startActive == true)
+    if (menuOpen == true) 
     {
-        if (menuValue > 1)
+        if (startActive == true)
         {
-            menuValue--;
-            start->SetHighlighted();
-            quit->ResetState();
+            if (menuValue > 1)
+            {
+                menuValue--;
+                start->SetHighlighted();
+                quit->ResetState();
+            }
+        }
+        if (deathActive == true)
+        {
+            if (menuValue > 1)
+            {
+                menuValue--;
+                restart->SetHighlighted();
+                quitOut->ResetState();
+            }
         }
     }
-    if (deathActive == true)
-    {
-        if (menuValue > 1)
-        {
-			menuValue--;
-			restart->SetHighlighted();
-			quitOut->ResetState();
-		}
-	}
 }
 
 // Press to move to the down
 void MasterMenu::MoveDown()
 {
-    if (startActive == true)
+    if (menuOpen == true)
     {
-        if (menuValue < 2)
+        if (startActive == true)
         {
-            menuValue++;
-            quit->SetHighlighted();
-            start->ResetState();
+            if (menuValue < 2)
+            {
+                menuValue++;
+                quit->SetHighlighted();
+                start->ResetState();
+            }
         }
-    }
-    if (deathActive == true)
-    {
-        if (menuValue < 2)
+        if (deathActive == true)
         {
-            menuValue++;
-            quitOut->SetHighlighted();
-            restart->ResetState();
+            if (menuValue < 2)
+            {
+                menuValue++;
+                quitOut->SetHighlighted();
+                restart->ResetState();
+            }
         }
     }
 }
@@ -283,13 +298,16 @@ void MasterMenu::MoveDown()
 //Press to move to the left
 void MasterMenu::MoveLeft()
 {
-    if (pauseActive == true)
+    if (menuOpen == true) 
     {
-        if (menuValue > 1)
+        if (pauseActive == true)
         {
-            menuValue--;
-            resume->SetHighlighted();
-            unpause->ResetState();
+            if (menuValue > 1)
+            {
+                menuValue--;
+                resume->SetHighlighted();
+                unpause->ResetState();
+            }
         }
     }
 }
@@ -297,13 +315,16 @@ void MasterMenu::MoveLeft()
 //Press to move to the right
 void MasterMenu::MoveRight()
 {
-    if (pauseActive == true)
+    if (menuOpen == true)
     {
-        if (menuValue < 2)
+        if (pauseActive == true)
         {
-            menuValue++;
-            unpause->SetHighlighted();
-            resume->ResetState();
+            if (menuValue < 2)
+            {
+                menuValue++;
+                unpause->SetHighlighted();
+                resume->ResetState();
+            }
         }
     }
 }

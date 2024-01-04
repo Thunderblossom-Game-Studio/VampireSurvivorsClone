@@ -40,6 +40,7 @@ class MasterMenu
     bool deletePlayer = false;
     bool pauseSet = false;
     bool quitSet = false;
+    bool menuOpen = false;
     //reference to the player
     Player* _player;
     float playerX;

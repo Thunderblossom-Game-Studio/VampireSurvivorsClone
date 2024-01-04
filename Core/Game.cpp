@@ -23,8 +23,9 @@ Game::~Game()
     delete _exampleGameObject;
     _exampleGameObject = nullptr;
 
-    delete _player;
-    _player = nullptr;
+    if(_player)
+        delete _player;
+
     delete _menu;
     _menu = nullptr;
     // --------- Need to place these methods bellow in a compact method for organization reasons ---------
@@ -119,15 +120,6 @@ bool Game::Init()
     AudioSystem::instance().LoadAudio("SoundEffect01", "Assets/jeff.wav");
 
     _map = new TileMap("Assets/BIGMap.txt", 5);
-
-    /*_player = new Player(0, 0, 5, 5,
-        0, 100, 15.f, 1, 1,
-        1, 1, 1, 1, 1, ColliderType::RECTANGLE);
-    _player->BindPlayerInput();
-
-    GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
-    renderer->SetObjectToTrack(_player);*/
-
     //create menu
     _menu = new MasterMenu();
     _menu->BindStart();
@@ -183,6 +175,7 @@ void Game::Update()
         renderer->SetObjectToTrack(nullptr);
         _menu->playerY = _player->GetY();
         delete _player;
+_player = nullptr;
         //object to track is set to null
         _menu->deletePlayer = false;
         if (_menu->pauseSet == true)
@@ -200,16 +193,16 @@ void Game::Update()
             _menu->SetAlpha(true);
         }
     }
-	 
+	 //if menu quit is true, quit game
+    if (_menu->quitSet == true)
+    {
+		_running = false;
+	}
     // Updates input state and performs any bound callbacks
     InputManager::instance().Update();
     // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
     RenderInstanceManager::instance().GetRenderer("main")->Draw();
     DeltaTime::UpdateDeltaTime();
 
-    //if menu quit is true, quit game
-    if (_menu->quitSet == true)
-    {
-		_running = false;
-	}
+    
 }
