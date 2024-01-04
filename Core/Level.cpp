@@ -67,7 +67,7 @@ void Level::SpawnInLevel(BaseGameObject* gameObject)
 
 void Level::DestroyMarkedForDestruction()
 {
-	if(_player->IsMarkedForDestruction())
+	if(_player && _player->IsMarkedForDestruction())
 	{
 		delete _player;
 		CollisionManager::UnregisterCollider(_player->GetComponent<Collider2D>());

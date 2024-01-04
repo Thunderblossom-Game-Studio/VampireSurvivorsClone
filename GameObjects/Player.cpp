@@ -197,28 +197,28 @@ void Player::OnCollision(Collider2D& other)
 void Player::Update(float deltaTime)
 {
 
-	if(_defaultAttack)
-	{
-		if(_defaultAttack->Attack())
-		{
-			
-			//delete _defaultAttack;
-			//_defaultAttack = nullptr;
-			//std::cout << "Attack Deleted" << std::endl;
-			//_defaultAttack->Attack();
-		}
-		
-	}
+	//if(_defaultAttack)
+	//{
+	//	if(_defaultAttack->Attack())
+	//	{
+	//		
+	//		//delete _defaultAttack;
+	//		//_defaultAttack = nullptr;
+	//		//std::cout << "Attack Deleted" << std::endl;
+	//		//_defaultAttack->Attack();
+	//	}
+	//	
+	//}
 
-	if (_currentXP >= _xpLevelUp)
-	{
-		_currentXP = 0;
-		_xpLevelUp = _xpLevelUp * _xpCapMultiplier;
+	//if (_currentXP >= _xpLevelUp)
+	//{
+	//	_currentXP = 0;
+	//	_xpLevelUp = _xpLevelUp * _xpCapMultiplier;
 
-		//Insert harrison's Menu Function
-	}
+	//	//Insert harrison's Menu Function
+	//}
 
-	PlayerTimer();
+	//PlayerTimer();
 }
 
 RenderInfo Player::GetRenderInfo() const

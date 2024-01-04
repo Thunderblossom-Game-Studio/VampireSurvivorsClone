@@ -128,9 +128,9 @@ bool Game::Init()
     _menu->BindStart();
 
 
-    _player = new Player(0, 0, 5, 5,
+    /*_player = new Player(0, 0, 5, 5,
         0, 100, 15.f, 1, 1,
-        1, 1, 1, 1, 1, ColliderType::RECTANGLE);
+        1, 1, 1, 1, 1, ColliderType::RECTANGLE);*/
     
     AudioSystem::instance().PlayAudio(0, "BackroundMusic", 0);
    
