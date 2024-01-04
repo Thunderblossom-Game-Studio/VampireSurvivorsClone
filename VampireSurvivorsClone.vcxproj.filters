@@ -113,6 +113,7 @@
     <ClCompile Include="GameObjects\Weapon.cpp">
       <Filter>GameObjects</Filter>
     </ClCompile>
+    <ClCompile Include="UI\MasterMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Templates\Singleton.h" />
@@ -239,6 +240,7 @@
     <ClInclude Include="GameObjects\Weapon.h">
       <Filter>GameObjects</Filter>
     </ClInclude>
+    <ClInclude Include="UI\MasterMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">

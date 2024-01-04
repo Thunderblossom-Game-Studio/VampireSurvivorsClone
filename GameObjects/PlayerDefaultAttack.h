@@ -14,7 +14,7 @@ private:
 	Collider2D* _collider = nullptr;
 
 public:
-	PlayerDefaultAttack(float x, float y, float width, float height, float attackDamage, float timeTillAttack, bool flip, ColliderType shape = ColliderType::RECTANGLE,
+	PlayerDefaultAttack(float x, float y, float width, float height, float attackDamage, float timeTillAttack, bool flip, BaseGameObject* target, ColliderType shape = ColliderType::RECTANGLE,
 		GameRenderer::RenderSpace space = GameRenderer::RenderSpace::WORLD, SDL_Color color = { 255,255,255,255 });
 	~PlayerDefaultAttack();
 
@@ -28,7 +28,7 @@ public:
 
 	float TimeToReset;
 	bool TimeKeep;
-	float _attackTimer = 5;
+	float _attackTimer;
 	float _attackDamage = 1;
 	BaseGameObject* _target = nullptr;
 	BaseGameObject* _xpPickUp = nullptr;
