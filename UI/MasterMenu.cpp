@@ -1,28 +1,40 @@
-// Purpose: Source file for MasterMenu.h
 #include "MasterMenu.h"
+#include <iostream>
 
 MasterMenu::MasterMenu()
 {
     restart = new Button(0, 10, 10, 10);
     quitOut = new Button(0, -10, 10, 10);
-    start = new Button(0, 10, 10, 10);
-    quit = new Button(0, -10, 10, 10);
-    resume = new Button(-10, 0, 10, 10);
-    quit = new Button(10, 0, 10, 10);
+    start = new   Button(0, 10, 10, 10);
+    quit = new    Button(0, -10, 10, 10);
+    resume = new  Button(-10, 0, 10, 10);
+    unpause = new    Button(10, 0, 10, 10);
+    startActive = true;
+    deathActive = true;
+    pauseActive = true;
+    SetAlpha(false);
+    deathActive = false;
+    pauseActive = false;
+    SetAlpha(true);
+    start->SetHighlighted();
+    menuValue = 1;
+    playerY = 10;
+    playerY = -10;
+
 }
 
 #pragma region Bindings
 
 // Bind the Death Menu to keys
-void BindDeath()
+void MasterMenu::BindDeath()
 {
-    InputManager::instance().BindKey(SDL_SCANCODE_W, InputManager::KeypressType::KEYDOWN, std::bind(MoveUp));
-    InputManager::instance().BindKey(SDL_SCANCODE_S, InputManager::KeypressType::KEYDOWN, std::bind(MoveDown));
-    InputManager::instance().BindKey(SDL_SCANCODE_SPACE, InputManager::KeypressType::KEYDOWN, std::bind(Execute));
+    InputManager::instance().BindKey(SDL_SCANCODE_W, InputManager::KeypressType::KEYDOWN, std::bind(&MasterMenu::MoveUp, this));
+    InputManager::instance().BindKey(SDL_SCANCODE_S, InputManager::KeypressType::KEYDOWN, std::bind(&MasterMenu::MoveDown, this));
+    InputManager::instance().BindKey(SDL_SCANCODE_SPACE, InputManager::KeypressType::KEYDOWN, std::bind(&MasterMenu::Execute,this));
 }
 
 // Unbind the Death Menu to keys
-void UnbindDeath()
+void MasterMenu::UnbindDeath()
 {
     InputManager::instance().UnbindKey(SDL_SCANCODE_W, InputManager::KeypressType::KEYDOWN);
     InputManager::instance().UnbindKey(SDL_SCANCODE_S, InputManager::KeypressType::KEYDOWN);
@@ -30,15 +42,15 @@ void UnbindDeath()
 }
 
 // Bind the Start Menu to keys
-void BindStart()
+void MasterMenu::BindStart()
 {
-    InputManager::instance().BindKey(SDL_SCANCODE_W, InputManager::KeypressType::KEYDOWN, std::bind(MoveUp));
-    InputManager::instance().BindKey(SDL_SCANCODE_S, InputManager::KeypressType::KEYDOWN, std::bind(MoveDown));
-    InputManager::instance().BindKey(SDL_SCANCODE_SPACE, InputManager::KeypressType::KEYDOWN, std::bind(Execute));
+    InputManager::instance().BindKey(SDL_SCANCODE_W, InputManager::KeypressType::KEYDOWN, std::bind(&MasterMenu::MoveUp, this));
+    InputManager::instance().BindKey(SDL_SCANCODE_S, InputManager::KeypressType::KEYDOWN, std::bind(&MasterMenu::MoveDown, this));
+    InputManager::instance().BindKey(SDL_SCANCODE_SPACE, InputManager::KeypressType::KEYDOWN, std::bind(&MasterMenu::Execute, this));
 }
 
 // Unbind the Start Menu to keys
-void UnbindStart()
+void MasterMenu::UnbindStart()
 {
     InputManager::instance().UnbindKey(SDL_SCANCODE_W, InputManager::KeypressType::KEYDOWN);
     InputManager::instance().UnbindKey(SDL_SCANCODE_S, InputManager::KeypressType::KEYDOWN);
@@ -46,16 +58,16 @@ void UnbindStart()
 }
 
 //Bind the Pause Menu to keys
-void BindPause()
+void MasterMenu::BindPause()
 {
-    InputManager::instance().BindKey(SDL_SCANCODE_A, InputManager::KeypressType::KEYDOWN, std::bind(MoveLeft));
-    InputManager::instance().BindKey(SDL_SCANCODE_D, InputManager::KeypressType::KEYDOWN, std::bind(MoveRight));
-    InputManager::instance().BindKey(SDL_SCANCODE_SPACE, InputManager::KeypressType::KEYDOWN, std::bind(Execute));
-    InputManager::instance().BindKey(SDL_SCANCODE_ESCAPE, InputManager::KeypressType::KEYDOWN, std::bind(OpenMenu));
+    InputManager::instance().BindKey(SDL_SCANCODE_A, InputManager::KeypressType::KEYDOWN, std::bind(&MasterMenu::MoveLeft, this));
+    InputManager::instance().BindKey(SDL_SCANCODE_D, InputManager::KeypressType::KEYDOWN, std::bind(&MasterMenu::MoveRight,this));
+    InputManager::instance().BindKey(SDL_SCANCODE_SPACE, InputManager::KeypressType::KEYDOWN, std::bind(&MasterMenu::Execute, this));
+    InputManager::instance().BindKey(SDL_SCANCODE_ESCAPE, InputManager::KeypressType::KEYDOWN, std::bind(&MasterMenu::OpenMenu, this));
 }
 
 //Unbind the Pause Menu to keys
-void UnbindPause()
+void MasterMenu::UnbindPause()
 {
     InputManager::instance().UnbindKey(SDL_SCANCODE_A, InputManager::KeypressType::KEYDOWN);
     InputManager::instance().UnbindKey(SDL_SCANCODE_D, InputManager::KeypressType::KEYDOWN);
@@ -65,158 +77,199 @@ void UnbindPause()
 #pragma endregion
 
 
-void Execute()
+void MasterMenu::Execute()
 {
-//    if (deathActive == true)
-//    {
-//        if (menuValue == 1)
-//        {
-//            // Retry Game
-//            menuActive = false;
-//            SetAlpha(false);
-//            UnbindDeath();
-//            // Add code to retry game
-//        }
-//        if (menuValue == 2)
-//        {
-//            // Quit Game
-//            menuActive = false;
-//            SetAlpha(false);
-//            UnbindDeath();
-//            // Add code to quit game
-//        }
-//    }
-//    if (startActive == true)
-//    {
-//        if (menuValue == 1)
-//        {
-//            // Start Game
-//            menuActive = false;
-//            std::cout << "Debug Message: Check 1" << std::endl;
-//            Start::SetAlpha(false);
-//            std::cout << "Debug Message: Check 2" << std::endl;
-//            UnbindStart();
-//            std::cout << "Debug Message: Check 3" << std::endl;
-//            Game::instance()._pause->BindPause();
-//            std::cout << "Debug Message: Check 4" << std::endl;
-//        }
-//        if (menuValue == 2)
-//        {
-//            // Quit Game
-//            menuActive = false;
-//            Start::SetAlpha(false);
-//            // Add code to quit game
-//        }
-//    }
-//    if (pauseActive == true)
-//    {
-//        if (menuValue == 1)
-//        {
-//			// Resume Game
-//			menuActive = false;
-//			Pause::SetAlpha(false);
-//			UnbindPause();
-//			// Add code to resume game
-//		}
-//        if (menuValue == 2)
-//        {
-//			// Quit Game
-//			menuActive = false;
-//			Pause::SetAlpha(false);
-//			UnbindPause();
-//		}
-//	}
-};
-
-void SetAlpha(bool menuActive)
-{
-    if (startActive == true)
-    {
-        if (menuActive == true)
-        {
-			start->SetY(10);
-			quit->SetY(-10);
-		}
-        else
-        {
-			start->SetY(-200);
-			quit->SetY(-200);
-		}
-	}
     if (deathActive == true)
     {
-        if (menuActive == true)
+        if (menuValue == 1)
         {
-			restart->SetY(10);
-			quitOut->SetY(-10);
-		}
-        else
+			//restart game
+            MasterMenu::UnbindDeath();
+			MasterMenu::SetAlpha(false);
+			deathActive = false;
+			startActive = true;
+			MasterMenu::BindStart();
+			menuValue = 1;
+            MasterMenu::SetAlpha(true);
+        }
+        if (menuValue == 2)
         {
-			restart->SetY(-200);
-			quitOut->SetY(-200);
-		}
-	}
+            //quit to start menu
+            MasterMenu::SetAlpha(false);
+            deathActive = false;
+            startActive = true;
+            menuValue = 1;
+            playerY = _player->GetY();
+            MasterMenu::SetAlpha(true);
+            deletePlayer = true;
+        }
+    }
+    if (startActive == true)
+    {
+        if (menuValue == 1)
+        {
+            // Start Game
+            MasterMenu::UnbindStart();
+            createPlayer = true;
+            MasterMenu::SetAlpha(false);
+            startActive = false;
+            pauseActive = true;
+            MasterMenu::BindPause();
+            menuValue = 1;
+        }
+        if (menuValue == 2)
+        {
+            // Quit Game
+            quitSet = true;
+        }
+    }
     if (pauseActive == true)
     {
-        if (menuActive == true)
+        if (menuValue == 1)
         {
-			resume->SetY(0);
-			quit->SetY(0);
+			// Resume Game
+            _player->BindPlayerInput();
+            pauseSet = false;
+            MasterMenu::SetAlpha(false);
 		}
-        else
+        if (menuValue == 2)
         {
-			resume->SetY(-200);
-			quit->SetY(-200);
+            MasterMenu::SetAlpha(false);
+            pauseActive = false;
+            startActive = true;
+            menuValue = 1;
+            playerY = _player->GetY();
+            MasterMenu::SetAlpha(true);
+            deletePlayer = true;
 		}
 	}
 };
 
-void OpenMenu()
+void MasterMenu::SetAlpha(bool menuActive)
 {
-    if(menuActive == false)
+    if (menuActive == true)
     {
-        if (startActive == false)
+        if (startActive == true)
         {
+			start->SetY(playerY +10);
+			quit->SetY(playerY -10);
+			start->SetX(playerX);
+			quit->SetX(playerX);
+            if(menuValue == 1)
+			{
+                start->SetHighlighted();
+                quit->ResetState();
+            }
+            if (menuValue == 2)
+            {
+				quit->SetHighlighted();
+				start->ResetState();
+			}
+		}
+        if (deathActive == true)
+        {
+			restart->SetY(playerY + 10);
+			quitOut->SetY(playerY -10);
+            restart->SetX(playerX);
+            quitOut->SetX(playerX);
             if (menuValue == 1)
             {
-				restart->SetHighlighted();
-			}
-            else
+                restart->SetHighlighted();
+                quitOut->ResetState();
+            }
+            if (menuValue == 2)
             {
-
+                quitOut->SetHighlighted();
+                restart->ResetState();
             }
-        }
-        if (deathActive == false)
+		}
+        if (pauseActive == true)
         {
-			if (menuValue == 1)
-			{ 
-
-            }
-            else
-
+			resume->SetY(playerY);
+			unpause->SetY(playerY);
+            resume->SetX(playerX - 10);
+            unpause->SetX(playerX + 10);
+            if (menuValue == 1)
+            {
+				resume->SetHighlighted();
+				unpause->ResetState();
+			}
+            if (menuValue == 2)
+            {
+				unpause->SetHighlighted();
+				resume->ResetState();
+			}
+		}
+	}
+    if (menuActive == false)
+    {
+        if (startActive == true)
+        {
+			start->SetY(-2000);
+			quit->SetY(-2000);
+		}
+        if (deathActive == true)
+        {
+            restart->SetY(-2000);
+            quitOut->SetY(-2000);
         }
+        if (pauseActive == true)
+        {
+			resume->SetY(-2000);
+			unpause->SetY(-2000);
+		}
+    }
+};
+
+void MasterMenu::OpenMenu()
+{
+    playerX = _player->GetX();
+    playerY = _player->GetY();
+    if (pauseActive == true)
+    {
+        SetAlpha(true);
+        _player->UnbindPlayerInput();
+        pauseSet = true;
     }
 };
 
 #pragma region Move
 
-void MoveUp()
+void MasterMenu::MoveUp()
 {
-    if (menuActive == true)
+    if (startActive == true)
     {
         if (menuValue > 1)
         {
             menuValue--;
-            restart->SetHighlighted();
-            quitOut->ResetState();
+            start->SetHighlighted();
+            quit->ResetState();
         }
     }
+    if (deathActive == true)
+    {
+        if (menuValue > 1)
+        {
+			menuValue--;
+			restart->SetHighlighted();
+			quitOut->ResetState();
+		}
+	}
 }
 
 // Press to move to the down
-void MoveDown()
+void MasterMenu::MoveDown()
 {
-    if (menuActive == true)
+    if (startActive == true)
+    {
+        if (menuValue < 2)
+        {
+            menuValue++;
+            quit->SetHighlighted();
+            start->ResetState();
+        }
+    }
+    if (deathActive == true)
     {
         if (menuValue < 2)
         {
@@ -227,61 +280,43 @@ void MoveDown()
     }
 }
 
-// Press to move to the up
-void MoveUp()
-{
-    if (menuActive == true)
-    {
-        if (menuValue > 1)
-        {
-            menuValue--;
-            start->SetHighlighted();
-            quit->ResetState();
-        }
-    }
-}
-
-// Press to move to the down
-void MoveDown()
-{
-    if (menuActive == true)
-    {
-        if (menuValue < 2)
-        {
-            menuValue++;
-            quit->SetHighlighted();
-            start->ResetState();
-        }
-    }
-}
-
 //Press to move to the left
-void MoveLeft()
+void MasterMenu::MoveLeft()
 {
-    if (menuActive == true)
+    if (pauseActive == true)
     {
         if (menuValue > 1)
         {
             menuValue--;
             resume->SetHighlighted();
-            quit->ResetState();
+            unpause->ResetState();
         }
     }
-
 }
+
 //Press to move to the right
-void MoveRight()
+void MasterMenu::MoveRight()
 {
-    if (menuActive == true)
+    if (pauseActive == true)
     {
         if (menuValue < 2)
         {
             menuValue++;
-            quit->SetHighlighted();
+            unpause->SetHighlighted();
             resume->ResetState();
         }
     }
-
 }
 
 #pragma endregion
+
+//delete everyting
+MasterMenu::~MasterMenu()
+{
+	delete restart;
+	delete quitOut;
+	delete start;
+	delete quit;
+	delete resume;
+	delete unpause;
+}

@@ -58,7 +58,7 @@ void Start::Execute()
             std::cout << "Debug Message: Check 2" << std::endl;
             UnbindStart();
             std::cout << "Debug Message: Check 3" << std::endl;
-            Game::instance()._pause->BindPause();
+            //Game::instance()._pause->BindPause();
             std::cout << "Debug Message: Check 4" << std::endl;
         }
         if (menuValue == 2)
