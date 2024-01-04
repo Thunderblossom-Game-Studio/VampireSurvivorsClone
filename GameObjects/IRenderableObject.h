@@ -18,6 +18,7 @@ protected:
     int _sortingLayer = 0;
 
 public:
+    virtual ~IRenderableObject() { std::cout << "Rendereable Object Destructor Called" << std::endl; }
     virtual float GetX() const = 0;
     virtual float GetY() const = 0;
     virtual float GetWidth() const = 0;
@@ -62,4 +63,7 @@ public:
     /// </summary>
     /// <returns>The x,y,w,h of the texture being rendered.</returns>
     virtual SDL_Rect GetSrc() { return _src; }
+
+
+
 };

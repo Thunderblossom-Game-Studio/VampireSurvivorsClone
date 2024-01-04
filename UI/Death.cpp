@@ -6,8 +6,8 @@ Button* quitOut;
 // Generate the Death Menu
 Death::Death()
 {
-    restart = new Button(0, 0, 0, 0);
-    quitOut = new Button(0, 0, 0, 0);
+    restart = new Button(0, 10, 10, 10);
+    quitOut = new Button(0, -10, 10, 10);
     SetAlpha(false);
     menuValue = 1;
 }
@@ -17,13 +17,13 @@ void Death::SetAlpha(bool menuActive)
 {
     if (menuActive == true)
     {
-        restart->alpha = 255; // Fully opaque
-        quitOut->alpha = 255;  // Fully opaque
+        restart->SetY(10);
+        quitOut->SetY(-10);
     }
     else
     {
-        restart->alpha = 0; // Fully transparent
-        quitOut->alpha = 0;  // Fully transparent
+        restart->SetY(-200);
+        quitOut->SetY(-200);
     }
 }
 
@@ -54,12 +54,14 @@ void Death::Execute()
             menuActive = false;
             Death::SetAlpha(false);
             UnbindDeath();
+            // Add code to retry game
         }
         if (menuValue == 2)
         {
             // Quit Game
             menuActive = false;
             Death::SetAlpha(false);
+            UnbindDeath();
             // Add code to quit game
         }
     }
@@ -98,8 +100,12 @@ void Death::OpenMenu()
 {
     if (menuActive == false)
     {
+        if (menuValue == 1)
+        {
+            restart->SetHighlighted();
+        }
         menuActive = true;
-        Death::SetAlpha(true);
+        SetAlpha(true);
     }
 }
 

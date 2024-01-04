@@ -257,6 +257,7 @@
       <LinkCompiled>true</LinkCompiled>
     </ClCompile>
     <ClCompile Include="GameObjects\PlayerDefaultAttack.cpp" />
+    <ClCompile Include="GameObjects\Weapon.cpp" />
     <ClCompile Include="Gameplay\HealthSystem.cpp">
       <RuntimeLibrary>MultiThreadedDebugDll</RuntimeLibrary>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -418,6 +419,7 @@
     <ClCompile Include="Rendering\TileMap.cpp" />
     <ClCompile Include="UI\Button.cpp" />
     <ClCompile Include="UI\Death.cpp" />
+    <ClCompile Include="UI\MasterMenu.cpp" />
     <ClCompile Include="UI\Pause.cpp" />
     <ClCompile Include="UI\SliderUI.cpp" />
     <ClCompile Include="UI\Start.cpp" />
@@ -450,6 +452,7 @@
     <ClInclude Include="GameObjects\IUIObject.h" />
     <ClInclude Include="GameObjects\Player.h" />
     <ClInclude Include="GameObjects\PlayerDefaultAttack.h" />
+    <ClInclude Include="GameObjects\Weapon.h" />
     <ClInclude Include="Gameplay\HealthSystem.h" />
     <ClInclude Include="Gameplay\XPPickUp.h" />
     <ClInclude Include="UI\HealthBar.h" />
@@ -461,6 +464,7 @@
     <ClInclude Include="Templates\Singleton.h" />
     <ClInclude Include="UI\Button.h" />
     <ClInclude Include="UI\Death.h" />
+    <ClInclude Include="UI\MasterMenu.h" />
     <ClInclude Include="UI\Pause.h" />
     <ClInclude Include="UI\SliderUI.h" />
     <ClInclude Include="UI\Start.h" />

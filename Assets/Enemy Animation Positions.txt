@@ -1,0 +1,31 @@
+Big Golem Idle:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 22, 271, 20, 30 }, { 54, 271, 20, 30 }, { 86, 271, 20, 30 }, { 118, 271, 20, 30 } }, 2.0f, 1.0f)
+
+Big Golem Run:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 150, 271, 20, 30 }, { 182, 271, 20, 30 }, { 214, 271, 20, 30 }, { 246, 271, 20, 30 } }, 2.0f, 1.0f)
+
+Big Orc Idle:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 21, 324, 22, 28 }, { 53, 324, 22, 28 }, { 85, 324, 22, 28 }, { 117, 324, 20, 28 } }, 2.0f, 1.0f)
+
+Big Orc Run:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 149, 324, 22, 28 }, { 181, 324, 22, 28 }, { 213, 324, 22, 28 }, { 245, 324, 22, 28 } }, 2.0f, 1.0f)
+
+Big Demon Idle:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 20, 366, 26, 34 }, { 51, 366, 26, 34 }, { 83, 366, 26, 34 }, { 115, 366, 26, 34 } }, 2.0f, 1.0f)
+
+Big Demon Run:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 146, 366, 26, 34 }, { 178, 366, 26, 34 }, { 210, 366, 26, 34 }, { 243, 366, 26, 34 } }, 2.0f, 1.0f)
+
+Tiny Golem Idle:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 371, 20, 11, 12 }, { 387, 20, 11, 12 }, { 403, 20, 11, 12 }, { 419, 20, 11, 12 } }, 2.0f, 1.0f)
+
+Tiny Golem Run:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 435, 20, 11, 12 }, { 451, 20, 11, 12 }, { 467, 20, 11, 12 }, { 483, 20, 11, 12 } }, 2.0f, 1.0f)
+
+Tiny Orc Idle:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 372, 36, 11, 12 }, { 388, 36, 11, 12 }, { 404, 36, 11, 12 }, { 420, 36, 11, 12 } }, 2.0f, 1.0f)
+
+Tiny Orc Run:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 436, 36, 11, 12 }, { 451, 36, 11, 12 }, { 468, 36, 11, 12 }, { 484, 36, 11, 12 } }, 2.0f, 1.0f)
+
+

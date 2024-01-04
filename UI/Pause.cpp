@@ -13,8 +13,6 @@ Pause::Pause()
 // Enable/Disable alpha
 void Pause::SetAlpha(bool menuActive)
 {
-    //debug call
-    std::cout << "Setting Alpha\n";
     if (menuActive == true)
     {
         resume->SetY(0);
@@ -30,7 +28,11 @@ void Pause::SetAlpha(bool menuActive)
 //Freeze the game world
 void Pause::ToggleGameWorldFreeze() {
    //set _freeze to true in game.cpp
+
     Game::instance().GetPlayer()->UnbindPlayerInput();
+
+    //Game::instance()._player->UnbindPlayerInput();
+
     std::cout << "Toggling Game World Freeze\n";
 }
 
@@ -38,7 +40,11 @@ void Pause::ToggleGameWorldFreeze() {
 void Pause::UnfreezeGameWorld() 
 {
 	// Code to unfreeze the game world goes here
+
     Game::instance().GetPlayer()->BindPlayerInput();
+
+    //Game::instance()._player->BindPlayerInput();
+
 	std::cout << "Unfreezing Game World\n";
 }
 

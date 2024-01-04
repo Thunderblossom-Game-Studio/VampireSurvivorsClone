@@ -8,6 +8,9 @@
 #include "AudioSystem.h"
 #include "DeltaTime.h"
 #include "LevelManager.h"
+#include "../UI/MasterMenu.h"
+#include "Level.h"
+
 
 Game::Game(token)
 {
@@ -21,7 +24,12 @@ Game::~Game()
   
     delete _exampleGameObject;
     _exampleGameObject = nullptr;
-  
+
+    if(_player)
+        delete _player;
+
+    delete _menu;
+    _menu = nullptr;
     // --------- Need to place these methods bellow in a compact method for organization reasons ---------
     if (_exampleGameObject)
         delete _exampleGameObject;
@@ -111,16 +119,30 @@ bool Game::Init()
     AudioSystem::instance().Init();
     
     AudioSystem::instance().LoadAudio("BackroundMusic", "Assets/383_Banshees_Lair.mp3");
-    AudioSystem::instance().LoadAudio("SoundEffect01", "Assets/jeff.wav");
+    //AudioSystem::instance().LoadAudio("SoundEffect01", "Assets/jeff.wav");
 
     _map = new TileMap("Assets/BIGMap.txt", 5);
+
+    //create menu
+    _menu = new MasterMenu();
+    _menu->BindStart();
+
 
     _player = new Player(0, 0, 5, 5,
         0, 100, 15.f, 1, 1,
         1, 1, 1, 1, 1, ColliderType::RECTANGLE);
+    
+    AudioSystem::instance().PlayAudio(0, "BackroundMusic", 0);
+   
 
-    GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
-    renderer->SetObjectToTrack(_player);
+    //GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
+    //renderer->SetObjectToTrack(_player);
+
+    Level* TestLevel = new Level("TestLevel", _player, _map, std::vector<BaseGameObject*>());
+
+    LevelManager::AddLevel("0", TestLevel);
+
+    LevelManager::LoadLevel("0");
 
 
     _running = true;
@@ -129,6 +151,11 @@ bool Game::Init()
 
 void Game::Update()
 {
+    DeltaTime::UpdateDeltaTime();
+
+    _player->Update(DeltaTime::GetDeltaTime());
+
+
     // SDL Event handling loop
     SDL_Event event;
     while (SDL_PollEvent(&event))
@@ -136,9 +163,10 @@ void Game::Update()
         switch(event.type)
         {
         // InputManager handles keypresses, this is just a quick and dirty way to exit the game
-        case SDL_KEYDOWN:
-            if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-                _running = false;
+       case SDL_KEYDOWN:
+           if (event.key.keysym.scancode == SDL_SCANCODE_F || event.key.keysym.sym == SDLK_f) {
+               _menu->deletePlayer = true;
+           }
             break;
             
         case SDL_QUIT:
@@ -146,45 +174,80 @@ void Game::Update()
             break;
             
         default:
-            AudioSystem::instance().PlayAudio(0, "BackroundMusic", 0);
+            
+            //_player->Update(DeltaTime::GetDeltaTime());
+            //AudioSystem::instance().PlayAudio(0, "BackroundMusic", 0); //TODO - 
             break;
         }
-        
     }
-	 
+
+
+    //if playerCreate is true, create player
+    if (_menu->createPlayer == true)
+    {
+		_player = new Player(0, 0, 5, 5,
+            			0, 100, 15.f, 1, 1,
+            			1, 1, 1, 1, 1, ColliderType::RECTANGLE);
+		_player->BindPlayerInput();
+        _menu->_player = _player;
+		GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
+		renderer->SetObjectToTrack(_player);
+		_menu->createPlayer = false;
+        _menu->pauseActive = true;
+	}
+
+    //if playerDelete is true, delete player
+    if (_menu->deletePlayer == true)
+    {
+        _player->UnbindPlayerInput();
+        GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
+        renderer->SetObjectToTrack(nullptr);
+        _menu->playerY = _player->GetY();
+        delete _player;
+        _player = nullptr;
+        //object to track is set to null
+        _menu->deletePlayer = false;
+        if (_menu->pauseSet == true)
+        {
+			_menu->UnbindPause();
+            _menu->BindStart();
+            _menu->pauseSet = false;
+		}
+        else 
+        {
+            _menu->UnbindPause();
+            //_menu->menuOpen = true;
+            _menu->BindDeath();
+            _menu->pauseActive = false;
+            _menu->deathActive = true;
+            _menu->SetAlpha(true);
+            //print death
+            std::cout << "Death" << std::endl;
+        }
+    }
+	 //if menu quit is true, quit game
+    if (_menu->quitSet == true)
+    {
+		_running = false;
+	}
     // Updates input state and performs any bound callbacks
     InputManager::instance().Update();
-
     // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
     RenderInstanceManager::instance().GetRenderer("main")->Draw();
-
-  
-  
     DeltaTime::UpdateDeltaTime();
 
+    
+
+    LevelManager::UpdateActiveLevel();
+	 
+    // Updates input state and performs any bound callbacks
+    //InputManager::instance().Update();
+
+    // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
+    //RenderInstanceManager::instance().GetRenderer("main")->Draw(); 
+  
+    
 
     //TODO - Properly test Level System
-
-    //// SDL Event handling loop
-    //SDL_Event event;
-    //while (SDL_PollEvent(&event))
-    //{
-    //    switch(event.type)
-    //    {
-    //    // InputManager handles keypresses, this is just a quick and dirty way to exit the game
-    //    case SDL_KEYDOWN:
-    //        if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-    //            _running = false;
-    //        break;
-    //        
-    //    case SDL_QUIT:
-    //        _running = false;
-    //        break;
-    //        
-    //    default:
-    //        break;
-    //    }
-    //}
-
 
 }
