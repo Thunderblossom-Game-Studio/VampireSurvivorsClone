@@ -118,6 +118,14 @@ void InputManager::UnbindAllKeys()
     _keyDownCallbacks.clear();
     _keyUpCallbacks.clear();
     _keyHeldCallbacks.clear();
+
+    _keyDownMarkedRemove.clear();
+    _keyUpMarkedRemove.clear();
+    _keyHeldMarkedRemove.clear();
+
+    _keyDownMarkedAdd.clear();
+    _keyUpMarkedAdd.clear();
+    _keyHeldMarkedAdd.clear();
 }
 
 /// @brief Updates keystate and performs any bound callbacks
