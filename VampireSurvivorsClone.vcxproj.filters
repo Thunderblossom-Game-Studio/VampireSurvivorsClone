@@ -110,6 +110,9 @@
     <ClCompile Include="Core\GameTimer.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="GameObjects\Weapon.cpp">
+      <Filter>GameObjects</Filter>
+    </ClCompile>
     <ClCompile Include="UI\MasterMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -233,6 +236,9 @@
     </ClInclude>
     <ClInclude Include="Core\GameTimer.h">
       <Filter>Core</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObjects\Weapon.h">
+      <Filter>GameObjects</Filter>
     </ClInclude>
     <ClInclude Include="UI\MasterMenu.h" />
   </ItemGroup>
