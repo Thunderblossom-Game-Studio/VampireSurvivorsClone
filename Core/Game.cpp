@@ -175,7 +175,7 @@ void Game::Update()
         renderer->SetObjectToTrack(nullptr);
         _menu->playerY = _player->GetY();
         delete _player;
-_player = nullptr;
+        _player = nullptr;
         //object to track is set to null
         _menu->deletePlayer = false;
         if (_menu->pauseSet == true)
@@ -187,10 +187,13 @@ _player = nullptr;
         else 
         {
             _menu->UnbindPause();
+            //_menu->menuOpen = true;
             _menu->BindDeath();
             _menu->pauseActive = false;
             _menu->deathActive = true;
             _menu->SetAlpha(true);
+            //print death
+            std::cout << "Death" << std::endl;
         }
     }
 	 //if menu quit is true, quit game

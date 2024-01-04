@@ -119,14 +119,7 @@ void MasterMenu::Execute()
         }
         if (menuValue == 2)
         {
-            //quit to start menu
-                MasterMenu::UnbindDeath();
-            MasterMenu::SetAlpha(false);
-            deathActive = false;
-            startActive = true;
-            MasterMenu::BindStart();
-            menuValue = 1;
-            MasterMenu::SetAlpha(true);
+            quitSet = true;
         }
     }
     
