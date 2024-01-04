@@ -110,6 +110,7 @@
     <ClCompile Include="Core\GameTimer.cpp">
       <Filter>Core</Filter>
     </ClCompile>
+    <ClCompile Include="UI\MasterMenu.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Templates\Singleton.h" />
@@ -233,6 +234,7 @@
     <ClInclude Include="Core\GameTimer.h">
       <Filter>Core</Filter>
     </ClInclude>
+    <ClInclude Include="UI\MasterMenu.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Core">

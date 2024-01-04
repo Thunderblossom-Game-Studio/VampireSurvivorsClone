@@ -2,8 +2,20 @@
 
 #include "../GameObjects/Player.h"
 #include "../Templates/Singleton.h"
+
+#include "../UI/MasterMenu.h"
+
+// Temp include for demonstration purposes
+//<<<<<<< Updated upstream
 #include "../GameObjects/ExampleGameObject.h"
 #include "../Rendering/TileMap.h"
+
+#include "../GameObjects/ExampleGameObject.h"
+// >>>>>>> Stashed changes
+
+#include "../GameObjects/ExampleGameObject.h"
+#include "../Rendering/TileMap.h"
+
 
 
 class GameRenderer;
@@ -19,7 +31,7 @@ private:
     ExampleGameObject* _exampleUIObject;
     Player* _player;
     TileMap* _map;
-
+    MasterMenu* _menu;
     Level* _level;
 
 public:

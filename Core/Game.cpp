@@ -8,7 +8,9 @@
 #include "AudioSystem.h"
 #include "DeltaTime.h"
 #include "LevelManager.h"
+#include "../UI/MasterMenu.h"
 #include "Level.h"
+
 
 Game::Game(token)
 {
@@ -22,7 +24,12 @@ Game::~Game()
   
     delete _exampleGameObject;
     _exampleGameObject = nullptr;
-  
+
+    if(_player)
+        delete _player;
+
+    delete _menu;
+    _menu = nullptr;
     // --------- Need to place these methods bellow in a compact method for organization reasons ---------
     if (_exampleGameObject)
         delete _exampleGameObject;
@@ -116,6 +123,11 @@ bool Game::Init()
 
     _map = new TileMap("Assets/BIGMap.txt", 5);
 
+    //create menu
+    _menu = new MasterMenu();
+    _menu->BindStart();
+
+
     _player = new Player(0, 0, 5, 5,
         0, 100, 15.f, 1, 1,
         1, 1, 1, 1, 1, ColliderType::RECTANGLE);
@@ -128,6 +140,7 @@ bool Game::Init()
     LevelManager::AddLevel("0", TestLevel);
 
     LevelManager::LoadLevel("0");
+
 
     _running = true;
     return true;
@@ -144,9 +157,10 @@ void Game::Update()
         switch(event.type)
         {
         // InputManager handles keypresses, this is just a quick and dirty way to exit the game
-        case SDL_KEYDOWN:
-            if (event.key.keysym.scancode == SDL_SCANCODE_ESCAPE)
-                _running = false;
+       case SDL_KEYDOWN:
+           if (event.key.keysym.scancode == SDL_SCANCODE_F || event.key.keysym.sym == SDLK_f) {
+               _menu->deletePlayer = true;
+           }
             break;
             
         case SDL_QUIT:
@@ -159,6 +173,63 @@ void Game::Update()
         }
     }
 
+
+    //if playerCreate is true, create player
+    if (_menu->createPlayer == true)
+    {
+		_player = new Player(0, 0, 5, 5,
+            			0, 100, 15.f, 1, 1,
+            			1, 1, 1, 1, 1, ColliderType::RECTANGLE);
+		_player->BindPlayerInput();
+        _menu->_player = _player;
+		GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
+		renderer->SetObjectToTrack(_player);
+		_menu->createPlayer = false;
+        _menu->pauseActive = true;
+	}
+
+    //if playerDelete is true, delete player
+    if (_menu->deletePlayer == true)
+    {
+        _player->UnbindPlayerInput();
+        GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
+        renderer->SetObjectToTrack(nullptr);
+        _menu->playerY = _player->GetY();
+        delete _player;
+        _player = nullptr;
+        //object to track is set to null
+        _menu->deletePlayer = false;
+        if (_menu->pauseSet == true)
+        {
+			_menu->UnbindPause();
+            _menu->BindStart();
+            _menu->pauseSet = false;
+		}
+        else 
+        {
+            _menu->UnbindPause();
+            //_menu->menuOpen = true;
+            _menu->BindDeath();
+            _menu->pauseActive = false;
+            _menu->deathActive = true;
+            _menu->SetAlpha(true);
+            //print death
+            std::cout << "Death" << std::endl;
+        }
+    }
+	 //if menu quit is true, quit game
+    if (_menu->quitSet == true)
+    {
+		_running = false;
+	}
+    // Updates input state and performs any bound callbacks
+    InputManager::instance().Update();
+    // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
+    RenderInstanceManager::instance().GetRenderer("main")->Draw();
+    DeltaTime::UpdateDeltaTime();
+
+    
+
     LevelManager::UpdateActiveLevel();
 	 
     // Updates input state and performs any bound callbacks
@@ -170,4 +241,5 @@ void Game::Update()
     
 
     //TODO - Properly test Level System
+
 }

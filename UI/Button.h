@@ -46,10 +46,10 @@ public:
 		_width = width;
 	}
 #pragma endregion
-    
-private:
     SDL_Color highlightColor; // Color when highlighted
     SDL_Color selectColor;    // Color when selected/pressed
+private:
+    
     bool isVisible = true;    // Flag to determine if the button is visible
     bool isSelected;          // Flag to determine if the button is selected
     Vector2 _position;
