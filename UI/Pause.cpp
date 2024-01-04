@@ -28,7 +28,11 @@ void Pause::SetAlpha(bool menuActive)
 //Freeze the game world
 void Pause::ToggleGameWorldFreeze() {
    //set _freeze to true in game.cpp
+
+    Game::instance().GetPlayer()->UnbindPlayerInput();
+
     //Game::instance()._player->UnbindPlayerInput();
+
     std::cout << "Toggling Game World Freeze\n";
 }
 
@@ -36,7 +40,11 @@ void Pause::ToggleGameWorldFreeze() {
 void Pause::UnfreezeGameWorld() 
 {
 	// Code to unfreeze the game world goes here
+
+    Game::instance().GetPlayer()->BindPlayerInput();
+
     //Game::instance()._player->BindPlayerInput();
+
 	std::cout << "Unfreezing Game World\n";
 }
 
@@ -46,7 +54,7 @@ void Pause::BindPause()
     InputManager::instance().BindKey(SDL_SCANCODE_A, InputManager::KeypressType::KEYDOWN, std::bind(&Pause::MoveLeft, this));
     InputManager::instance().BindKey(SDL_SCANCODE_D, InputManager::KeypressType::KEYDOWN, std::bind(&Pause::MoveRight, this));
     InputManager::instance().BindKey(SDL_SCANCODE_SPACE, InputManager::KeypressType::KEYDOWN, std::bind(&Pause::Execute, this));
-    InputManager::instance().BindKey(SDL_SCANCODE_ESCAPE, InputManager::KeypressType::KEYDOWN, std::bind(&Pause::OpenMenu, this));
+    InputManager::instance().BindKey(SDL_SCANCODE_LSHIFT, InputManager::KeypressType::KEYDOWN, std::bind(&Pause::OpenMenu, this));
 }
 
 //Unbind the Pause Menu to keys
