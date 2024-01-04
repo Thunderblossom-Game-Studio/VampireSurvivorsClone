@@ -1,0 +1,71 @@
+Male Elf Idle:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 129, 41, 15, 23 }, { 145, 41, 15, 23 }, { 161, 41, 15, 23 }, { 177, 41, 15, 23 } }, 2.0f, 1.0f)
+
+Male Elf Run:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 193, 41, 15, 23 }, { 209, 41, 15, 23 }, { 225, 41, 15, 23 }, { 241, 41, 15, 23 } }, 2.0f, 1.0f)
+
+Male Elf Jump:
+SetTexture("Assets/Textures/TextureLoadingTest.png", { 257, 41, 15, 23 })
+
+Female Elf Idle:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 128, 11, 16, 21 }, { 144, 11, 16, 21 }, { 160, 11, 16, 21 }, { 176, 11, 16, 21 } }, 2.0f, 1.0f)
+
+Female Elf Run:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 192, 11, 16, 21 }, { 208, 11, 16, 21 }, { 224, 11, 16, 21 }, { 240, 11, 16, 21 } }, 2.0f, 1.0f)
+
+Male Elf Jump:
+SetTexture("Assets/Textures/TextureLoadingTest.png", { 256, 11, 16, 21 })
+
+Female Knight Idle:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 128, 69, 15, 27 }, { 144, 69, 15, 27 }, { 160, 69, 15, 27 }, { 176, 69, 15, 27 } }, 2.0f, 1.0f)
+
+Female Knight Run:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 192, 69, 15, 27 }, { 208, 69, 15, 27 }, { 224, 69, 15, 27 }, { 240, 69, 15, 27 } }, 2.0f, 1.0f)
+
+Female Knight Jump:
+SetTexture("Assets/Textures/TextureLoadingTest.png", { 256, 69, 15, 27 })
+
+Male Knight Idle:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 128, 101, 15, 27 }, { 144, 101, 15, 27 }, { 160, 101, 15, 27 }, { 176, 101, 15, 27 } }, 2.0f, 1.0f)
+
+Male Knight Run:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 192, 101, 15, 27 }, { 208, 101, 15, 27 }, { 224, 101, 15, 27 }, { 240, 101, 15, 27 } }, 2.0f, 1.0f)
+
+Male Knight Jump:
+SetTexture("Assets/Textures/TextureLoadingTest.png", { 256, 101, 15, 27 })
+
+Female Wizard Idle:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 128, 137, 16, 23 }, { 144, 137, 16, 23 }, { 160, 137, 16, 23 }, { 176, 137, 16, 23 } }, 2.0f, 1.0f)
+
+Female Wizard Run:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 192, 137, 16, 23 }, { 208, 137, 16, 23 }, { 224, 137, 16, 23 }, { 240, 137, 16, 23 } }, 2.0f, 1.0f)
+
+Female Wizard Jump:
+SetTexture("Assets/Textures/TextureLoadingTest.png", { 256, 137, 16, 23 })
+
+Male Wizard Idle:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 129, 168, 16, 24 }, { 145, 168, 16, 24 }, { 161, 168, 16, 24 }, { 177, 168, 16, 24 } }, 2.0f, 1.0f)
+
+Male Wizard Run:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 193, 168, 16, 24 }, { 209, 168, 16, 24 }, { 224, 168, 16, 24 }, { 240, 168, 16, 24 } }, 2.0f, 1.0f)
+
+Male Wizard Jump:
+SetTexture("Assets/Textures/TextureLoadingTest.png", { 257, 168, 16, 24 })
+
+Female Lizard Idle:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 129, 202, 16, 22 }, { 145, 202, 15, 22 }, { 160, 202, 16, 22 }, { 177, 202, 16, 22 } }, 2.0f, 1.0f)
+
+Female Lizard Run:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 193, 202, 16, 22 }, { 209, 202, 16, 22 }, { 225, 202, 16, 22 }, { 241, 202, 16, 22 } }, 2.0f, 1.0f)
+
+Female Lizard Jump:
+SetTexture("Assets/Textures/TextureLoadingTest.png", { 257, 202, 16, 22 })
+
+Male Lizard Idle:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 129, 234, 16, 22 }, { 145, 234, 15, 22 }, { 160, 234, 16, 22 }, { 177, 234, 16, 22 } }, 2.0f, 1.0f)
+
+Male Lizard Run:
+IAnimationObject("Assets/Textures/TextureLoadingTest.png", {{ 193, 234, 16, 22 }, { 209, 234, 16, 22 }, { 225, 234, 16, 22 }, { 241, 234, 16, 22 } }, 2.0f, 1.0f)
+
+Male Lizard Jump:
+SetTexture("Assets/Textures/TextureLoadingTest.png", { 257, 234, 16, 22 })
