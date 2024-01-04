@@ -2,6 +2,47 @@
 #include <SDL.h>
 #include <iostream>
 
+void InputManager::UpdateBindings()
+{
+    // Moves all marked keys from add map to callback map
+    for (auto& key : _keyDownMarkedAdd)
+    {
+        _keyDownCallbacks[key.first] = key.second;
+    }
+    _keyDownMarkedAdd.clear();
+
+    for (auto& key : _keyUpMarkedAdd)
+    {
+        _keyUpCallbacks[key.first] = key.second;
+    }
+    _keyUpMarkedAdd.clear();
+
+    for (auto& key : _keyHeldMarkedAdd)
+    {
+        _keyHeldCallbacks[key.first] = key.second;
+    }
+    _keyHeldMarkedAdd.clear();
+
+    // Moves all marked keys from callback map to remove map
+    for (auto& key : _keyDownMarkedRemove)
+    {
+        _keyDownCallbacks.erase(key.first);
+    }
+    _keyDownMarkedRemove.clear();
+
+    for (auto& key : _keyUpMarkedRemove)
+    {
+        _keyUpCallbacks.erase(key.first);
+    }
+    _keyUpMarkedRemove.clear();
+
+    for (auto& key : _keyHeldMarkedRemove)
+    {
+        _keyHeldCallbacks.erase(key.first);
+    }
+    _keyHeldMarkedRemove.clear();
+}
+
 InputManager::InputManager(token)
 {
     _keyStates = SDL_GetKeyboardState(NULL);
@@ -51,18 +92,22 @@ void InputManager::BindKey(SDL_Scancode key, KeypressType type, std::function<vo
 /// @param KeypressType
 void InputManager::UnbindKey(SDL_Scancode key, KeypressType type)
 {
-    switch (type)
+    switch(type)
     {
     case KEYDOWN:
-        _keyDownCallbacks.erase(key);
+        _keyDownMarkedRemove[key] = _keyDownCallbacks[key];
         break;
+
     case KEYUP:
-        _keyUpCallbacks.erase(key);
+        _keyUpMarkedRemove[key] = _keyUpCallbacks[key];
         break;
+
     case KEYHELD:
-        _keyHeldCallbacks.erase(key);
+        _keyHeldMarkedRemove[key] = _keyHeldCallbacks[key];
         break;
+
     default:
+        std::cout << "Invalid KeypressType" << std::endl;
         break;
     }
 }
@@ -80,6 +125,8 @@ void InputManager::Update()
 {
     _keyStates = SDL_GetKeyboardState(NULL);
 
+    UpdateBindings();
+    
     // Iterates keyDown callbacks and calls bound functions if key has been recently pressed
      for (auto& key : _keyDownCallbacks)
     {
