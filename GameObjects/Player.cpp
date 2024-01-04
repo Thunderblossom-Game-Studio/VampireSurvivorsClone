@@ -59,7 +59,7 @@ Player::Player(float x, float y, float width, float height, float currentXP,
 	GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
 	renderer->AddToRenderList(this);
 
-
+	std::cout << "Player Created" << std::endl;
 }
 
 Player::~Player()
@@ -238,6 +238,8 @@ void Player::LateUpdate(float deltaTime)
 
  void Player::BindPlayerInput()
 {
+	std::cout << "Binding player inputs" << std::endl;
+	
 	InputManager::instance().BindKey(SDL_SCANCODE_W, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementUp, this));
 	InputManager::instance().BindKey(SDL_SCANCODE_A, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementLeft, this));
 	InputManager::instance().BindKey(SDL_SCANCODE_D, InputManager::KeypressType::KEYHELD, std::bind(&Player::PlayerMovementRight, this));
@@ -250,6 +252,8 @@ void Player::LateUpdate(float deltaTime)
 
 void Player::UnbindPlayerInput()
 {
+	std::cout << "Unbinding player inputs" << std::endl;
+	
 	InputManager::instance().UnbindKey(SDL_SCANCODE_W, InputManager::KeypressType::KEYHELD);
 	InputManager::instance().UnbindKey(SDL_SCANCODE_A, InputManager::KeypressType::KEYHELD);
 	InputManager::instance().UnbindKey(SDL_SCANCODE_D, InputManager::KeypressType::KEYHELD);

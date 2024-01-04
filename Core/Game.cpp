@@ -152,10 +152,13 @@ bool Game::Init()
 void Game::Update()
 {
     DeltaTime::UpdateDeltaTime();
+    
+    // Updates input state and performs any bound callbacks
+    InputManager::instance().Update();
 
-    _player->Update(DeltaTime::GetDeltaTime());
-
-
+    if(_player)
+        _player->Update(DeltaTime::GetDeltaTime());
+    
     // SDL Event handling loop
     SDL_Event event;
     while (SDL_PollEvent(&event))
@@ -185,10 +188,11 @@ void Game::Update()
     //if playerCreate is true, create player
     if (_menu->createPlayer == true)
     {
+        std::cout << "Creating player" << std::endl;
+        
 		_player = new Player(0, 0, 5, 5,
             			0, 100, 15.f, 1, 1,
             			1, 1, 1, 1, 1, ColliderType::RECTANGLE);
-		_player->BindPlayerInput();
         _menu->_player = _player;
 		GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
 		renderer->SetObjectToTrack(_player);
@@ -229,14 +233,10 @@ void Game::Update()
     if (_menu->quitSet == true)
     {
 		_running = false;
-	}
-    // Updates input state and performs any bound callbacks
-    InputManager::instance().Update();
+	}    
     // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
     RenderInstanceManager::instance().GetRenderer("main")->Draw();
     DeltaTime::UpdateDeltaTime();
-
-    
 
     LevelManager::UpdateActiveLevel();
 	 

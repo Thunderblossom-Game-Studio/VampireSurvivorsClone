@@ -9,7 +9,7 @@
 
 class MasterMenu
 {
-    public:
+public:
     MasterMenu();
     ~MasterMenu();
     void BindDeath();
