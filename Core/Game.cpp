@@ -9,6 +9,8 @@
 #include "DeltaTime.h"
 #include "LevelManager.h"
 #include "../UI/MasterMenu.h"
+#include "Level.h"
+
 
 Game::Game(token)
 {
@@ -120,15 +122,34 @@ bool Game::Init()
     AudioSystem::instance().LoadAudio("SoundEffect01", "Assets/jeff.wav");
 
     _map = new TileMap("Assets/BIGMap.txt", 5);
+
     //create menu
     _menu = new MasterMenu();
     _menu->BindStart();
+
+
+    _player = new Player(0, 0, 5, 5,
+        0, 100, 15.f, 1, 1,
+        1, 1, 1, 1, 1, ColliderType::RECTANGLE);
+
+    //GameRenderer* renderer = RenderInstanceManager::instance().GetRenderer("main");
+    //renderer->SetObjectToTrack(_player);
+
+    Level* TestLevel = new Level("TestLevel", _player, _map, std::vector<BaseGameObject*>());
+
+    LevelManager::AddLevel("0", TestLevel);
+
+    LevelManager::LoadLevel("0");
+
+
     _running = true;
     return true;
 }
 
 void Game::Update()
 {
+    DeltaTime::UpdateDeltaTime();
+
     // SDL Event handling loop
     SDL_Event event;
     while (SDL_PollEvent(&event))
@@ -147,11 +168,11 @@ void Game::Update()
             break;
             
         default:
-            AudioSystem::instance().PlayAudio(0, "BackroundMusic", 0);
+            //AudioSystem::instance().PlayAudio(0, "BackroundMusic", 0); //TODO - 
             break;
         }
-        
     }
+
 
     //if playerCreate is true, create player
     if (_menu->createPlayer == true)
@@ -208,4 +229,17 @@ void Game::Update()
     DeltaTime::UpdateDeltaTime();
 
     
+
+    LevelManager::UpdateActiveLevel();
+	 
+    // Updates input state and performs any bound callbacks
+    //InputManager::instance().Update();
+
+    // Game Objects parsed into Draw function, all 'IRenderableObject' objects will be rendered to that renderer - rest ignored.
+    //RenderInstanceManager::instance().GetRenderer("main")->Draw(); 
+  
+    
+
+    //TODO - Properly test Level System
+
 }

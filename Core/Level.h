@@ -10,7 +10,7 @@ class Level
 {
 private:
 	Player* _player;
-	TileMap* _tileMap;
+	TileMap* _map;
 	std::vector<BaseGameObject*> _gameObjects;
 	std::vector<BaseGameObject*> _runtimeObjects;
 	std::vector<BaseGameObject*> _objectsToSpawn;
