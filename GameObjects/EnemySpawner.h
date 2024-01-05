@@ -19,7 +19,7 @@ public:
     void SpawnEnemy();
     void Clean();
     void Update(float deltaTime) override;
-    void LateUpdate(float deltaTime) override;
+   // void LateUpdate(float deltaTime) override;
     
     EnemySpawner(BaseGameObject* objectSpawnReference, float spawnerRadius, float spawnRate);
     ~EnemySpawner() override;
