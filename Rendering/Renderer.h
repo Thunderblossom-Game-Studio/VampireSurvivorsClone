@@ -7,26 +7,56 @@
 
 #include <vector>
 
-class SDL_Window;
-class SDL_Renderer;
+struct SDL_Window;
+struct SDL_Renderer;
 class IRenderableObject;
 class ExampleGameObject;
+class TileMap;
 
-class GameRenderer : public BaseGameObject
+struct RenderInfo
 {
+    RenderInfo()
+        : position{ 0,0 }, size{ 0,0 }, texture{ nullptr }, src{ 0,0,0,0 }, flipped{ false }, sortingLayer{ 0 }, color{ 255,255,255,255 }
+    {
+    }
+
+    RenderInfo(Vector2 Position, Vector2 Size, SDL_Texture* Texture, SDL_Rect Src, bool Flipped, int SortingLayer, SDL_Color Color)
+        : position{ Position }, size{ Size }, texture{ Texture }, src{ Src }, flipped{ Flipped }, sortingLayer{ SortingLayer }, color{ Color }
+    {}
+
+    Vector2 position;
+    Vector2 size;
+    SDL_Texture* texture = nullptr;
+    SDL_Rect src;
+    bool flipped = false;
+    int sortingLayer;
+    SDL_Color color = { 255, 255, 255, 255 };
+};
+
+class GameRenderer
+{
+public:
+    enum RenderSpace { WORLD, UI };
 private:
-    std::vector<BaseGameObject*> _renderList;
-    BaseGameObject* _target{ nullptr };
-    float _width = 800;
-    float _height = 600;
-    bool _layers{ false };
-    float _scale{ 4.0f };
-    float _unitsOnScreen[2]{ 10,7.5f };
+    bool _layers{ true };
+    bool _lighting{ true };
     bool _drawWorldDebug{ false };
 
+    Vector2 _position;
+
+    BaseGameObject* _target{ nullptr };
+    std::vector<RenderInfo> _staticRenderList;
+    std::vector<IRenderableObject*> _dynamicRenderList;
+    float _width = 800;
+    float _height = 600;
+    Uint8 _scale{ 4 };
+    float _unitsOnScreen[2]{ 10,7.5f };
+    float _moveSpeed{ 5.0f };
+    bool _fullscreen{ false };
+    int _maxRenderDistance{ 70 };
     SDL_Renderer* _pRenderer = nullptr;
-    SDL_Color _defaultColor = { 0, 200, 0, 255 };
-    
+    SDL_Color _defaultColor = { 0, 0, 0, 255 };
+
     /// <summary>
     /// Converts world space transform units into SDL screen pixel coordinates.
     /// </summary>
@@ -41,8 +71,8 @@ private:
     /// <param name="w">The object's width</param>
     /// <param name="h">The object's height</param>
     /// <returns>The screen pixel space coordinates.</returns>
-    SDL_Rect UIToScreenSpace(float x, float y, float w, float h);        
-    
+    SDL_Rect UIToScreenSpace(float x, float y, float w, float h);
+
     /// <summary>
     /// Tracks the target if it's set - NOT FINAL
     /// </summary>s
@@ -68,19 +98,19 @@ private:
     /// Presents the renderer.
     /// </summary>
     void Present();
-
     void DrawWorldDebug();
-
     void ToggleDebugGraphics() { _drawWorldDebug = !_drawWorldDebug; }
-
 public:
-    enum RenderSpace { WORLD, UI };
-
     GameRenderer(SDL_Window* pWindow);
     ~GameRenderer();
-
     void ToggleDebugDraw(bool state) { _drawWorldDebug = state; }
-
+    void SetMoveSpeed(float speed) { _moveSpeed = speed; }
+    float GetMoveSpeed() { return _moveSpeed; }
+    /// <summary>
+    /// Sets the scale of the camera (Higher values zoom out, Lower values zoom in). 
+    /// </summary>
+    /// <param name="scale">The new renderer scale.</param>
+    void SetScale(Uint8 scale) { _scale = scale; }
     /// <summary>
     /// Sets the default colour the renderer clears with.
     /// </summary>
@@ -105,15 +135,17 @@ public:
     /// Adds a game object to the internal render list.
     /// </summary>
     /// <param name="go">The target object.</param>
-    bool AddToRenderList(BaseGameObject* go);
+    bool AddToRenderList(IRenderableObject* go);
+    bool AddToRenderList(RenderInfo info);
     /// <summary>
     /// Tries to find a game object in the internal render list.
     /// </summary>
     /// <param name="go">The target object.</param>
-    BaseGameObject* FindInRenderList(BaseGameObject* go);
+    IRenderableObject* FindInRenderList(IRenderableObject* go);
     /// <summary>
     /// Tries to remove a game object from the internal render list.
     /// </summary>
     /// <param name="go">The target object.</param>
-    bool RemoveFromRenderList(BaseGameObject* go);
+    bool RemoveFromRenderList(IRenderableObject* go);
+    void ToggleFullscreen();
 };

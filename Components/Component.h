@@ -13,10 +13,11 @@ protected:
 
 public:
 
-	Component(BaseGameObject* owner);
+	Component();
 	virtual ~Component() = default;
 
 	inline BaseGameObject* GetGameObject() { return gameObject; }
+	inline void SetGameObject(BaseGameObject* gameObject) { this->gameObject = gameObject; }
 	inline bool GetIsEnabled() { return isEnabled; }
 	virtual void SetIsEnabled(bool isEnabled);
 };

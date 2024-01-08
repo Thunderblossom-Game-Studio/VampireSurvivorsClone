@@ -9,13 +9,22 @@ class InputManager : public Singleton<InputManager> {
 private:
     // Maps of key scancodes to callback functions
     std::map<SDL_Scancode, std::function<void()>> _keyDownCallbacks;
+    std::map<SDL_Scancode, std::function<void()>> _keyDownMarkedRemove;
+    std::map<SDL_Scancode, std::function<void()>> _keyDownMarkedAdd;
+    
     std::map<SDL_Scancode, std::function<void()>> _keyUpCallbacks;
+    std::map<SDL_Scancode, std::function<void()>> _keyUpMarkedRemove;
+    std::map<SDL_Scancode, std::function<void()>> _keyUpMarkedAdd;
+    
     std::map<SDL_Scancode, std::function<void()>> _keyHeldCallbacks;
+    std::map<SDL_Scancode, std::function<void()>> _keyHeldMarkedRemove;
+    std::map<SDL_Scancode, std::function<void()>> _keyHeldMarkedAdd;
 
     // Keystate handling
     const Uint8* _keyStates;
     Uint8* _lastKeyStates;
-    
+
+    void UpdateBindings();
 
 public:
     InputManager(token);

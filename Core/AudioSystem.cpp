@@ -6,12 +6,13 @@ using namespace std;
 
 AudioSystem::AudioSystem(token)
 {
-	Init();
+	//Init();
 }
 
 AudioSystem::~AudioSystem()
 {
 	Mix_HaltMusic(); // stops music
+	Cleanup(); // Free mixer
 	Mix_Quit(); // quits mixer
 }
 
@@ -37,11 +38,12 @@ void AudioSystem::Init()
 	{
 		std::cout << "Audio Opened Successfully" << std::endl;
 	}
+
+	cout << _audioData.size() << endl;
 }
 
 void AudioSystem::LoadAudio(const string& name,const string& audioDirect)
 {
-
 	const std::string extension = audioDirect.substr(audioDirect.find_last_of(".") + 1);
 
 	if (extension == "wav") _audioData[name]._type = AUDIO_TYPE_WAV;
@@ -57,6 +59,8 @@ void AudioSystem::LoadAudio(const string& name,const string& audioDirect)
 		_audioData[name]._music = Mix_LoadMUS(audioDirect.c_str());
 		break;
 	}
+
+	cout << _audioData.size() << endl;
 }
 
 void AudioSystem::PlayAudio(int audioChannel, const string& name, int extraLoops)
@@ -70,20 +74,31 @@ void AudioSystem::PlayAudio(int audioChannel, const string& name, int extraLoops
 		Mix_PlayMusic(_audioData[name]._music, extraLoops);
 		break;
 	}
+
+	cout << _audioData.size() << endl;
 }
 
 void AudioSystem::Cleanup()
 {
-	for (auto& ptr : _audioData)
+	for (auto& [key, value]: _audioData)
 	{
-		switch (ptr.second._type)
+		switch (value._type)
 		{
 		case AUDIO_TYPE_WAV:
-			Mix_FreeChunk(ptr.second._sound);
+			Mix_FreeChunk(value._sound);
 			break;
 		case AUDIO_TYPE_MP3:
-			Mix_FreeMusic(ptr.second._music);
+			Mix_FreeMusic(value._music);
+			break;
+		default:
 			break;
 		}
 	}
+
+	cout << _audioData.size() << endl;
+}
+
+std::map<std::string, AudioData>& AudioSystem::GetAudioData()
+{
+	return _audioData;
 }

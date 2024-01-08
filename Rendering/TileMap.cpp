@@ -1,45 +1,65 @@
 #include "TileMap.h"
 
-std::vector<TileMap*> TileMap::tileMaps;
+#include "../Core/Vector2.h"
+#include "Renderer.h"
+#include "RenderInstanceManager.h"
 
-TileMap::TileMap(int width, int height, int tileSize, std::string mapPath)
+std::vector<TileMap*> TileMap::TileMaps;
+
+TileMap::TileMap(std::string mapPath, int tileSize)
 {
-	tileMaps.push_back(this);
+	TileMaps.push_back(this);
 
-	this->width = width;
-	this->height = height;
-	this->tileSize = tileSize;
-	this->numTiles = width * height;
+	_tileSize = tileSize;
 
-	tiles.resize(width);
-	for (int i = 0; i < width; i++)
-	{
-		tiles[i].resize(height);
-	}
-	LoadMap(mapPath);
+	LoadMapFromFile(mapPath);
+
+	AddInfoToRenderer();
 }
 
 TileMap::~TileMap()
 {
-	tiles.clear();
+	Clear();
 }
 
-void TileMap::LoadMap(std::string mapPath)
+void TileMap::LoadMapFromFile(std::string mapPath)
 {
+	Clear();
+
+	int totalCount = 0;
 	std::ifstream mapFile(mapPath);
 	if (mapFile.is_open())
 	{
-		// load the file to the map
-		for (int i = 0; i < width; i++)
+		std::string lineText;
+
+		int j = 0;
+		while (std::getline(mapFile, lineText))
 		{
-			for (int j = 0; j < height; j++)
+			std::vector<char> tileRow;
+			for (int i = 0; i < lineText.length(); ++i)
 			{
-				std::string tileID;
-				mapFile >> tileID;
-				tiles[i][j] = tileID;
+				if (FindTile(lineText[i]))
+				{
+					tileRow.push_back(lineText[i]);
+				}
+				else
+				{
+					tileRow.push_back(' ');
+				}
+				_width = i;
+
+				totalCount++;
 			}
+			_tileMap.push_back(tileRow);
+			_width = tileRow.size();
+			j++;
 		}
+
+		_height = _tileMap.size();
+
+
 		mapFile.close();
+
 	}
 	else
 	{
@@ -47,53 +67,88 @@ void TileMap::LoadMap(std::string mapPath)
 	}
 }
 
-void TileMap::SaveMaptoFile(std::string mapPath)
+Tile* TileMap::FindTile(char placeholder)
 {
-	std::ofstream mapFile(mapPath);
-	if (mapFile.is_open())
-	{
-		for (int i = 0; i < width; i++)
-		{
-			for (int j = 0; j < height; j++)
-			{
-				mapFile << tiles[i][j] << " ";
-			}
-			mapFile << std::endl;
-		}
-		mapFile.close();
-	}
-	else
-	{
-		std::cout << "Unable to open file";
-	}
-}
+	std::map<char, Tile*>::iterator it;
+	it = _tiles.find(placeholder);
+	if (it != _tiles.end())
+		return _tiles[placeholder];
 
-std::pair<float, float> TileMap::GetTilePositionById(std::string id)
-{
-	std::pair<float, float> result(0, 0);
-
-	for (int i = 0; i < width; i++)
+	Tile* tile = nullptr;
+	switch (placeholder)
 	{
-		for (int j = 0; j < height; j++)
-		{
-			if (tiles[i][j] == id)
-			{
-				result.first = i * tileSize;
-				result.second = j * tileSize;
-				return result;
-			}
-		}
+	case 'F':
+		tile = new Tile("Assets/Textures/TextureLoadingTest.png", { 16,64,16,16 }, -10);
+		break;
+	case 'B':
+		tile = new Tile("Assets/Textures/TextureLoadingTest.png", { 32,64,16,16 }, -10);
+		break;
+	case 'Q':
+		tile = new Tile("Assets/Textures/TextureLoadingTest.png", { 16,12,16,16 }, 0);
+		break;
+	case 'W':
+		tile = new Tile("Assets/Textures/TextureLoadingTest.png", { 32,12,16,16 }, 0);
+		break;
+	case 'E':
+		tile = new Tile("Assets/Textures/TextureLoadingTest.png", { 48,12,16,16 }, 0);
+		break;
 	}
-	return result;
+
+	if (!tile)
+		return nullptr;
+
+	_tiles.insert(std::make_pair(placeholder, tile));
+
+	return tile;
 }
 
 void TileMap::Clear()
 {
-	for (int i = 0; i < tileMaps.size(); i++)
+	_tileMap.clear();
+	for (int i = 0; i < _tiles.size(); ++i)
 	{
-		delete tileMaps[i];
-		tileMaps[i] = nullptr;
+		delete _tiles[i];
 	}
-	tileMaps.clear();
+	_tiles.clear();
 }
 
+void TileMap::AddInfoToRenderer()
+{
+	for (int i = 0; i < _tileMap.size(); ++i)
+	{
+		for (int j = 0; j < _tileMap[i].size(); ++j)
+		{
+			if (_tileMap[i][j] == ' ')
+				continue;
+			Vector2 pos = { (j * _tileSize) - (_width * _tileSize) / 2, ((_tileMap.size()-1 - i) * _tileSize) - (_height * _tileSize) / 2 };
+			Tile* tile = FindTile(_tileMap[i][j]);
+			if (!tile)
+				continue;
+			RenderInstanceManager::instance().GetRenderer("main")->AddToRenderList(
+				RenderInfo(pos, { _tileSize, _tileSize }, tile->Texture, tile->Src, false, tile->SortingLayer, {255,255,255,255})
+			);
+		}
+	}
+}
+
+//
+//void TileMap::SaveMaptoFile(std::string mapPath)
+//{
+//	//std::ofstream mapFile(mapPath);
+//	//if (mapFile.is_open())
+//	//{
+//	//	for (int i = 0; i < width; i++)
+//	//	{
+//	//		for (int j = 0; j < height; j++)
+//	//		{
+//	//			mapFile << tiles[i][j] << " ";
+//	//		}
+//	//		mapFile << std::endl;
+//	//	}
+//	//	mapFile.close();
+//	//}
+//	//else
+//	//{
+//	//	std::cout << "Unable to open file";
+//	//}
+//}
